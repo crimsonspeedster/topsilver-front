@@ -251,7 +251,6 @@ const Header = () => {
 
     return (
         <React.Fragment>
-            {/*<MainModel />*/}
             <div id="kalles-section-header_top" className='demo' ref={headerRef}>
                 <div className="h__top d-flex align-items-center">
                     <Container fluid>

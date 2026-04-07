@@ -1,11 +1,11 @@
 "use client";
 
-import IndexPage from "./main-index/page";
+import IndexPage from "./home/page";
 
 export default function Home() {
-  return (
-    <main>
-      <IndexPage />
-    </main>
-  );
+    return (
+        <main>
+            <IndexPage/>
+        </main>
+    );
 }

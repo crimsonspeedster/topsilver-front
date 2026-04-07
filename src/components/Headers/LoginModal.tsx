@@ -4,8 +4,6 @@ import { Offcanvas, Button, Form } from 'react-bootstrap';
 import Link from 'next/link';
 
 const LoginModal = ({ loginShow, handleLoginClose }: any) => {
-
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 

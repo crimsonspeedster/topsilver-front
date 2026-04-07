@@ -6,7 +6,7 @@ const HeadTitle = ({ title }: any) => {
     return (
         <React.Fragment>
             <Head>
-                <title>{title} | Kalles - Clean, Versatile, Responsive Bootstrap 5 & Nextjs Theme</title>
+                <title>{title} | TopSilver</title>
             </Head>
         </React.Fragment>
     )

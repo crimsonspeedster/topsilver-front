@@ -28,6 +28,18 @@
       ],
       "@app/*": [
         "./src/app/*"
+      ],
+      "@locales/*": [
+        "./locales/*"
+      ],
+      "@context/*": [
+        "./src/context/*"
+      ],
+      "@lib/*": [
+        "./src/lib/*"
+      ],
+      "@helpers/*": [
+        "./src/helpers/*"
       ]
     },
     "plugins": [
