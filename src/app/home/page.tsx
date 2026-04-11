@@ -10,13 +10,17 @@ const IndexPage = () => {
                 title="Home"
             />
 
-            <Header />
+            <header>
+                Header
+            </header>
 
             <main>
                 <h1>HOME PAGE</h1>
             </main>
 
-            <FooterPage/>
+            <footer>
+                Footer
+            </footer>
         </>
     );
 }

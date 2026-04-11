@@ -20,7 +20,9 @@ const Register = async () => {
                 title={t('registration')}
             />
 
-            <Header />
+            <header>
+                Header
+            </header>
 
             <main>
                 <section className="py-5">
@@ -34,7 +36,9 @@ const Register = async () => {
                 </section>
             </main>
 
-            <FooterPage/>
+            <footer>
+                Footer
+            </footer>
         </>
     );
 }
