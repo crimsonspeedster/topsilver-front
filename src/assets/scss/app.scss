@@ -24,6 +24,10 @@ File: Main Css File
 @import "custom/components/forms";
 @import "custom/components/animation";
 
+// Dashboard
+@import "custom/dashboard/dashboard";
+@import "custom/dashboard/sidebar";
+
 // // Pages
 @import "custom/pages/flickity";
 @import "custom/pages/index";

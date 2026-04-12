@@ -5,6 +5,7 @@ import HeadTitle from "@src/commonsections/HeadTitle";
 import { getTranslations } from 'next-intl/server';
 import {redirect} from "next/navigation";
 import {getUserSSR} from "@lib/auth/getUser.server";
+import React from "react";
 
 const Register = async () => {
     const t = await getTranslations('Common');
@@ -20,9 +21,7 @@ const Register = async () => {
                 title={t('registration')}
             />
 
-            <header>
-                Header
-            </header>
+            <Header />
 
             <main>
                 <section className="py-5">
@@ -36,9 +35,7 @@ const Register = async () => {
                 </section>
             </main>
 
-            <footer>
-                Footer
-            </footer>
+            <FooterPage />
         </>
     );
 }
