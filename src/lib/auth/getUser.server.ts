@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import axios from 'axios';
-import {UserObject} from "@helpers/interfaces";
+import {UserObject} from "@interfaces/entities/user";
 
 export const getUserSSR = async (): Promise<UserObject | null> => {
     try {

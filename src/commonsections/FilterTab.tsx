@@ -1,14 +1,176 @@
 "use client";
 import React, { useState, useEffect } from 'react'
-import { ProductData } from '@src/common/shop/ProductData';
-import { brandData, priceData, sizeData, vendorData } from '@src/common/shop/filterData'
 import AddToCardModal from '@src/commonsections/AddToCardModal';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Col, Container, Dropdown, Row } from 'react-bootstrap'
 import ProductModal from './ProductModal';
+import {ProductCardObject} from "@interfaces/entities/product";
+import Slider from "rc-slider";
+import 'rc-slider/assets/index.css';
+import {TaxonomyFiltersObject} from "@interfaces/entities/taxonomy";
+import {attributeObject, attributeTermFunctionalityObject} from "@interfaces/entities/attribute";
 
-const ProductCard = ({ product, handleShow, handleAddToCardModalShow }: any) => {
+const TaxonomyFilters = (
+    {
+        filters,
+        open,
+        onFilterChange,
+    } : {
+        filters: TaxonomyFiltersObject,
+        open: boolean,
+        onFilterChange: (
+            attribute: attributeObject,
+            term: attributeTermFunctionalityObject,
+            checked: boolean,
+        ) => void,
+    }
+) => {
+    const [range, setRange] = useState([filters.price.min, filters.price.max]);
+
+    const handleRangeChange = (value: number | number[]) => {
+        if (Array.isArray(value)) {
+            setRange(value);
+        } else {
+            setRange([value, value]);
+        }
+    };
+
+    return (
+        <div className={`p-4 filter-box ${!open ? "" : "d-none"} mt-4`}>
+            <Row className="m-sm-2 g-4 g-sm-2">
+                {
+                    filters.attributes.map(attribute => {
+                        if (attribute.attribute.type === 'color') {
+                            return (
+                                <Col sm={6} lg={3}>
+                                    <h5 className="mb-1 fw-medium">By {attribute.attribute.title}</h5>
+
+                                    <div className="filter-title" />
+
+                                    <div className="mt-3">
+                                        {
+                                            attribute.terms.map(item => (
+                                                <div key={item.id} className="round d-flex align-items-center pt-2 mb-2 gap-1">
+                                                    <input
+                                                        className="form-check-input"
+                                                        type="checkbox"
+                                                        id={item.slug}
+                                                        onInput={(e) => {
+                                                            onFilterChange(
+                                                                attribute.attribute,
+                                                                item,
+                                                                e.target.checked,
+                                                            );
+                                                        }}
+                                                        defaultChecked={item.selected}
+                                                        style={
+                                                            item.meta_value ?
+                                                                {
+                                                                    backgroundColor: item.meta_value,
+                                                                }
+                                                                :
+                                                                undefined
+                                                        }
+                                                    />
+
+                                                    <label
+                                                        className="form-check-label ms-1"
+                                                        style={{ cursor: "pointer" }}
+                                                        htmlFor={item.slug}
+                                                    >
+                                                        {item.title} ({item.count})
+                                                    </label>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </Col>
+                            );
+                        }
+                        else {
+                            return (
+                                <Col sm={6} lg={3}>
+                                    <h5 className="mb-1 fw-medium">By {attribute.attribute.title}</h5>
+
+                                    <div className="filter-title" />
+
+                                    <div className="mt-3">
+                                        {
+                                            attribute.terms.map(item => (
+                                                <div key={item.id} className="form-check mb-2">
+                                                    <input
+                                                        className="form-check-input"
+                                                        type="checkbox"
+                                                        id={item.slug}
+                                                        defaultChecked={item.selected}
+                                                        onInput={(e) => {
+                                                            onFilterChange(
+                                                                attribute.attribute,
+                                                                item,
+                                                                e.target.checked,
+                                                            );
+                                                        }}
+                                                    />
+
+                                                    <label
+                                                        className="form-check-label"
+                                                        htmlFor={item.slug}
+                                                        style={{ cursor: "pointer" }}
+                                                    >
+                                                        {item.title} ({item.count})
+                                                    </label>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </Col>
+                            )
+                        }
+                    })
+                }
+
+                <div className="col-sm-6 col-lg-3">
+                    <h5 className="mb-1 fw-medium">By Price</h5>
+
+                    <div className="filter-title" />
+
+                    <form action="" className="mt-5">
+                        <div className="slider-area">
+                            <Slider
+                                range
+                                step={1}
+                                min={filters.price.min}
+                                max={filters.price.max}
+                                value={range}
+                                onChange={handleRangeChange}
+                                allowCross={false} // Ensure one thumb cannot cross the other
+                            />
+
+                            <div className="d-flex align-items-center mt-4 py-2">
+                                <span className="text-muted">Price: </span>
+                                <h6 className="mb-0 mx-2">
+                                    <span>{`$${range[0].toFixed(2)}`}</span>
+                                </h6>
+                                -
+                                <h6 className="mb-0 ms-2">
+                                    <span>{`$${range[1].toFixed(2)}`}</span>
+                                </h6>
+                            </div>
+                        </div>
+                        <button className="btn btn-custom-dark fw-medium min-w-150">FILTER</button>
+                    </form>
+                </div>
+            </Row>
+        </div>
+    );
+}
+
+const ProductCard = ({ product, handleShow, handleAddToCardModalShow }: {
+    product: ProductCardObject,
+    handleShow: any,
+    handleAddToCardModalShow: any,
+}) => {
     const [isHovered, setIsHovered] = useState(false);
     const [imageUrl, setImageUrl] = useState(product.imageUrl);
 
@@ -20,36 +182,43 @@ const ProductCard = ({ product, handleShow, handleAddToCardModalShow }: any) => 
                 onMouseLeave={() => setIsHovered(false)}
             >
                 <div className="position-relative overflow-hidden">
-                    {product.label && (
-                        <span className={`new-label ${product.labelClass} text-white rounded-circle`}>
-                            {product.label}
-                        </span>
-                    )}
                     {
-                        product.hoverImageUrl ?
-                            <Image
-                                src={isHovered ? product.hoverImageUrl : imageUrl}
-                                alt="image"
-                                className="img-fluid w-100"
-                            />
-                            :
-                            <Image
-                                src={imageUrl}
-                                alt="ImageUrlImg"
-                                className="img-fluid w-100"
-                            />
+                        product.labels.length > 0 &&
+                        (
+                            <span className="labels">
+                                {
+                                    product.labels.map(label => (
+                                        <span key={label.slug} className={`label label--${label.slug}`}>
+                                            {label.name}
+                                        </span>
+                                    ))
+                                }
+                            </span>
+                        )
                     }
+
+                    <Image
+                        src={product.media.url}
+                        alt="ImageUrlImg"
+                        className="img-fluid w-100"
+                        width={360}
+                        height={459}
+                    />
+
                     <Link href="#" className="d-lg-none position-absolute" style={{ zIndex: 1, top: 10, left: 10 }} data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add to Wishlist">
                         <i className="facl facl-heart-o text-white"></i>
                     </Link>
+
                     <Link href="#" className="wishlistadd d-none d-lg-flex position-absolute" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add to Wishlist">
                         <i className="facl facl-heart-o text-white"></i>
                     </Link>
+
                     <div className="product-button d-none d-lg-flex flex-column gap-2">
                         <Link href="#exampleModal" data-bs-toggle="modal" className="btn rounded-pill fs-14" onClick={handleShow}>
                             <span>Quick View</span>
                             <i className="iccl iccl-eye"></i>
                         </Link>
+
                         <button
                             type="button"
                             className="btn rounded-pill fs-14"
@@ -79,14 +248,14 @@ const ProductCard = ({ product, handleShow, handleAddToCardModalShow }: any) => 
                 </div>
                 <div className="mt-3">
                     <h6 className="mb-1 fw-medium">
-                        <Link href="/product-detail-layout-01" className="main_link_acid_green">{product.title}</Link>
+                        <Link href={product.slug ?? ''} className="main_link_acid_green">{product.title}</Link>
                     </h6>
                     {
-                        product.del ?
+                        product.price_on_sale ?
 
                             <p className="mb-0 fs-14 text-muted">
-                                <del>{product.del}</del>&nbsp;
-                                <span className='text-danger'>{product.price}</span>
+                                <del>{product.price}</del>&nbsp;
+                                <span className='text-danger'>{product.price_on_sale}</span>
                             </p>
                             :
                             <p className="mb-0 fs-14 text-muted">
@@ -135,7 +304,19 @@ const ProductCard = ({ product, handleShow, handleAddToCardModalShow }: any) => 
     );
 };
 
-const FilterTab = () => {
+const FilterTab = ({
+    products,
+    filters,
+    onFilterChange,
+} : {
+    products: ProductCardObject[],
+    filters: TaxonomyFiltersObject,
+    onFilterChange: (
+        attribute: attributeObject,
+        term: attributeTermFunctionalityObject,
+        checked: boolean,
+    ) => void,
+}) => {
 
     const [open, setOpen] = useState(true);
     const [show, setShow] = useState(false);
@@ -166,75 +347,18 @@ const FilterTab = () => {
         <React.Fragment>
             <Container>
                 <div className="mt-5 d-flex justify-content-between align-items-center">
-                    <Link href="#!" className="text-muted fs-16 align-items-center d-none d-lg-flex" id="filter-icon" onClick={handleOpen}>
-                        <i className={`iccl fwb iccl-filter fwb me-2 fw-medium ${open === false ? "d-none" : ""}`} id="icon-filter"></i>
-                        <i className={`pe-7s-close pegk ${open === false ? "" : "d-none"} me-2 fw-medium fw-semibold`} id="icon-close" style={{ fontSize: "24px" }}></i>
+                    <div className="text-muted fs-16 align-items-center d-none d-lg-flex" id="filter-icon" onClick={handleOpen}>
+                        <i className={`iccl fwb iccl-filter fwb me-2 fw-medium ${!open ? "d-none" : ""}`} id="icon-filter"></i>
+                        <i className={`pe-7s-close pegk ${!open ? "" : "d-none"} me-2 fw-medium fw-semibold`} id="icon-close" style={{ fontSize: "24px" }}></i>
                         <p className="mb-0">Filter</p>
-                    </Link>
+                    </div>
+
                     <div className="d-flex align-items-center d-lg-none fs-16 text-muted" data-bs-toggle="offcanvas">
                         <i className="iccl fwb iccl-filter fwb me-2 fw-medium" id="icon-filter"></i>
                         <i className="pe-7s-close pegk d-none me-2 fw-medium fw-semibold" id="icon-close" style={{ fontSize: "24px" }}></i>
                         <p className="mb-0">Filter</p>
                     </div>
-                    <ul className="nav tab_header tab_filter gap-2 justify-content-end justify-content-sm-center" id="pills-tab" role="tablist">
-                        <li className="nav-item d-sm-none" role="presentation">
-                            <button className={`nav-link ${display === 6 ? "active" : ""}`} id="best-pan1-tab" data-bs-toggle="pill" data-bs-target="#best-pan1" type="button" role="tab" aria-controls="best-pan1" aria-selected="true" onClick={() => handleClick(6)}>
-                                <div className="filter-option d-flex">
-                                    <div className="grid1"></div>
-                                </div>
-                            </button>
-                        </li>
-                        <li className="nav-item" role="presentation">
-                            <button className={`nav-link ${display === 1 ? "active" : ""}`} id="best-seller-tab" data-bs-toggle="pill" data-bs-target="#best-seller" type="button" role="tab" aria-controls="best-seller" aria-selected="true" onClick={() => handleClick(1)}>
-                                <div className="filter-option d-flex">
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                </div>
-                            </button>
-                        </li>
-                        <li className="nav-item d-none d-sm-block" role="presentation">
-                            <button className={`nav-link ${display === 2 ? "active" : ""}`} id="featured-tab" data-bs-toggle="pill" data-bs-target="#featured" type="button" role="tab" aria-controls="featured" aria-selected="false" onClick={() => handleClick(2)}>
-                                <div className="filter-option d-flex">
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                </div>
-                            </button>
-                        </li>
-                        <li className="nav-item d-none d-md-block" role="presentation">
-                            <button className={`nav-link ${display === 3 ? "active" : ""}`} id="sale-tab" data-bs-toggle="pill" data-bs-target="#sale" type="button" role="tab" aria-controls="sale" aria-selected="false" onClick={() => handleClick(3)}>
-                                <div className="filter-option d-flex">
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                </div>
-                            </button>
-                        </li>
-                        <li className="nav-item d-none d-lg-block" role="presentation">
-                            <button className={`nav-link ${display === 4 ? "active" : ""}`} id="top-sale-tab" data-bs-toggle="pill" data-bs-target="#top-sale" type="button" role="tab" aria-controls="top-sale" aria-selected="false" onClick={() => handleClick(4)}>
-                                <div className="filter-option d-flex">
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                </div>
-                            </button>
-                        </li>
-                        <li className="nav-item d-none d-xl-block" role="presentation">
-                            <button className={`nav-link ${display === 5 ? "active" : ""}`} id="top-product-tab" data-bs-toggle="pill" data-bs-target="#top-product" type="button" role="tab" aria-controls="top-product" aria-selected="false" onClick={() => handleClick(5)}>
-                                <div className="filter-option d-flex">
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                    <div className="grid1"></div>
-                                </div>
-                            </button>
-                        </li>
-                    </ul>
+
                     <Dropdown>
                         <Dropdown.Toggle className="btn d-flex align-items-center justify-content-between featurnBtn rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Feature
@@ -251,144 +375,29 @@ const FilterTab = () => {
                     </Dropdown>
                 </div>
 
-                <div className={`p-4 filter-box ${open === false ? "" : "d-none"} mt-4`}>
-                    <Row className="m-sm-2 g-4 g-sm-2">
-                        {/* color */}
-                        <Col sm={6} className="col-lg-3">
-                            <h5 className="mb-1 fw-medium"> By Vendor </h5>
-                            <div className="filter-title"></div>
-                            <div className="mt-3 filter-category">
-                                {vendorData.map((item, index) => (
-                                    <div key={index} className="round d-flex align-items-center pt-2 mb-2 gap-1">
-                                        <input className={item.color} type='checkbox' value="" id="colo1" />
-                                        <label className="form-check-label ms-1" style={{ cursor: "pointer" }} htmlFor="color">
-                                            {item.colorName}
-                                        </label>
+                <TaxonomyFilters
+                    filters={filters}
+                    open={open}
+                    onFilterChange={onFilterChange}
+                />
+
+                <div className="my-3 my-md-4">
+                    <div>
+                        <Row className="g-lg-4 g-3">
+                            {
+                                products.map(product => (
+                                    <div className='col-3' key={product.id}>
+                                        <ProductCard key={product.id} product={product} handleShow={handleShow} handleAddToCardModalShow={handleAddToCardModalShow} />
                                     </div>
-                                ))}
-                            </div>
-                        </Col>
-
-                        <Col sm={6} className="col-lg-3">
-                            <h5 className="mb-1 fw-medium"> By Price </h5>
-                            <div className="filter-title"></div>
-                            <div className="mt-3">
-                                {priceData.map((item, index) => (
-                                    <div key={index} className="form-check mb-3">
-                                        <input className="form-check-input" type="checkbox" value="" id="flexCheck1" />
-                                        <label className="form-check-label" htmlFor="flexCheck1">
-                                            {item.price}
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
-                        </Col>
-
-                        <Col sm={6} className="col-lg-3">
-                            <h5 className="mb-1 fw-medium"> By Size </h5>
-                            <div className="filter-title"></div>
-                            <div className="mt-3">
-                                {sizeData.map((item, index) => (
-                                    <div key={index} className="form-check mb-2">
-                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked11" />
-                                        <label className="form-check-label" htmlFor="flexCheckChecked11" style={{ cursor: "pointer" }}>
-                                            {item.size}
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
-                        </Col>
-
-                        <Col sm={6} className="col-lg-3">
-                            <h5 className="mb-1 fw-medium"> By Brand </h5>
-                            <div className="filter-title"></div>
-                            <div className="mt-3">
-                                {brandData.map((item, index) => (
-                                    <div key={index} className="form-check mb-3">
-                                        <input className="form-check-input" type="checkbox" value="" id="flex23" />
-                                        <label className="form-check-label" htmlFor="flex23">
-                                            {item.brand}
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
-                        </Col>
-                    </Row>
-                </div >
-
-                <div className="tab-content my-3 my-md-4" id="pills-tabContent">
-                    <div className={`tab-pane fade ${display === 6 ? "active show" : ""}`} id="best-pan1" role="tabpanel" aria-labelledby="best-pan1-tab" tabIndex={0}>
-                        <Row className="g-lg-4 g-3">
-                            {ProductData.map(product => (
-                                <div className='col-12' key={product.id}>
-                                    <ProductCard key={product.id} product={product} handleShow={handleShow} handleAddToCardModalShow={handleAddToCardModalShow} />
-                                </div>
-                            ))}
-                        </Row>
-                    </div>
-                </div>
-
-                <div className="tab-content my-3 my-md-4" id="pills-tabContent">
-                    <div className={`tab-pane fade ${display === 1 ? "active show" : ""}`} id="best-pan1" role="tabpanel" aria-labelledby="best-pan1-tab" tabIndex={0}>
-                        <Row className="g-lg-4 g-3">
-                            {ProductData.map(product => (
-                                <div className='col-6' key={product.id}>
-                                    <ProductCard key={product.id} product={product} handleShow={handleShow} handleAddToCardModalShow={handleAddToCardModalShow} />
-                                </div>
-                            ))}
-                        </Row>
-                    </div>
-                </div>
-
-                <div className="tab-content my-3 my-md-4" id="pills-tabContent">
-                    <div className={`tab-pane fade ${display === 2 ? "active show" : ""}`} id="best-pan1" role="tabpanel" aria-labelledby="best-pan1-tab" tabIndex={0}>
-                        <Row className="g-lg-4 g-3">
-                            {ProductData.map(product => (
-                                <div className='col-4' key={product.id}>
-                                    <ProductCard key={product.id} product={product} handleShow={handleShow} handleAddToCardModalShow={handleAddToCardModalShow} />
-                                </div>
-                            ))}
-                        </Row>
-                    </div>
-                </div>
-
-                <div className="tab-content my-3 my-md-4" id="pills-tabContent">
-                    <div className={`tab-pane fade ${display === 3 ? "active show" : ""}`} id="best-pan1" role="tabpanel" aria-labelledby="best-pan1-tab" tabIndex={0}>
-                        <Row className="g-lg-4 g-3">
-                            {ProductData.map(product => (
-                                <div className='col-3' key={product.id}>
-                                    <ProductCard key={product.id} product={product} handleShow={handleShow} handleAddToCardModalShow={handleAddToCardModalShow} />
-                                </div>
-                            ))}
-                        </Row>
-                    </div>
-                </div>
-
-                <div className="tab-content my-3 my-md-4" id="pills-tabContent">
-                    <div className={`tab-pane fade ${display === 4 ? "active show" : ""}`} id="best-pan1" role="tabpanel" aria-labelledby="best-pan1-tab" tabIndex={0}>
-                        <Row className="g-3 row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
-                            {ProductData.map(product => (
-                                <div className='col' key={product.id}>
-                                    <ProductCard key={product.id} product={product} handleShow={handleShow} handleAddToCardModalShow={handleAddToCardModalShow} />
-                                </div>
-                            ))}
-                        </Row>
-                    </div>
-                </div>
-
-                <div className="tab-content my-3 my-md-4" id="pills-tabContent">
-                    <div className={`tab-pane fade ${display === 5 ? "active show" : ""}`} id="best-pan1" role="tabpanel" aria-labelledby="best-pan1-tab" tabIndex={0}>
-                        <Row className="g-lg-4 g-3">
-                            {ProductData.map(product => (
-                                <div className='col-2' key={product.id}>
-                                    <ProductCard key={product.id} product={product} handleShow={handleShow} handleAddToCardModalShow={handleAddToCardModalShow} />
-                                </div>
-                            ))}
+                                ))
+                            }
                         </Row>
                     </div>
                 </div>
             </Container>
+
             <ProductModal show={show} handleClose={handleShow} />
+
             <AddToCardModal cardShow={cardShow} handleAddToCardModalClose={handleAddToCardModalClose} />
         </React.Fragment>
     )

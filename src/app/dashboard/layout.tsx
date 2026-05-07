@@ -1,4 +1,4 @@
-import {LayoutProps} from "@helpers/interfaces";
+import {LayoutProps} from "@interfaces/common/layouts";
 import Header from "@src/components/Headers/Header";
 import React from "react";
 import FooterPage from "@src/components/Footer";

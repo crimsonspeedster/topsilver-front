@@ -4,7 +4,7 @@ import "@assets/icons/font-icon.css";
 import Head from "next/head";
 import {ReactNode} from "react";
 import {NextIntlClientProvider} from "next-intl";
-import {LayoutProps} from "@helpers/interfaces";
+import {LayoutProps} from "@interfaces/common/layouts";
 
 export function generateViewport(): Record<string, string | number> {
     return {

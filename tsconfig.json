@@ -38,8 +38,11 @@
       "@lib/*": [
         "./src/lib/*"
       ],
-      "@helpers/*": [
-        "./src/helpers/*"
+      "@interfaces/*": [
+        "./src/interfaces/*"
+      ],
+      "@templates/*": [
+        "./src/templates/*"
       ]
     },
     "plugins": [

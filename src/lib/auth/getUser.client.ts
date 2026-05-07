@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import {UserObject} from "@helpers/interfaces";
+import {UserObject} from "@interfaces/entities/user";
 
 export const userUser = () => {
     const [user, setUser] = useState<UserObject | null>(null);
