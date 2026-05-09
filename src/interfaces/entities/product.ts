@@ -75,6 +75,7 @@ export type ProductQuickShopObject = Pick<
     | 'media'
     | 'stock_status'
     | 'stock'
+    | 'type'
     | 'manage_stock'
     | 'variant_attributes'
     | 'variants'

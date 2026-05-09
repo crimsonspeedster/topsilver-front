@@ -1,28 +1,54 @@
+"use client";
+
 import Link from "next/link";
 import {PaginationObject} from "@interfaces/common";
+import { useTranslations } from 'next-intl';
+import {useSearchParams} from "next/navigation";
 
-const PaginationComponent = ({
-    pagination,
-    current_page,
-    slug,
-}: {
+
+type Props = {
     pagination: PaginationObject,
     current_page: number,
     slug: string,
-}) => {
+};
+
+const PaginationComponent = (
+    {
+        pagination,
+        current_page,
+        slug,
+    }: Props
+) => {
+    const t = useTranslations('Pagination');
+    const searchParams = useSearchParams();
     const { total_pages } = pagination;
     const pages = Array.from({ length: total_pages }, (_, i) => i + 1);
-    const buildHref = (page: number) => page === 1 ? `/${slug}` : `/${slug}/page/${page}`;
+    const buildHref = (page: number) => {
+        const params = new URLSearchParams(
+            searchParams.toString()
+        );
+
+        params.delete('page');
+
+        const query = params.toString();
+        const pathname = page === 1
+            ? `/${slug}`
+            : `/${slug}/page/${page}`;
+
+        return query
+            ? `${pathname}?${query}`
+            : pathname;
+    };
 
     return (
         total_pages > 1 && (
             <div className="filter-pagination">
-                <ul className="pagination py-4 d-flex justify-content-center">
+                <ul className="pagination py-4 d-flex flex-wrap justify-content-center">
                     {
                         current_page > 1 &&
                         <li>
                             <Link href={buildHref(current_page - 1)}>
-                                Prev
+                                {t('prev')}
                             </Link>
                         </li>
                     }
@@ -48,7 +74,7 @@ const PaginationComponent = ({
                         current_page < total_pages &&
                         <li>
                             <Link href={buildHref(current_page + 1)}>
-                                Next
+                                {t('next')}
                             </Link>
                         </li>
                     }

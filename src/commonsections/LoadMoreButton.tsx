@@ -1,21 +1,25 @@
 import React from "react";
+import {useTranslations} from "next-intl";
+
+
+type Props = {
+    hasMore: boolean,
+    isLoading: boolean,
+    onLoadMore: () => void,
+};
 
 const LoadMoreButton = (
     {
         hasMore,
         onLoadMore,
         isLoading,
-    }
-    :
-    {
-        hasMore: boolean,
-        isLoading: boolean,
-        onLoadMore: () => void,
-    }
+    }: Props
 ) => {
     if (!hasMore) {
         return null;
     }
+
+    const t = useTranslations('Common');
 
     return (
         <div className="d-flex justify-content-center mb-5">
@@ -24,7 +28,7 @@ const LoadMoreButton = (
                 onClick={onLoadMore}
                 className="btn-load btn btn-custom-dark fw-semibold min-w-150 rounded-pill"
             >
-                Load more
+                {t('loadMore')}
             </button>
         </div>
     );

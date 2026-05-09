@@ -10,3 +10,8 @@ export type MediaObject = {
     id: number,
     url: string,
 }
+
+export type SortObject = {
+    slug: string,
+    name: string,
+}

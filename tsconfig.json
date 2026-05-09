@@ -41,6 +41,15 @@
       "@interfaces/*": [
         "./src/interfaces/*"
       ],
+      "@helpers/*": [
+        "./src/helpers/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@services/*": [
+        "./src/services/*"
+      ],
       "@templates/*": [
         "./src/templates/*"
       ]

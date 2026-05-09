@@ -22,6 +22,24 @@
     }
   },
   "Common": {
-    "registration": "Реєстрація"
+    "registration": "Реєстрація",
+    "by": "За",
+    "by_price": "За ціною",
+    "price": "Ціна",
+    "apply": "Застосувати",
+    "loadMore": "Завантажити більше",
+    "filters": "Фільтри",
+    "no_products_found": "Продукти не знайдено"
+  },
+  "Sorting": {
+    "newest": "Найновіші",
+    "oldest": "Найстаріші",
+    "price_asc": "Від дешевих до дорогих",
+    "price_desc": "Від дорогих до дешевих",
+    "selling": "Найпопулярніші"
+  },
+  "Pagination": {
+    "prev": "Попередня",
+    "next": "Далі"
   }
 }

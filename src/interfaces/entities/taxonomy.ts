@@ -14,8 +14,10 @@ export type TaxonomyObject = {
 
 export type TaxonomyFiltersObject = {
     attributes: VariantAttributeFunctionalityObject[],
-    price: {
-        min: number,
-        max: number
-    }
+    price: PriceObject,
+}
+
+export type PriceObject = {
+    min: number,
+    max: number
 }
