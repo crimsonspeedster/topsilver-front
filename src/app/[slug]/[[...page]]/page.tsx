@@ -2,6 +2,7 @@ import {notFound, permanentRedirect} from "next/navigation";
 import {getPage} from "@lib/getPage.server";
 import TaxonomyProductsTemplate from "@templates/TaxonomyProductsTemplate";
 import {parseTaxonomySearchParams} from "@services/taxonomy/taxonomy.utils";
+import ProductDetailTemplate from "@templates/ProductDetailTemplate";
 
 
 type Props = {
@@ -49,14 +50,14 @@ const Page = async (
         notFound();
     }
 
-    const initialPriceObject = {
-        min: parsedSearchParams.price?.min ?? data.filters.price.min,
-        max: parsedSearchParams.price?.max ?? data.filters.price.max,
-    }
-
     switch (data.type) {
         case 'category':
         case 'filter_page':
+            const initialPriceObject = {
+                min: parsedSearchParams.price?.min ?? data.filters.price.min,
+                max: parsedSearchParams.price?.max ?? data.filters.price.max,
+            }
+
             return <TaxonomyProductsTemplate
                 entity={data.entity}
                 initialProducts={data.products}
@@ -67,6 +68,10 @@ const Page = async (
                 slug={slug}
                 initialPage={currentPage}
                 type={data.type}
+            />;
+        case 'product':
+            return <ProductDetailTemplate
+                product={data.entity}
             />;
 
         default:

@@ -15,6 +15,7 @@ import thumb3 from '@assets/images/single-product/full-width/thumb-03.jpg'
 
 import thumbsticky from '@assets/images/single-product/layout-02/thumb-sticky.jpg'
 import Link from "next/link";
+import PDPTabDescription from "@src/components/Product/Tabs/PDPTabDescription";
 
 const ProductDetailFullWidrthTab = () => {
 
@@ -56,75 +57,11 @@ const ProductDetailFullWidrthTab = () => {
                             <Col>
                                 <Tab.Content className="mt-5">
                                     <Tab.Pane eventKey="Description">
-                                        <p className="text-black">
-                                            Design inspiration lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo,
-                                            ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam
-                                            sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat.
-                                            Sed quis velit. Nulla facilisi. Nulla libero. Vivamus pharetra posuere sapien. Nam consectetuer.
-                                            Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci.</p>
-                                        <Row className="my-5 g-3">
-                                            <Col md={4} >
-                                                <Image src={thumb2} className="img-fluid" alt="Thumb2Img" />
-                                            </Col>
-                                            <Col md={4} >
-                                                <Image src={thumb1} className="img-fluid" alt="Thumb1Img" />
-                                            </Col>
-                                            <Col md={4}>
-                                                <Image src={thumb3} className="img-fluid" alt="Thumb3Img" />
-                                            </Col>
-                                        </Row>
-                                        <Row className="align-items-center pt-5">
-                                            <Col md={3}>
-                                                <div className="text-center text-md-end d-md-flex flex-md-row-reverse align-items-center justify-md-content-end mb-5">
-                                                    <div>
-                                                        <Image src={waterResistant} className="img-fluid" style={{ width: "44px" }} alt="WaterResistantImg" />
-                                                    </div>
-                                                    <p className="me-2 mb-0 text-muted text-md-end">Rain & Water<br />Resistant</p>
-                                                </div>
-                                                <div className="text-center text-md-end d-md-flex flex-md-row-reverse align-items-center justify-md-content-end mb-5">
-                                                    <div>
-                                                        <Image src={uvResistanht} className="img-fluid" style={{ width: "44px" }} alt="UvResistanhtImg" />
-                                                    </div>
-                                                    <p className="me-2 mb-0 text-muted text-md-end">UV Resistant<br />Coatings</p>
-                                                </div>
-                                                <div className="text-center text-md-end d-md-flex flex-md-row-reverse align-items-center justify-md-content-end mb-5">
-                                                    <div>
-                                                        <Image src={corrosionResistance} className="img-fluid" style={{ width: "44px" }} alt="CorrosionResistanceImg" />
-                                                    </div>
-                                                    <p className="me-2 mb-0 text-muted text-md-end">Corrosion Resistance<br />to Sea water</p>
-                                                </div>
-                                            </Col>
-                                            <Col md={6} >
-                                                <Image src={athun} className="img-fluid" alt="AthunImg" />
-                                            </Col>
-                                            <Col md={3} >
-                                                <div className="text-center text-md-end d-md-flex align-items-center justify-md-content-start mb-5">
-                                                    <div>
-                                                        <Image src={leadFree} className="img-fluid" style={{ width: "44px" }} alt="LeadFreeImg" />
-                                                    </div>
-                                                    <p className="ms-2 mb-0 text-muted text-md-start">
-                                                        Lead-free<br />Powdercoat Finish
-                                                    </p>
-                                                </div>
-                                                <div className="text-center text-md-end d-md-flex align-items-center justify-md-content-start mb-5">
-                                                    <div>
-                                                        <Image src={resistantToSpills} className="img-fluid" style={{ width: "44px" }} alt="ResistantToSpillsImg" />
-                                                    </div>
-                                                    <p className="ms-2 mb-0 text-muted text-md-start">
-                                                        Resistant to<br />Spills
-                                                    </p>
-                                                </div>
-                                                <div className="text-center text-md-end d-md-flex align-items-center justify-md-content-start mb-md-5">
-                                                    <div>
-                                                        <Image src={recyclable} className="img-fluid" style={{ width: "44px" }} alt="RecyclableImg" />
-                                                    </div>
-                                                    <p className="ms-2 mb-0 text-muted text-md-start">
-                                                        Recyclable<br />Aluminium Frame
-                                                    </p>
-                                                </div>
-                                            </Col>
-                                        </Row>
+                                        <PDPTabDescription
+                                            description="<p>Design inspiration lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat. Sed quis velit. Nulla facilisi. Nulla libero. Vivamus pharetra posuere sapien. Nam consectetuer. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci.</p>"
+                                        />
                                     </Tab.Pane>
+
                                     <Tab.Pane eventKey="Additionalinformation">
                                         <table className="table table-bordered">
                                             <tbody>

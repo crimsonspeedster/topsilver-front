@@ -1,27 +1,26 @@
 "use client";
+
 import React from "react";
-import shopBanner from '@assets/images/shop/shop-banner.jpg'
+import {MediaObject} from "@interfaces/common";
+import FallbackImage from '@assets/images/fallback.png';
+
 
 const WomenColting = ({
     title,
     description,
-    image,
+    media,
 } : {
     title: string,
     description?: string|null,
-    image?: string|null,
+    media: MediaObject|null,
 }) => {
     return (
         <React.Fragment>
             <div
-                style={
-                    image
-                        ? {
-                            backgroundImage: `url(${image})`,
-                            backgroundPosition: 'center',
-                        }
-                        : undefined
-                }
+                style={{
+                    backgroundImage: `url(${media ? media.url : FallbackImage.src})`,
+                    backgroundPosition: 'center',
+                }}
                 className="position-relative"
             >
                 <div className="position-absolute top-0 start-0 right-0 bottom-0 bg-dark w-100 opacity-50"></div>

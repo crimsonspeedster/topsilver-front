@@ -35,7 +35,7 @@ const TaxonomyProductsTemplate = (props: TaxonomyProductsTemplateProps) => {
                 <WomenColting
                     title={props.entity.title}
                     description={props.entity.description}
-                    image={props.entity.media?.url}
+                    media={props.entity.media}
                 />
 
                 <FilterTab

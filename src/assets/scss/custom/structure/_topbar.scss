@@ -238,6 +238,10 @@
 .topbar-product-card {
     position: relative;
 
+    &__header {
+        aspect-ratio: 0.78;
+    }
+
     .wishlistadd {
         left: 12px;
         top: 12px;

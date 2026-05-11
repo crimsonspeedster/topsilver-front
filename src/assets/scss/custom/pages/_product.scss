@@ -1,3 +1,7 @@
+.leading-40 {
+    line-height: 40px;
+}
+
 .pill-border.nav-link {
     border-style: solid !important;
 }
@@ -23,6 +27,14 @@
     width: 25px;
     height: 4px;
     background: $warning;
+}
+
+.wishlist-button {
+    &--pc {
+        z-index: 1;
+        top: 10px;
+        left: 10px;
+    }
 }
 
 .productSmall {

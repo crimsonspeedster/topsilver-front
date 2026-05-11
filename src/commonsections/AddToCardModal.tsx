@@ -1,10 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Modal, Button, Row, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Modal, Button, Row } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
 import {ProductQuickShopObject} from "@interfaces/entities/product";
+import FallbackImage from '@assets/images/fallback.png';
+import {useTranslations} from "next-intl";
+import Variations from "@src/components/Product/Parts/Variations";
+
 
 const AddToCardModal = (
     {
@@ -16,26 +20,17 @@ const AddToCardModal = (
     {
         product: ProductQuickShopObject|null,
         cardShow: boolean,
-        handleAddToCardModalClose: () => void,
+        handleAddToCardModalClose: (type: string) => void,
     }
 ) => {
     if (!product) {
-        handleAddToCardModalClose();
+        handleAddToCardModalClose('quick_shop');
 
         return null;
     }
 
-    const [color, setColor] = useState('Grey');
-    const [size, setSize] = useState('M');
-    const [quantity, setQuantity] = useState(1);
-
-    const handleColorClick = (newColor: string) => {
-        setColor(newColor);
-    };
-
-    const handleSizeClick = (newSize: string) => {
-        setSize(newSize);
-    };
+    const t = useTranslations('Product');
+    const [quantity, setQuantity] = useState<number>(1);
 
     const handleQuantityChange = (change: number) => {
         setQuantity((prev) => Math.max(1, prev + change)); // Ensure quantity is at least 1
@@ -47,26 +42,30 @@ const AddToCardModal = (
     };
 
     return (
-        <Modal show={cardShow} onHide={handleAddToCardModalClose} centered className="fade modal-overl mx-auto quickViewModall">
+        <Modal show={cardShow} onHide={()=>handleAddToCardModalClose('quick_shop')} centered className="fade modal-overl mx-auto quickViewModall">
             <Modal.Body>
-                <span className="fs-35 close position-absolute top-0 end-0" aria-label="Close" onClick={handleAddToCardModalClose}>
+                <span
+                    className="fs-35 close position-absolute top-0 end-0"
+                    aria-label="Close"
+                    onClick={()=>handleAddToCardModalClose('quick_shop')}
+                >
                     <i className="pe-7s-close pegk"></i>
                 </span>
 
                 <Row>
-                    <div className="col-4">
+                    <Link href={product.slug} className="col-4">
                         <Image
-                            src={product.media.url}
+                            src={product.media ? product.media.url : FallbackImage}
                             className="img-fluid"
                             alt={product.title}
                             width={82}
                             height={105}
                         />
-                    </div>
+                    </Link>
 
                     <div className="col-8">
                         <h6>
-                            <Link className="cd chp" href={product.slug ?? ''}>
+                            <Link className="cd chp" href={product.slug}>
                                 {product.title}
                             </Link>
                         </h6>
@@ -80,11 +79,11 @@ const AddToCardModal = (
                                             <span className="text-danger">{product.price_on_sale_formatted}</span>
                                         </div>
 
-                                        <span className="bg-danger text-white p-1">-25%</span>
+                                        <span className="bg-danger text-white p-1">-{product.discount_percent}%</span>
                                     </>
                                     :
                                     <div className="fs-16 me-1">
-                                        <span>{product.price_formatted}</span>
+                                        <del>{product.price_formatted}</del>
                                     </div>
                             }
                         </div>
@@ -93,50 +92,38 @@ const AddToCardModal = (
                     <div className="text-center mt-4">
                         {
                             product.type === 'variable' &&
-                            <div>
-                                <h6 className="text-uppercase fw-bold mb-3">
-                                    Color: <span>{color}</span>
-                                </h6>
-
-                                <div className="product-color-list mt-2 gap-2 d-flex align-items-center justify-content-center">
-                                    <OverlayTrigger
-                                        key="tooltip-black"
-                                        placement="top"
-                                        overlay={<Tooltip id="tooltip-black">Black</Tooltip>}
-                                    >
-                                        <Link
-                                            href="#!"
-                                            className={`d-inline-block bg-dark rounded-circle square-xs ${color === 'Black' ? 'active' : ''} square-xs`}
-                                            onClick={() => handleColorClick('Black')}
-                                        ></Link>
-                                    </OverlayTrigger>
-
-                                </div>
-                            </div>
+                            <Variations
+                                variants={product.variant_attributes}
+                                isTermsCentered={true}
+                            />
                         }
 
                         <div className="input-step border border-dark rounded-pill">
                             <button type="button" className="minus material-shadow text-dark fw-bold" onClick={() => handleQuantityChange(-1)}>
                                 –
                             </button>
+
                             <input
                                 type="number"
                                 className="product-quantity fw-bold fs-6"
                                 value={quantity}
                                 onChange={handleChange}
                             />
+
                             <button type="button" className="plus material-shadow text-dark fw-bold" onClick={() => handleQuantityChange(1)}>
                                 +
                             </button>
                         </div>
+
                         <div className="my-3">
                             <Button type="submit" className="btn w-100 btn-teal rounded-pill text-uppercase px-4 fw-semibold">
-                                Add to cart
+                                {t('add_to_cart')}
                             </Button>
                         </div>
 
-                        <Link href={product.slug ?? ''} className="btn fs-16 fw-semibold detail_link">
-                            View full details
+                        <Link href={product.slug} className="btn fs-16 fw-semibold detail_link">
+                            {t('full_details')}
+
                             <i className="facl facl-right ms-1"></i>
                         </Link>
                     </div>

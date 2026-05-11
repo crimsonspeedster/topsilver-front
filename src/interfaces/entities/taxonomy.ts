@@ -7,9 +7,15 @@ export type TaxonomyObject = {
     id: number,
     title: string,
     description: string|null,
-    media: MediaObject,
+    media: MediaObject|null,
     seo: SeoObject,
     seo_block: SeoBlockObject|null,
+}
+
+export type TaxonomyCollectionObject = {
+    id: number,
+    title: string,
+    slug: string,
 }
 
 export type TaxonomyFiltersObject = {

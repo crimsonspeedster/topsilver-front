@@ -1,0 +1,46 @@
+.labels {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    max-width: 100%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-flow: row wrap;
+    gap: 10px;
+}
+
+.label {
+    min-width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    padding: 4px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    border-radius: 100%;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+
+    &--top {
+        background: linear-gradient(135deg, #ff9800, #ff5722);
+    }
+
+    &--promotion {
+        background: linear-gradient(135deg, #e53935, #c62828);
+    }
+
+    &--new {
+        background: linear-gradient(135deg, #43a047, #2e7d32);
+    }
+
+    &--1plus1 {
+        background: linear-gradient(135deg, #7b1fa2, #512da8);
+        font-size: 13px;
+    }
+}

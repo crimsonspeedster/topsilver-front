@@ -31,6 +31,15 @@
     "filters": "Фільтри",
     "no_products_found": "Продукти не знайдено"
   },
+  "Product": {
+    "full_details": "Переглянути повну інформацію",
+    "quick_view": "Швидкий перегляд",
+    "quick_shop": "Швидка покупка",
+    "add_to_cart": "Додати в кошик",
+    "categories": "Категорії",
+    "collections": "Колекції",
+    "reviews": "відгуків"
+  },
   "Sorting": {
     "newest": "Найновіші",
     "oldest": "Найстаріші",
