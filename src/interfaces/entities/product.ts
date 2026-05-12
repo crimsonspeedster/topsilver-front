@@ -1,4 +1,4 @@
-import {MediaObject} from "@interfaces/common";
+import {MediaObject, VideoObject} from "@interfaces/common";
 import {LabelsObject} from "@interfaces/entities/label";
 import {attributeObject, attributeTermFunctionalityObject, attributeTermObject} from "@interfaces/entities/attribute";
 import {TaxonomyCollectionObject} from "@interfaces/entities/taxonomy";
@@ -12,6 +12,11 @@ export type VariantAttributeObject = {
 export type VariantAttributeFunctionalityObject = {
     attribute: attributeObject,
     terms: attributeTermFunctionalityObject[],
+}
+
+export type BreadcrumbsObject = {
+    title: string,
+    slug: string|null,
 }
 
 export type ProductVariantObject = {
@@ -33,6 +38,7 @@ export type ProductObject = {
     short_description: string|null,
     media: MediaObject|null,
     gallery?: MediaObject[],
+    videos?: VideoObject[],
     price: string,
     price_on_sale: string|null,
     price_formatted: string,
@@ -50,6 +56,8 @@ export type ProductObject = {
     variants: ProductVariantObject[],
     categories: TaxonomyCollectionObject[],
     collections: TaxonomyCollectionObject[],
+    group_products: ProductCardObject[],
+    cross_sells: ProductCardObject[],
 }
 
 export type ProductCardObject = Pick<

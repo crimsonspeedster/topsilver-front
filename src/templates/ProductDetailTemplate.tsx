@@ -2,70 +2,135 @@
 
 import Header from "@src/components/Headers/Header";
 import BreadCrumb from "@src/commonsections/BreadCrumb";
-import ProductSwiper from "@src/_pages/(product)/product-detail-full-width/ProductSwiper";
-import ProductDetailFullWidrthTab from "@src/_pages/(product)/product-detail-full-width/ProductDetailFullWidrthTab";
-import React, {useState} from "react";
-import {Col, Row} from "react-bootstrap";
-import LikeProducts from "@src/commonsections/LikeProducts";
-import ViewedProduct from "@src/commonsections/ViewedProducts";
+import React, {useEffect, useState} from "react";
 import FooterPage from "@src/components/Footer";
-import PopupPage from "@src/components/Popup";
-import BottomProduct from "@src/commonsections/Bottomproduct";
-import thumb1 from "@assets/images/single-product/full-width/thumb-01.jpg";
-import ShoppingCardModal from "@src/commonsections/ShoppingCardModal";
-import {ProductObject} from "@interfaces/entities/product";
+import {BreadcrumbsObject, ProductCardObject, ProductObject} from "@interfaces/entities/product";
+import ViewedProductsSection from "@src/components/Product/Parts/ViewedProductsSection";
+import {useTranslations} from "next-intl";
+import ProductPopups from "@src/components/Product/ProductPopups";
+import {useRecentlyViewedStore} from "@src/store/recently-viewed-store";
+import axios from "axios";
+import ProductTabs from "@src/components/Product/Parts/ProductTabs";
+import {ReviewObject} from "@interfaces/entities/reviews";
+import ProductTop from "@src/components/Product/Parts/ProductTop";
 
+
+type Props = {
+    product: ProductObject,
+    breadcrumbs: BreadcrumbsObject[],
+    reviews: ReviewObject[],
+    prev_next: {
+        prev: ProductCardObject|null,
+        next: ProductCardObject|null,
+    }
+}
 
 const ProductDetailTemplate = (
     {
         product,
-    }
-    :
-    {
-        product: ProductObject
-    }
+        breadcrumbs,
+        prev_next,
+        reviews,
+    }: Props
 ) => {
-    const [shoppingShow, setShoppingShow] = useState(false);
-    const handleShoppingClose = () => setShoppingShow(false);
-    const handleShoppingShow = () => setShoppingShow(true);
+    const t = useTranslations('Common');
+
+    const [recentlyViewedProducts, setRecentlyViewedProducts] = useState<ProductCardObject[]>([]);
+
+    const ids = useRecentlyViewedStore(
+        state => state.ids
+    );
+    const addProduct = useRecentlyViewedStore(
+        state => state.addProduct
+    );
+
+    const fetchRecentlyViewed = async () => {
+        if (!ids.length) {
+            setRecentlyViewedProducts([]);
+            return;
+        }
+
+        try {
+            const response = await axios.get(
+                `${process.env.NEXT_PUBLIC_ENV_API_V1_LINK}/products/batch`,
+                {
+                    params: {
+                        ids: ids.join(','),
+                    },
+                }
+            );
+
+            setRecentlyViewedProducts(response.data?.data ?? []);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    useEffect(() => {
+        addProduct(product.id);
+    }, [product.id]);
+
+    useEffect(() => {
+        fetchRecentlyViewed();
+    }, [ids]);
 
     return (
         <>
             <Header />
 
-            <BreadCrumb title="New Arrival" subTitle="Boxy Sweatshirt Stripe" />
+            <main>
+                <BreadCrumb
+                    breadcrumbs={breadcrumbs}
+                    prev_next={prev_next}
+                />
 
-            <ProductSwiper handleShoppingShow={handleShoppingShow} />
+                <ProductTop
+                    size_guide={null}
+                    delivery_and_return={null}
+                    id={product.id}
+                    title={product.title}
+                    gallery={product.gallery}
+                    videos={product.videos}
+                    media={product.media}
+                    price_formatted={product.price_formatted}
+                    price_on_sale_formatted={product.price_on_sale_formatted}
+                    discount_percent={product.discount_percent}
+                    short_description={product.short_description}
+                    variant_attributes={product.variant_attributes}
+                    type={product.type}
+                    collections={product.collections}
+                    categories={product.categories}
+                    sku={product.sku}
+                />
 
-            <ProductDetailFullWidrthTab />
+                <ProductTabs
+                    description={product.description}
+                    characteristics={product.description}
+                    guarantee={product.description}
+                    reviews={reviews}
+                    rating_count={product.rating_count}
+                    rating_avg={product.rating_avg}
+                />
 
-            <section className="pt-5 py-lg-5 mb-3">
-                <div className="container">
-                    <Row className="justify-content-center">
-                        <Col lg={7}>
-                            <div className="text-center mb-lg-4">
-                                <h3 className="pb-lg-2">You may also like</h3>
-                            </div>
-                        </Col>
-                    </Row>
-                    <LikeProducts />
-                </div>
+                <ViewedProductsSection
+                    title={t('buy_together')}
+                    products={product.cross_sells}
+                />
 
-                <div className="container">
-                    <Row className="justify-content-center mt-3 mt-lg-5 pt-2">
-                        <Col lg={7} >
-                            <div className="text-center mb-lg-4 pb-lg-2">
-                                <h3>Recently viewed products</h3>
-                            </div>
-                        </Col>
-                    </Row>
-                    <ViewedProduct />
-                </div>
-            </section>
+                <ViewedProductsSection
+                    title={t('you_may_also_like')}
+                    products={product.group_products}
+                />
+
+                <ViewedProductsSection
+                    title={t('recently_viewed')}
+                    products={recentlyViewedProducts}
+                />
+            </main>
+
+            <ProductPopups />
 
             <FooterPage />
-
-            <ShoppingCardModal shoppingShow={shoppingShow} handleShoppingClose={handleShoppingClose} />
         </>
     );
 };

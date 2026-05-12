@@ -13,6 +13,7 @@
     "aos": "^2.3.4",
     "axios": "^1.14.0",
     "bootstrap": "^5.3.3",
+    "dayjs": "^1.11.20",
     "flickity": "^3.0.0",
     "flickity-fade": "^2.0.0",
     "flickity-imagesloaded": "^2.0.0",
@@ -33,7 +34,8 @@
     "react-tabs": "^6.0.2",
     "sass": "^1.77.5",
     "swiper": "^11.1.4",
-    "yup": "^1.7.1"
+    "yup": "^1.7.1",
+    "zustand": "^5.0.13"
   },
   "devDependencies": {
     "@types/flickity": "^2.2.11",

@@ -2,9 +2,9 @@ import "@assets/scss/bootstrap.scss";
 import "@assets/scss/app.scss";
 import "@assets/icons/font-icon.css";
 import Head from "next/head";
-import {ReactNode} from "react";
 import {NextIntlClientProvider} from "next-intl";
 import {LayoutProps} from "@interfaces/common/layouts";
+import ProductPopups from "@src/components/Product/ProductPopups";
 
 export function generateViewport(): Record<string, string | number> {
     return {

@@ -11,6 +11,13 @@ export type MediaObject = {
     url: string,
 }
 
+export type VideoObject = {
+    id: number,
+    link: string,
+    type: string,
+    thumbnail: MediaObject,
+}
+
 export type SortObject = {
     slug: string,
     name: string,

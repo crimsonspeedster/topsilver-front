@@ -410,10 +410,12 @@
 }
 
 .product-color-list {
+    button,
     a {
         height: 20px;
         width: 20px;
         transition: all 0.5s ease;
+        background-color: transparent;
         border: 2px solid var(--#{$prefix}body-bg);
         outline: 1px solid var(--#{$prefix}border-color);
 
@@ -424,7 +426,9 @@
     }
 
     &.size {
+        button,
         a {
+            background-color: transparent;
             outline: none;
             color: var(--#{$prefix}secondary-color);
             border: 1px solid var(--#{$prefix}border-color);

@@ -23,7 +23,7 @@ const VariationTerm = (
             }
         >
             <button
-                className={`d-inline-block rounded-circle bg-transparent square-xs ${isActive ? 'active' : ''}`}
+                className={`d-inline-block rounded-circle square-xs ${isActive ? 'active' : ''}`}
                 style={
                     term.meta_value ?
                         {

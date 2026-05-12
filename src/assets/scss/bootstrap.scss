@@ -11,6 +11,7 @@ File: Custom Bootstrap Css File
 @import "./node_modules/bootstrap/scss/bootstrap";
 
 @import "custom/components/common";
+@import "custom/components/replies";
 @import "custom/components/accordion";
 @import "custom/components/buttons";
 @import "custom/components/dropdown";

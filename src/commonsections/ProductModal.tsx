@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Modal, Button, Row,  Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import React, {useState} from "react";
+import { Modal, Button, Row,  Col } from 'react-bootstrap';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Image from "next/image";
@@ -12,6 +12,7 @@ import FallbackImage from '@assets/images/fallback.png';
 import WishListButton from "@src/components/Product/Parts/WishListButton";
 import Variations from "@src/components/Product/Parts/Variations";
 import Rating from "@src/components/Product/Parts/Rating";
+import ProductInfo from "@src/components/Product/Parts/ProductInfo";
 
 
 const ProductModal = (
@@ -28,8 +29,6 @@ const ProductModal = (
     }
 ) => {
     if (!product) {
-        handleClose('quick_view');
-
         return null;
     }
 
@@ -81,7 +80,7 @@ const ProductModal = (
                     <Col md={7}>
                         <div className="images">
                             {
-                                product.gallery ?
+                                product.gallery && product.gallery.length > 0 ?
                                     <Swiper {...swiperParamss}>
                                         {
                                             product.gallery.map((gallery, index) => (
@@ -123,7 +122,11 @@ const ProductModal = (
                     <Col md={5} className="overflow-y-auto overflow-x-hidden no-scroll" style={{ height: '624px'}} >
                         <div className="pt-30 ps-4 ps-md-0 pe-4">
                             <h6 className="fs-20 mb-2">
-                                <Link href={product.slug} className="main_link">{product.title}</Link>
+                                <Link
+                                    href={product.slug}
+                                    className="main_link"
+                                    onNavigate={()=>{handleClose('quick_view')}}
+                                >{product.title}</Link>
                             </h6>
 
                             <div className="d-flex flex-wrap align-items-center gap-2 mb-4">
@@ -185,64 +188,17 @@ const ProductModal = (
                                 />
                             </div>
 
-                            <div className="mt-4">
-                                <p className="text-muted mb-1">
-                                    <span className="text-body">SKU:</span> {product.sku}
-                                </p>
-
-                                {
-                                    product.categories.length > 0 &&
-                                    <p className="text-muted mb-1">
-                                        <span className="text-body">{t('categories')}: </span>
-                                        {
-                                            product.categories.map((category, index) => (
-                                                <Link
-                                                    key={category.id}
-                                                    href={category.slug}
-                                                    className="main_link text-muted"
-                                                >
-                                                    {category.title}
-                                                    {
-                                                        index < product.categories.length - 1 ?
-                                                            ', '
-                                                            :
-                                                            null
-                                                    }
-                                                </Link>
-                                            ))
-                                        }
-                                    </p>
-                                }
-
-                                {
-                                    product.collections.length > 0 &&
-                                    <p className="text-muted mb-1">
-                                        <span className="text-body">{t('collections')}: </span>
-                                        {
-                                            product.collections.map((collection, index) => (
-                                                <Link
-                                                    key={collection.id}
-                                                    href={collection.slug}
-                                                    className="main_link text-muted"
-                                                >
-                                                    {collection.title}
-                                                    {
-                                                        index < product.collections.length - 1 ?
-                                                            ', '
-                                                            :
-                                                            null
-                                                    }
-                                                </Link>
-                                            ))
-                                        }
-                                    </p>
-                                }
-                            </div>
+                            <ProductInfo
+                                collections={product.collections}
+                                categories={product.categories}
+                                sku={product.sku}
+                            />
 
                             <div>
                                 <Link
                                     href={product.slug}
                                     className="fw-medium detail_link "
+                                    onNavigate={()=>{handleClose('quick_view')}}
                                 >
                                     {t('full_details')} <i className="facl facl-right ms-1"></i>
                                 </Link>

@@ -71,7 +71,10 @@ const Page = async (
             />;
         case 'product':
             return <ProductDetailTemplate
+                prev_next={data.prev_next}
                 product={data.entity}
+                breadcrumbs={data.breadcrumbs}
+                reviews={data.reviews}
             />;
 
         default:

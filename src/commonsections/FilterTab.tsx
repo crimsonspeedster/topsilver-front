@@ -1,10 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import AddToCardModal from '@src/commonsections/AddToCardModal';
 import { Container, Row } from 'react-bootstrap';
-import ProductModal from './ProductModal';
-import {ProductCardObject, ProductQuickShopObject, ProductQuickViewObject} from "@interfaces/entities/product";
+import {ProductCardObject} from "@interfaces/entities/product";
 import {PriceObject, TaxonomyFiltersObject} from "@interfaces/entities/taxonomy";
 import {attributeObject, attributeTermFunctionalityObject} from "@interfaces/entities/attribute";
 import ProductBlock from "@src/components/Product/ProductBlock";
@@ -12,7 +10,6 @@ import TaxonomyFilters from "@src/components/Taxonomy/TaxonomyFilters";
 import {useTranslations} from "next-intl";
 import {SortObject} from "@interfaces/common";
 import TaxonomySorting from "@src/components/Taxonomy/TaxonomySorting";
-import axios from "axios";
 
 
 type Props = {
@@ -45,49 +42,11 @@ const FilterTab = (
     } : Props) => {
     const t = useTranslations('Common');
     const [openFilter, setOpenFilter] = useState<boolean>(true);
-    const [quickView, setQuickView] = useState<boolean>(false);
-    const [quickShop, setQuickShop] = useState<boolean>(false);
-    const [selectedProductQuickShop, setSelectedProductQuickShop] = useState<ProductQuickShopObject|null>(null);
-    const [selectedProductQuickView, setSelectedProductQuickShow] = useState<ProductQuickViewObject|null>(null);
 
     const handleFilterOpen = () => setOpenFilter(!openFilter);
-    const handleQuickModal = async (
-        id: number,
-        type: string,
-    ) => {
-        const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_ENV_API_V1_LINK}/products/${id}`,
-            {
-                params: {
-                    type
-                },
-            }
-        );
-
-        if (type === 'quick_view') {
-            setSelectedProductQuickShow(response.data?.data ?? null);
-            setQuickView(true);
-        }
-        else {
-            setSelectedProductQuickShop(response.data?.data ?? null);
-            setQuickShop(true);
-        }
-    }
-    const handleQuickModalClose = (
-        type: string,
-    ) => {
-        if (type === 'quick_view') {
-            setQuickView(false);
-            setSelectedProductQuickShow(null);
-        }
-        else {
-            setQuickShop(false);
-            setSelectedProductQuickShop(null);
-        }
-    };
 
     return (
-        <React.Fragment>
+        <section>
             <Container>
                 <div className="mt-5 d-flex justify-content-between align-items-center">
                     <div className="text-muted fs-16 align-items-center d-none d-lg-flex cursor-pointer" id="filter-icon" onClick={handleFilterOpen}>
@@ -127,7 +86,6 @@ const FilterTab = (
                                         <ProductBlock
                                             key={product.id}
                                             product={product}
-                                            handleQuickModal={handleQuickModal}
                                         />
                                     </div>
                                 ))
@@ -141,19 +99,7 @@ const FilterTab = (
                     }
                 </div>
             </Container>
-
-            <ProductModal
-                cardShow={quickView}
-                handleClose={handleQuickModalClose}
-                product={selectedProductQuickView}
-            />
-
-            <AddToCardModal
-                cardShow={quickShop}
-                handleAddToCardModalClose={handleQuickModalClose}
-                product={selectedProductQuickShop}
-            />
-        </React.Fragment>
+        </section>
     )
 }
 

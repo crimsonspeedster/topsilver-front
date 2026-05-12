@@ -29,7 +29,21 @@
     "apply": "Застосувати",
     "loadMore": "Завантажити більше",
     "filters": "Фільтри",
-    "no_products_found": "Продукти не знайдено"
+    "no_products_found": "Продукти не знайдено",
+    "you_may_also_like": "Вам також може сподобатися",
+    "recently_viewed": "Нещодавно переглянуті товари",
+    "buy_together": "Разом купують",
+    "tab_reviews": "Відгуки",
+    "tab_description": "Опис",
+    "tab_characteristics": "Характеристики",
+    "tab_guarantee": "Гарантія та обмін",
+    "load_more": "Завантажте більше"
+  },
+  "Reviews": {
+    "no_reviews": "Відгуків ще немає",
+    "show_replies": "Показати відповіді",
+    "answer": "Відповісти",
+    "write_a_review": "Написати відгук"
   },
   "Product": {
     "full_details": "Переглянути повну інформацію",
@@ -38,7 +52,9 @@
     "add_to_cart": "Додати в кошик",
     "categories": "Категорії",
     "collections": "Колекції",
-    "reviews": "відгуків"
+    "reviews": "відгуків",
+    "delivery_and_return": "Доставка та повернення",
+    "size_guid": "Довідник розмірів"
   },
   "Sorting": {
     "newest": "Найновіші",

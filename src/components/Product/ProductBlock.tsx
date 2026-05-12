@@ -4,23 +4,51 @@ import Link from 'next/link';
 import {useTranslations} from "next-intl";
 import FallbackImage from '@assets/images/fallback.png';
 import WishListButton from "@src/components/Product/Parts/WishListButton";
+import axios from "axios";
+import {useProductPopupStore} from "@src/store/product-popup-store";
 
 
 type Props = {
     product: ProductCardObject,
-    handleQuickModal: (
-        id: number,
-        type: string,
-    ) => void,
 }
 
 const ProductBlock = (
     {
         product,
-        handleQuickModal,
     }
     : Props) => {
+    const {
+        openQuickView,
+        openQuickShop,
+    } = useProductPopupStore();
     const t = useTranslations('Product');
+
+    const handleQuickModal = async (
+        id: number,
+        type: string,
+    ) => {
+        const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_ENV_API_V1_LINK}/products/${id}`,
+            {
+                params: {
+                    type
+                },
+            }
+        );
+
+        const productData = response.data?.data ?? null;
+
+        if (!productData) {
+            return;
+        }
+
+        if (type === 'quick_view') {
+            openQuickView(productData);
+        }
+        else {
+            openQuickShop(productData);
+        }
+    }
 
     return (
         <div className="topbar-product-card pb-3 w-100">

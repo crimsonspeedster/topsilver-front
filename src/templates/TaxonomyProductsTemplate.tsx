@@ -10,6 +10,7 @@ import PaginationComponent from "@src/components/PaginationComponent";
 import {PriceObject, TaxonomyFiltersObject, TaxonomyObject} from "@interfaces/entities/taxonomy";
 import LoadMoreButton from "@src/commonsections/LoadMoreButton";
 import {useTaxonomyProducts} from "@hooks/useTaxonomyProducts";
+import ProductPopups from "@src/components/Product/ProductPopups";
 
 
 export type TaxonomyProductsTemplateProps = {
@@ -61,6 +62,8 @@ const TaxonomyProductsTemplate = (props: TaxonomyProductsTemplateProps) => {
                     current_page={props.initialPage}
                 />
             </main>
+
+            <ProductPopups />
 
             <FooterPage />
         </>

@@ -1,6 +1,6 @@
 type Props = {
-    description: string,
-}
+    description: string|null,
+};
 
 
 const PDPTabDescription = (
@@ -11,7 +11,7 @@ const PDPTabDescription = (
     return (
         <div
             className="text-black"
-            dangerouslySetInnerHTML={{ __html: description }}
+            dangerouslySetInnerHTML={{ __html: description ?? '' }}
         />
     );
 }

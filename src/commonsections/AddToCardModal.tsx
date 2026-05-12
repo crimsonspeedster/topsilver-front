@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, {useState} from "react";
 import { Modal, Button, Row } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import {ProductQuickShopObject} from "@interfaces/entities/product";
 import FallbackImage from '@assets/images/fallback.png';
 import {useTranslations} from "next-intl";
 import Variations from "@src/components/Product/Parts/Variations";
+import ProductPrices from "@src/components/Product/Parts/ProductPrices";
 
 
 const AddToCardModal = (
@@ -24,8 +25,6 @@ const AddToCardModal = (
     }
 ) => {
     if (!product) {
-        handleAddToCardModalClose('quick_shop');
-
         return null;
     }
 
@@ -53,7 +52,11 @@ const AddToCardModal = (
                 </span>
 
                 <Row>
-                    <Link href={product.slug} className="col-4">
+                    <Link
+                        href={product.slug}
+                        className="col-4"
+                        onNavigate={()=>handleAddToCardModalClose('quick_shop')}
+                    >
                         <Image
                             src={product.media ? product.media.url : FallbackImage}
                             className="img-fluid"
@@ -65,27 +68,21 @@ const AddToCardModal = (
 
                     <div className="col-8">
                         <h6>
-                            <Link className="cd chp" href={product.slug}>
+                            <Link
+                                className="cd chp"
+                                href={product.slug}
+                                onNavigate={()=>handleAddToCardModalClose('quick_shop')}
+                            >
                                 {product.title}
                             </Link>
                         </h6>
 
                         <div className="d-flex mb-2 align-items-center">
-                            {
-                                product.price_on_sale_formatted ?
-                                    <>
-                                        <div className="fs-16 me-1">
-                                            <del className="text-muted">{product.price_formatted}</del>&nbsp;
-                                            <span className="text-danger">{product.price_on_sale_formatted}</span>
-                                        </div>
-
-                                        <span className="bg-danger text-white p-1">-{product.discount_percent}%</span>
-                                    </>
-                                    :
-                                    <div className="fs-16 me-1">
-                                        <del>{product.price_formatted}</del>
-                                    </div>
-                            }
+                            <ProductPrices
+                                price_formatted={product.price_formatted}
+                                price_on_sale_formatted={product.price_on_sale_formatted}
+                                discount_percent={product.discount_percent}
+                            />
                         </div>
                     </div>
 
@@ -121,7 +118,11 @@ const AddToCardModal = (
                             </Button>
                         </div>
 
-                        <Link href={product.slug} className="btn fs-16 fw-semibold detail_link">
+                        <Link
+                            href={product.slug}
+                            className="btn fs-16 fw-semibold detail_link"
+                            onNavigate={()=>handleAddToCardModalClose('quick_shop')}
+                        >
                             {t('full_details')}
 
                             <i className="facl facl-right ms-1"></i>
