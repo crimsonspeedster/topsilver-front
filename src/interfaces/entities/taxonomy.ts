@@ -8,7 +8,6 @@ export type TaxonomyObject = {
     title: string,
     description: string|null,
     media: MediaObject|null,
-    seo: SeoObject,
     seo_block: SeoBlockObject|null,
 }
 

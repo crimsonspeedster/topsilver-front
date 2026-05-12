@@ -12,6 +12,7 @@ export type ProductTopProps = Pick<
     | 'discount_percent'
     | 'short_description'
     | 'variant_attributes'
+    | 'variants'
     | 'type'
     | 'collections'
     | 'categories'

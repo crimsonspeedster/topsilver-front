@@ -6,10 +6,12 @@ import {ProductObject} from "@interfaces/entities/product";
 import ProductPrices from "@src/components/Product/Parts/ProductPrices";
 import {useTranslations} from "next-intl";
 import ProductTopHeader from "@src/components/Product/Parts/ProductTopHeader";
+import ProductPurchase from "@src/components/Product/Forms/ProductPurchase";
+import {ProductTopProps} from "@interfaces/layouts/product";
 
 
 type Props = Pick<
-    ProductObject,
+    ProductTopProps,
     | 'id'
     | 'title'
     | 'price_formatted'
@@ -21,10 +23,7 @@ type Props = Pick<
     | 'collections'
     | 'categories'
     | 'sku'
-> & {
-    size_guide: string|null,
-    delivery_and_return: string|null,
-};
+>;
 
 const ProductTopInfo = (
     {
@@ -64,17 +63,14 @@ const ProductTopInfo = (
 
             <div className="d-flex flex-wrap align-items-center gap-2">
                  {/*TODO: Quantity*/}
-
-                <button
-                    className="text-uppercase rounded-pill min-w-150"
-                >
-                    {tProduct('add_to_cart')}
-                </button>
-
-                <WishListButton
+                <ProductPurchase
                     id={id}
-                    parentClasses="product_wishlist square-40 rounded-circle border border-dark bg-transparent text-center leading-40"
                 />
+
+                {/*<WishListButton*/}
+                {/*    id={id}*/}
+                {/*    parentClasses="product_wishlist square-40 rounded-circle border border-dark bg-transparent text-center leading-40"*/}
+                {/*/>*/}
             </div>
 
             {

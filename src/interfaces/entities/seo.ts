@@ -1,8 +1,18 @@
+import {MediaObject} from "@interfaces/common";
+
+export type SeoPromiseObject = {
+    seo: SeoObject | null,
+    media: MediaObject | null,
+}
+
 export type SeoObject = {
     title: string,
     description: string|null,
     keywords: string|null,
-    robots: string,
+    robots: {
+        index: boolean,
+        follow: boolean,
+    },
 }
 
 export type SeoBlockObject = {

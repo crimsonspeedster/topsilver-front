@@ -1,3 +1,5 @@
+import {SeoObject, SeoPromiseObject} from "@interfaces/entities/seo";
+
 type GetPageParams = {
     slug: string,
     page: number,
@@ -64,5 +66,22 @@ export const getPage = async (
     }
 
     const json = await res.json();
+    return json?.data ?? null;
+};
+
+export const getPageSeo = async (slug: string): Promise<SeoPromiseObject | null> => {
+    const baseUrl = process.env.NEXT_PUBLIC_ENV_API_V1_LINK;
+
+    const url = `${baseUrl}/slug-resolver/${slug}/seo`;
+
+    const res = await fetch(url, {
+        method: "GET",
+        cache: "no-store",
+    });
+
+    if (!res.ok) return null;
+
+    const json = await res.json();
+
     return json?.data ?? null;
 };

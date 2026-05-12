@@ -95,22 +95,7 @@ const AddToCardModal = (
                             />
                         }
 
-                        <div className="input-step border border-dark rounded-pill">
-                            <button type="button" className="minus material-shadow text-dark fw-bold" onClick={() => handleQuantityChange(-1)}>
-                                –
-                            </button>
-
-                            <input
-                                type="number"
-                                className="product-quantity fw-bold fs-6"
-                                value={quantity}
-                                onChange={handleChange}
-                            />
-
-                            <button type="button" className="plus material-shadow text-dark fw-bold" onClick={() => handleQuantityChange(1)}>
-                                +
-                            </button>
-                        </div>
+                        // QUANITY
 
                         <div className="my-3">
                             <Button type="submit" className="btn w-100 btn-teal rounded-pill text-uppercase px-4 fw-semibold">

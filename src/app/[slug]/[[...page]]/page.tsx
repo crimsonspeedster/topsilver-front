@@ -1,8 +1,9 @@
 import {notFound, permanentRedirect} from "next/navigation";
-import {getPage} from "@lib/getPage.server";
+import {getPage, getPageSeo} from "@lib/getPage.server";
 import TaxonomyProductsTemplate from "@templates/TaxonomyProductsTemplate";
 import {parseTaxonomySearchParams} from "@services/taxonomy/taxonomy.utils";
 import ProductDetailTemplate from "@templates/ProductDetailTemplate";
+import {Metadata} from "next";
 
 
 type Props = {
@@ -81,5 +82,36 @@ const Page = async (
             notFound();
     }
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug, page } = await params;
+    const seoData = await getPageSeo(slug);
+
+    if (!seoData) {
+        return {};
+    }
+
+    const seo = seoData.seo;
+    const media = seoData.media;
+
+    if (!seo) {
+        return {};
+    }
+
+    return {
+        title: seo.title,
+        description: seo.description ?? '',
+        robots: {
+            index: seo.robots.index,
+            follow: seo.robots.follow,
+        },
+        openGraph: {
+            title: seo.title,
+            description: seo.description ?? '',
+            images: media ? [media.url] : [],
+            type: 'website',
+        },
+    };
+}
 
 export default Page;

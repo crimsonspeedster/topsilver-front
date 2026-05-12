@@ -76,61 +76,54 @@ const ProductDetailTemplate = (
 
     return (
         <>
-            <Header />
+            <BreadCrumb
+                breadcrumbs={breadcrumbs}
+                prev_next={prev_next}
+            />
 
-            <main>
-                <BreadCrumb
-                    breadcrumbs={breadcrumbs}
-                    prev_next={prev_next}
-                />
+            <ProductTop
+                size_guide={null}
+                delivery_and_return={null}
+                id={product.id}
+                title={product.title}
+                gallery={product.gallery}
+                videos={product.videos}
+                media={product.media}
+                price_formatted={product.price_formatted}
+                price_on_sale_formatted={product.price_on_sale_formatted}
+                discount_percent={product.discount_percent}
+                short_description={product.short_description}
+                variant_attributes={product.variant_attributes}
+                type={product.type}
+                collections={product.collections}
+                categories={product.categories}
+                sku={product.sku}
+                variants={product.variants}
+            />
 
-                <ProductTop
-                    size_guide={null}
-                    delivery_and_return={null}
-                    id={product.id}
-                    title={product.title}
-                    gallery={product.gallery}
-                    videos={product.videos}
-                    media={product.media}
-                    price_formatted={product.price_formatted}
-                    price_on_sale_formatted={product.price_on_sale_formatted}
-                    discount_percent={product.discount_percent}
-                    short_description={product.short_description}
-                    variant_attributes={product.variant_attributes}
-                    type={product.type}
-                    collections={product.collections}
-                    categories={product.categories}
-                    sku={product.sku}
-                />
+            <ProductTabs
+                description={product.description}
+                characteristics={product.description}
+                guarantee={product.description}
+                reviews={reviews}
+                rating_count={product.rating_count}
+                rating_avg={product.rating_avg}
+            />
 
-                <ProductTabs
-                    description={product.description}
-                    characteristics={product.description}
-                    guarantee={product.description}
-                    reviews={reviews}
-                    rating_count={product.rating_count}
-                    rating_avg={product.rating_avg}
-                />
+            <ViewedProductsSection
+                title={t('buy_together')}
+                products={product.cross_sells}
+            />
 
-                <ViewedProductsSection
-                    title={t('buy_together')}
-                    products={product.cross_sells}
-                />
+            <ViewedProductsSection
+                title={t('you_may_also_like')}
+                products={product.group_products}
+            />
 
-                <ViewedProductsSection
-                    title={t('you_may_also_like')}
-                    products={product.group_products}
-                />
-
-                <ViewedProductsSection
-                    title={t('recently_viewed')}
-                    products={recentlyViewedProducts}
-                />
-            </main>
-
-            <ProductPopups />
-
-            <FooterPage />
+            <ViewedProductsSection
+                title={t('recently_viewed')}
+                products={recentlyViewedProducts}
+            />
         </>
     );
 };

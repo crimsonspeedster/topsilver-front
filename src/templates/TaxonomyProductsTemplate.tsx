@@ -30,42 +30,34 @@ const TaxonomyProductsTemplate = (props: TaxonomyProductsTemplateProps) => {
 
     return (
         <>
-            <Header />
+            <WomenColting
+                title={props.entity.title}
+                description={props.entity.description}
+                media={props.entity.media}
+            />
 
-            <main>
-                <WomenColting
-                    title={props.entity.title}
-                    description={props.entity.description}
-                    media={props.entity.media}
-                />
+            <FilterTab
+                products={taxonomy.products}
+                filters={taxonomy.filters}
+                price={taxonomy.price}
+                onFilterChange={taxonomy.handleFilterChange}
+                sortItems={taxonomy.sortItems}
+                sortCurrent={taxonomy.sorting}
+                setSorting={taxonomy.handleSortChange}
+                onPriceChange={taxonomy.handlePriceFilter}
+            />
 
-                <FilterTab
-                    products={taxonomy.products}
-                    filters={taxonomy.filters}
-                    price={taxonomy.price}
-                    onFilterChange={taxonomy.handleFilterChange}
-                    sortItems={taxonomy.sortItems}
-                    sortCurrent={taxonomy.sorting}
-                    setSorting={taxonomy.handleSortChange}
-                    onPriceChange={taxonomy.handlePriceFilter}
-                />
+            <LoadMoreButton
+                hasMore={taxonomy.hasMore}
+                isLoading={taxonomy.loading}
+                onLoadMore={taxonomy.handleLoadMore}
+            />
 
-                <LoadMoreButton
-                    hasMore={taxonomy.hasMore}
-                    isLoading={taxonomy.loading}
-                    onLoadMore={taxonomy.handleLoadMore}
-                />
-
-                <PaginationComponent
-                    pagination={taxonomy.pagination}
-                    slug={props.slug}
-                    current_page={props.initialPage}
-                />
-            </main>
-
-            <ProductPopups />
-
-            <FooterPage />
+            <PaginationComponent
+                pagination={taxonomy.pagination}
+                slug={props.slug}
+                current_page={props.initialPage}
+            />
         </>
     );
 };

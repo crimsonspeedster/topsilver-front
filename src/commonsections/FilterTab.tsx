@@ -50,8 +50,8 @@ const FilterTab = (
             <Container>
                 <div className="mt-5 d-flex justify-content-between align-items-center">
                     <div className="text-muted fs-16 align-items-center d-none d-lg-flex cursor-pointer" id="filter-icon" onClick={handleFilterOpen}>
-                        <i className={`iccl fwb iccl-filter fwb me-2 fw-medium ${!open ? "d-none" : ""}`} id="icon-filter"></i>
-                        <i className={`pe-7s-close pegk ${!open ? "" : "d-none"} me-2 fw-medium fw-semibold`} id="icon-close" style={{ fontSize: "24px" }}></i>
+                        <i className={`iccl fwb iccl-filter fwb me-2 fw-medium ${!openFilter ? "d-none" : ""}`} id="icon-filter"></i>
+                        <i className={`pe-7s-close pegk ${!openFilter ? "" : "d-none"} me-2 fw-medium fw-semibold`} id="icon-close" style={{ fontSize: "24px" }}></i>
                         <p className="mb-0">{t('filters')}</p>
                     </div>
 
