@@ -1,24 +1,44 @@
 .sidebar {
-    width: 240px;
-    background: #111;
+    width: 260px;
+    padding: 24px 16px;
     color: #fff;
-    padding: 20px;
 
     ul {
         list-style: none;
         padding: 0;
+        margin: 0;
 
         li {
-            margin-bottom: 10px;
-
+            button,
             a {
-                color: #ccc;
-                text-decoration: none;
                 display: flex;
-                gap: 10px;
+                align-items: center;
+                gap: 12px;
+                width: 100%;
+                padding: 12px 14px;
+                border-radius: 0 !important;
+                color: #d1d5db !important;
+                background: #1f2937;
+                text-decoration: none;
+                font-size: 15px;
+                font-weight: 500;
+                transition:
+                        background 0.2s ease,
+                        color 0.2s ease;
+
+                svg {
+                    font-size: 18px;
+                    flex-shrink: 0;
+                }
 
                 &:hover {
-                    color: #fff;
+                    color: #fff !important;
+                    background: #2563eb;
+                }
+
+                &.active {
+                    background: #2563eb;
+                    color: #fff !important;
                 }
             }
         }

@@ -1,17 +1,36 @@
 {
   "Auth": {
     "name": "Ім'я",
+    "surname": "Прізвище",
+    "middleName": "По-батькові",
     "email": "Email",
+    "phone": "Номер телефону",
     "password": "Пароль",
+    "current_password": "Поточний пароль",
+    "new_password": "Новий пароль",
     "confirmPassword": "Підтвердіть пароль",
-    "submit": "Зареєструватися",
+    "register": "Зареєструватися",
     "passwordRequirements": "Пароль повинен містити:",
     "minChars": "Мінімум 8 символів",
+    "sex": "Стать",
+    "dob": "Дата народження",
     "uppercase": "Хоча б одну велику літеру",
     "number": "Хоча б одну цифру",
+    "optional": "Необов'язково",
+    "update": "Оновити",
+    "profile_updated_successfully": "Профіль успішно оновлено",
+    "city": "Місто",
+    "about": "Про себе",
+    "sex_options": {
+      "man": "Чоловічий",
+      "woman": "Жіночий"
+    },
     "errors": {
       "required": "Обов'язкове поле",
       "invalidEmail": "Невірний email",
+      "invalidPhone": "Невірний номер телефону",
+      "invalidDate": "Недійсна дата",
+      "beforeToday": "Дата не може бути в майбутньому",
       "min": "Мінімум 8 символів",
       "minName": "Мінімум 2 символи",
       "uppercase": "Має містити хоча б одну велику літеру",
@@ -55,6 +74,13 @@
     "reviews": "відгуків",
     "delivery_and_return": "Доставка та повернення",
     "size_guid": "Довідник розмірів"
+  },
+  "Dashboard": {
+    "profile": "Профіль",
+    "password_change": "Зміна пароля",
+    "orders": "Замовлення",
+    "bonuses": "Бонуси",
+    "logout": "Вийти"
   },
   "Sorting": {
     "newest": "Найновіші",

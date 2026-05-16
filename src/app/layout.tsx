@@ -7,6 +7,7 @@ import Header from "@src/components/Headers/Header";
 import FooterPage from "@src/components/Footer";
 import {Metadata} from "next";
 import ProductPopups from "@src/components/Product/ProductPopups";
+import {ToastContainer} from "react-toastify";
 
 
 export function generateViewport(): Record<string, string | number> {
@@ -39,6 +40,15 @@ export default function Layout({children}: LayoutProps) {
                     <ProductPopups />
 
                     <FooterPage />
+
+                    <ToastContainer
+                        autoClose={3000}
+                        hideProgressBar={false}
+                        newestOnTop={true}
+                        closeOnClick={true}
+                        pauseOnHover={true}
+                        position="top-right"
+                    />
                 </NextIntlClientProvider>
             </body>
         </html>

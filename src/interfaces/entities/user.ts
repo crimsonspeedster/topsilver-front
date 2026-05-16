@@ -4,7 +4,7 @@ import {CityObject} from "@interfaces/entities/city";
 export type UserObject = {
     email: string|null,
     phone: string,
-    profile: ProfileObject|null,
+    profile: ProfileObject,
 }
 
 export type ProfileObject = {

@@ -7,9 +7,26 @@ import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
 import { useTranslations } from 'next-intl';
 import axios from "axios";
+import FormField from "@src/components/Form/FormField";
+import PhoneFormField from "@src/components/Form/PhoneFormField";
+import axiosClient from "@lib/axiosClient";
+import SelectField from "@src/components/Form/SelectField";
+import TextareaField from "@src/components/Form/TextareaField";
+import {groupCitiesByRegion} from "@src/helpers";
+import {CityObject} from "@interfaces/entities/city";
 
-const RegisterForm = () => {
+
+type Props = {
+    cities: CityObject[];
+};
+
+const RegisterForm = (
+    {
+        cities,
+    }: Props
+) => {
     const router = useRouter();
+    const groupedCities = groupCitiesByRegion(cities);
     const t = useTranslations('Auth');
 
     const validationSchema = useMemo(() => Yup.object({
@@ -19,9 +36,19 @@ const RegisterForm = () => {
             .matches(/^[\p{L}\s'\-\.]+$/u, t('errors.invalidName'))
             .required(t('errors.required')),
 
+        surname: Yup.string()
+            .min(2, t('errors.minName'))
+            .max(255, t('errors.max'))
+            .matches(/^[\p{L}\s'\-\.]+$/u, t('errors.invalidName'))
+            .required(t('errors.required')),
+
         email: Yup.string()
             .email(t('errors.invalidEmail'))
             .required(t('errors.required')),
+
+        phone: Yup.string()
+            .required(t('errors.required'))
+            .matches(/^(\+?380)\d{9}$/, t('errors.invalidPhone')),
 
         password: Yup.string()
             .min(8, t('errors.min'))
@@ -32,14 +59,29 @@ const RegisterForm = () => {
         password_confirmation: Yup.string()
             .oneOf([Yup.ref('password')], t('errors.passwordMatch'))
             .required(t('errors.required')),
+
+        dob: Yup.date()
+            .nullable()
+            .typeError(t('errors.invalidDate'))
+            .max(new Date(), t('errors.beforeToday')),
+
+        about: Yup.string()
+            .max(255, t('errors.max')),
     }), [t]);
 
     const formik = useFormik({
         initialValues: {
             name: '',
+            surname: '',
+            middle_name: '',
+            dob: '',
+            sex: '',
+            city_id: '',
             email: '',
+            phone: '',
             password: '',
             password_confirmation: '',
+            about: '',
         },
         validationSchema,
         onSubmit: async (values, { setSubmitting, setErrors }) => {
@@ -47,14 +89,13 @@ const RegisterForm = () => {
 
             try {
                 const formData = new FormData();
-                Object.entries(values).forEach(([key, value]) => formData.append(key, value.trim()));
+                Object.entries(values).forEach(([key, value]) => {
+                    formData.append(key, String(value ?? '').trim());
+                });
 
-                const response = await axios.post(
-                    `${process.env.NEXT_PUBLIC_ENV_API_V1_LINK}/register`,
+                const response = await axiosClient.post(
+                    '/register',
                     formData,
-                    {
-                        withCredentials: true,
-                    }
                 );
 
                 if (response.status === 200 || response.status === 201) {
@@ -85,89 +126,108 @@ const RegisterForm = () => {
         <Form
             onSubmit={formik.handleSubmit}
         >
-            <Form.Group className="mb-3">
-                <Form.Label>
-                    {t('name')} <span className="text-danger">*</span>
-                </Form.Label>
-                <Form.Control
-                    type="text"
-                    name="name"
-                    value={formik.values.name}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    isInvalid={formik.touched.name && !!formik.errors.name}
-                />
-                <Form.Control.Feedback type="invalid">
-                    {formik.errors.name}
-                </Form.Control.Feedback>
-            </Form.Group>
+            <FormField
+                label={t('name')}
+                name="name"
+                formik={formik}
+                required={true}
+                type="text"
+            />
 
-            <Form.Group className="mb-3">
-                <Form.Label>
-                    {t('email')} <span className="text-danger">*</span>
-                </Form.Label>
-                <Form.Control
-                    type="email"
-                    name="email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    isInvalid={formik.touched.email && !!formik.errors.email}
-                />
-                <Form.Control.Feedback type="invalid">
-                    {formik.errors.email}
-                </Form.Control.Feedback>
-            </Form.Group>
+            <FormField
+                label={t('middleName')}
+                name="middle_name"
+                formik={formik}
+                required={false}
+                type="text"
+            />
 
-            <Form.Group className="mb-3">
-                <Form.Label>
-                    {t('password')} <span className="text-danger">*</span>
-                </Form.Label>
-                <Form.Control
-                    type="password"
-                    name="password"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    autoComplete="off"
-                    isInvalid={formik.touched.password && !!formik.errors.password}
-                />
-                <Form.Text>
-                    {t('passwordRequirements')}
-                    <ul className="mb-0">
-                        <li>{t('minChars')}</li>
-                        <li>{t('uppercase')}</li>
-                        <li>{t('number')}</li>
-                    </ul>
-                </Form.Text>
-                <Form.Control.Feedback type="invalid">
-                    {formik.errors.password}
-                </Form.Control.Feedback>
-            </Form.Group>
+            <FormField
+                label={t('surname')}
+                name="surname"
+                formik={formik}
+                required={true}
+                type="text"
+            />
 
-            <Form.Group className="mb-3 pb-1">
-                <Form.Label>
-                    {t('confirmPassword')} <span className="text-danger">*</span>
-                </Form.Label>
-                <Form.Control
-                    type="password"
-                    name="password_confirmation"
-                    value={formik.values.password_confirmation}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    autoComplete="off"
-                    isInvalid={
-                        formik.touched.password_confirmation &&
-                        !!formik.errors.password_confirmation
-                    }
-                />
-                <Form.Control.Feedback type="invalid">
-                    {formik.errors.password_confirmation}
-                </Form.Control.Feedback>
-            </Form.Group>
+            <FormField
+                label={t('dob')}
+                name="dob"
+                formik={formik}
+                required={false}
+                type="date"
+            />
 
-            <Button type="submit" className="btn btn-info rounded-pill" disabled={formik.isSubmitting}>
-                {t('submit')}
+            <SelectField
+                label={t('sex')}
+                name="sex"
+                formik={formik}
+                options={[
+                    {
+                        label: t('sex_options.man'),
+                        value: 'male',
+                    },
+                    {
+                        label: t('sex_options.woman'),
+                        value: 'female',
+                    },
+                ]}
+                required={false}
+            />
+
+            <SelectField
+                label={t('city')}
+                name="city_id"
+                formik={formik}
+                options={groupedCities}
+                required={false}
+            />
+
+            <TextareaField
+                label={t('about')}
+                name="about"
+                formik={formik}
+                required={false}
+                rows={6}
+            />
+
+            <FormField
+                label={t('email')}
+                name="email"
+                formik={formik}
+                required={true}
+                type="email"
+            />
+
+            <PhoneFormField
+                label={t('phone')}
+                name="phone"
+                formik={formik}
+                required={true}
+            />
+
+            <FormField
+                label={t('password')}
+                name="password"
+                formik={formik}
+                required={true}
+                type="password"
+            />
+
+            <FormField
+                label={t('confirmPassword')}
+                name="password_confirmation"
+                formik={formik}
+                required={true}
+                type="password"
+            />
+
+            <Button
+                type="submit"
+                className="btn btn-info rounded-pill"
+                disabled={formik.isSubmitting}
+            >
+                {t('register')}
             </Button>
         </Form>
     );

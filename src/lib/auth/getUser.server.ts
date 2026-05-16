@@ -1,28 +1,21 @@
 import { cookies } from 'next/headers';
 import axios from 'axios';
 import {UserObject} from "@interfaces/entities/user";
+import axiosClient from "@lib/axiosClient";
 
 export const getUserSSR = async (): Promise<UserObject | null> => {
+    const cookieStore = await cookies();
+
     try {
-        const cookieStore = await cookies();
-        const access_token = cookieStore.get('access_token');
+        const res = await axiosClient.get('/me', {
+            headers: {
+                Cookie: cookieStore.toString(),
+            },
+        });
 
-        if (!access_token) {
-            return null;
-        }
-
-        const res = await axios.post(
-            `${process.env.NEXT_PUBLIC_ENV_API_V1_LINK}/user`,
-            {},
-            {
-                headers: {
-                    Authorization: `Bearer ${access_token.value}`
-                }
-            }
-        );
-
-        return res.status === 200 ? res.data.user : null;
+        return res.status === 200 ? res.data.data : null;
     } catch (err) {
+        console.error(err);
         return null;
     }
 };
