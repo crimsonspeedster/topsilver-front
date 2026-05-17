@@ -28,6 +28,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import "swiper/css/free-mode";
 import "swiper/css/thumbs";
+import {useAuthStore} from "@src/store/client-store";
 
 const country = [
     {
@@ -177,6 +178,7 @@ const HeaderCard = ({ product }: String | any) => {
 
 
 const Header = () => {
+    const user = useAuthStore((state) => state.user);
 
     const headerRef = useRef(null)
     const [loginShow, setLoginShow] = useState(false);
@@ -304,7 +306,10 @@ const Header = () => {
                             </svg>
                         </Link>
 
-                        <Link className="navbar-brand" href="/index" as="image">
+                        <Link
+                            className="navbar-brand"
+                            href="/"
+                        >
                             <Image src={logo} alt="LogoImg" width="95" priority />
                         </Link>
 
@@ -619,7 +624,22 @@ const Header = () => {
                         </div>
                         <div className="topbar-toolbar d-flex align-items-center gap-3">
                             <Link data-bs-toggle="offcanvas" href="#searchOffcanvas" aria-controls="searchOffcanvas" onClick={handleShow}><i className="iccl iccl-search"></i></Link>
-                            <Link className="d-md-block d-none" data-bs-toggle="offcanvas" href="#accountOffcanvas" aria-controls="accountOffcanvas" onClick={handleLoginShow}><i className="iccl iccl-user"></i></Link>
+                            {
+                                user ?
+                                    <Link
+                                        className="d-md-block d-none"
+                                        href="/dashboard/profile"
+                                    >
+                                        <i className="iccl iccl-user"></i>
+                                    </Link>
+                                    :
+                                    <button
+                                        className="btn p-0 d-md-block d-none"
+                                        onClick={handleLoginShow}
+                                    >
+                                        <i className="iccl iccl-user"></i>
+                                    </button>
+                            }
                             <Link className="d-md-block d-none" href="/wishlist"><i className="iccl iccl-heart"></i><span className="tcount bg-dark text-white rounded-circle d-flex align-items-center justify-content-center">3</span></Link>
                             <Link data-bs-toggle="offcanvas" href="#shoppingCartOffcanvas" aria-controls="shoppingCartOffcanvas" onClick={handleShoppingShow}><i className="iccl iccl-cart"></i><span className="tcount bg-dark text-white rounded-circle d-flex align-items-center justify-content-center">5</span></Link>
                         </div>

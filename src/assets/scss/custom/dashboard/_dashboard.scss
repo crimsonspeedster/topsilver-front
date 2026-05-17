@@ -1,6 +1,9 @@
 .dashboard {
     display: flex;
-    min-height: 100vh;
+    
+    @media (max-width: 991px) {
+        flex-direction: column;
+    }
 
     &__main {
         flex: 1;

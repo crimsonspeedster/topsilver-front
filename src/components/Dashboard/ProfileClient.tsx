@@ -6,7 +6,7 @@ import { UserObject } from "@interfaces/entities/user";
 import { CityObject } from "@interfaces/entities/city";
 import { Button, Form } from 'react-bootstrap';
 import {useTranslations} from "next-intl";
-import React, {useMemo} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import FormField from "@src/components/Form/FormField";
 import PhoneFormField from "@src/components/Form/PhoneFormField";
 import SelectField from "@src/components/Form/SelectField";
@@ -14,17 +14,19 @@ import TextareaField from "@src/components/Form/TextareaField";
 import {groupCitiesByRegion} from "@src/helpers";
 import axiosClient from "@lib/axiosClient";
 import { toast } from 'react-toastify';
+import {useAuthStore} from "@src/store/client-store";
 
 
 type Props = {
-    user: UserObject;
     cities: CityObject[];
 };
 
-export default function ProfileClient({ user, cities }: Props) {
+export default function ProfileClient({ cities }: Props) {
     const tAuth = useTranslations('Auth');
     const groupedCities = groupCitiesByRegion(cities);
     const tDashboard = useTranslations('Dashboard');
+    const user = useAuthStore((state) => state.user);
+    const setUser = useAuthStore((state) => state.setUser);
 
     const validationSchema = useMemo(() => Yup.object({
         name: Yup.string()
@@ -62,18 +64,19 @@ export default function ProfileClient({ user, cities }: Props) {
     }), [tAuth]);
 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            name: user.profile.name ?? '',
-            surname: user.profile.surname ?? '',
-            middle_name: user.profile.middle_name ?? '',
-            dob: user.profile.dob
+            name: user?.profile?.name ?? '',
+            surname: user?.profile?.surname ?? '',
+            middle_name: user?.profile?.middle_name ?? '',
+            dob: user?.profile?.dob
                 ? user.profile.dob.split('T')[0]
                 : '',
-            sex: user.profile.sex ?? '',
-            city_id: user.profile.city?.id ?? '',
-            about: user.profile.about ?? '',
-            email: user.email ?? '',
-            phone: user.phone ?? '',
+            sex: user?.profile?.sex ?? '',
+            city_id: user?.profile?.city?.id ?? '',
+            about: user?.profile?.about ?? '',
+            email: user?.email ?? '',
+            phone: user?.phone ?? '',
         },
         validationSchema,
         onSubmit: async (values, { setSubmitting, setErrors }) => {
@@ -91,6 +94,7 @@ export default function ProfileClient({ user, cities }: Props) {
                 );
 
                 if (response.status === 200 || response.status === 201) {
+                    setUser(response.data.data);
                     toast.success(tAuth('profile_updated_successfully'));
                 }
             } catch (error: any) {
@@ -117,7 +121,7 @@ export default function ProfileClient({ user, cities }: Props) {
     return (
         <section className="py-5">
             <div className="container">
-                <div className="col-md-6 mx-auto">
+                <div className="col-xl-6 mx-auto">
                     <h1 className="text-center">{tDashboard('profile')}</h1>
 
                     <Form
@@ -172,13 +176,16 @@ export default function ProfileClient({ user, cities }: Props) {
                             required={false}
                         />
 
-                        <SelectField
-                            label={tAuth('city')}
-                            name="city_id"
-                            formik={formik}
-                            options={groupedCities}
-                            required={false}
-                        />
+                        {
+                            cities.length > 0 &&
+                            <SelectField
+                                label={tAuth('city')}
+                                name="city_id"
+                                formik={formik}
+                                options={groupedCities}
+                                required={false}
+                            />
+                        }
 
                         <TextareaField
                             label={tAuth('about')}

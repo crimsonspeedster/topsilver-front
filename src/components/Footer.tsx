@@ -235,11 +235,7 @@ const FooterPage = () => {
                 <i className="pr pegk pe-7s-angle-up"></i>
             </Link>
 
-    
-
             <div className="backdrop-shadow d-none"></div>
-            <ResponsiveFooter />
-
         </React.Fragment>
     )
 }

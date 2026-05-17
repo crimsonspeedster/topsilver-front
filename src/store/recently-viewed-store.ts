@@ -11,9 +11,9 @@ export const useRecentlyViewedStore =
     create<RecentlyViewedStore>()(
         persist(
             (set, get) => ({
-                ids: [],
+                ids: [] as number[],
 
-                addProduct: (id) => {
+                addProduct: (id: number) => {
                     const ids = get().ids;
 
                     const filtered = ids.filter(
@@ -25,10 +25,11 @@ export const useRecentlyViewedStore =
                     });
                 },
 
-                clear: () =>
+                clear: () => {
                     set({
                         ids: [],
-                    }),
+                    });
+                },
             }),
             {
                 name: 'recently-viewed',

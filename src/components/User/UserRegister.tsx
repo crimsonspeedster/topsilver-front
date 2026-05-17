@@ -21,7 +21,7 @@ const UserRegister = (
     return (
         <section className="py-5">
             <div className="container">
-                <div className="col-md-6 mx-auto">
+                <div className="col-xl-6 mx-auto">
                     <h1 className="fw-bold text-center">{tCommon('registration')}</h1>
 
                     <RegisterForm

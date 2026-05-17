@@ -2,6 +2,7 @@ import {redirect} from "next/navigation";
 import {getUserSSR} from "@lib/auth/getUser.server";
 import UserRegister from "@src/components/User/UserRegister";
 import {getCitiesSSR} from "@lib/getCities.server";
+import {Metadata} from "next";
 
 
 const Register = async () => {
@@ -21,3 +22,12 @@ const Register = async () => {
 }
 
 export default Register;
+
+export const metadata: Metadata = {
+    title: 'Реєстрація',
+    description: 'Створення нового акаунта',
+    robots: {
+        index: false,
+        follow: false,
+    },
+};

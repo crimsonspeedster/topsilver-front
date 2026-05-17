@@ -8,11 +8,13 @@ import {useFormik} from "formik";
 import { Button, Form } from 'react-bootstrap';
 import axiosClient from "@lib/axiosClient";
 import { toast } from 'react-toastify';
+import {useAuthStore} from "@src/store/client-store";
 
 
 const ProfilePasswordClient = () => {
     const tAuth = useTranslations('Auth');
     const tDashboard = useTranslations('Dashboard');
+    const setUser = useAuthStore((state) => state.setUser);
 
     const validationSchema = useMemo(() => Yup.object({
         current_password: Yup.string()
@@ -51,6 +53,7 @@ const ProfilePasswordClient = () => {
                 );
 
                 if (response.status === 200 || response.status === 201) {
+                    setUser(response.data.data);
                     toast.success(tAuth('profile_updated_successfully'));
                     resetForm();
                 }
@@ -78,7 +81,7 @@ const ProfilePasswordClient = () => {
     return (
         <section className="py-5">
             <div className="container">
-                <div className="col-md-6 mx-auto">
+                <div className="col-xl-6 mx-auto">
                     <h2 className="text-center">{tDashboard('password_change')}</h2>
 
                     <Form

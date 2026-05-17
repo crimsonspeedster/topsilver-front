@@ -26,7 +26,7 @@ const Page = async (
         ? Number(page[1])
         : 1;
 
-    if (currentPage == 1 && page?.length) {
+    if (currentPage === 1 && page?.length) {
         if (page?.[0] === 'page') {
             permanentRedirect(`/${slug}`);
         }

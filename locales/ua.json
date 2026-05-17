@@ -3,6 +3,12 @@
     "name": "Ім'я",
     "surname": "Прізвище",
     "middleName": "По-батькові",
+    "login": "Email або Номер телефону",
+    "sign_in": "Увійдіть",
+    "authorization": "Авторизація",
+    "send_reset_link": "Надіслати посилання для скидання",
+    "change_your_password": "Змініть свій пароль",
+    "change_my_password": "Змінити мій пароль",
     "email": "Email",
     "phone": "Номер телефону",
     "password": "Пароль",
@@ -19,6 +25,11 @@
     "optional": "Необов'язково",
     "update": "Оновити",
     "profile_updated_successfully": "Профіль успішно оновлено",
+    "authorization_successfully": "Ви успішно увійшли",
+    "create_your_account": "Створіть свій акаунт",
+    "recover_password": "Відновити пароль",
+    "lost_password": "Забули пароль?",
+    "new_customer": "Новий клієнт?",
     "city": "Місто",
     "about": "Про себе",
     "sex_options": {
@@ -37,6 +48,7 @@
       "number": "Має містити хоча б одну цифру",
       "passwordMatch": "Паролі не співпадають",
       "max": "Максимум 255 символів",
+      "only_one_allowed": "Дозволено лише одне поле",
       "invalidName": "Має містити лише літери, пробіли, апостроф, дефіс або крапку"
     }
   },
@@ -44,11 +56,14 @@
     "registration": "Реєстрація",
     "by": "За",
     "by_price": "За ціною",
+    "not_found": "Сторінку не знайдено",
     "price": "Ціна",
+    "or": "Або",
     "apply": "Застосувати",
     "loadMore": "Завантажити більше",
     "filters": "Фільтри",
     "no_products_found": "Продукти не знайдено",
+    "no_orders_found": "Історія ваших замовлень порожня.",
     "you_may_also_like": "Вам також може сподобатися",
     "recently_viewed": "Нещодавно переглянуті товари",
     "buy_together": "Разом купують",
@@ -56,7 +71,12 @@
     "tab_description": "Опис",
     "tab_characteristics": "Характеристики",
     "tab_guarantee": "Гарантія та обмін",
-    "load_more": "Завантажте більше"
+    "load_more": "Завантажте більше",
+    "to": "до",
+    "bonuses": "бонусів",
+    "through":"через",
+    "days": "днів",
+    "enter_your_email": "Введіть свою електронну адресу, і ми надішлемо вам посилання для скидання налаштувань"
   },
   "Reviews": {
     "no_reviews": "Відгуків ще немає",
@@ -80,7 +100,11 @@
     "password_change": "Зміна пароля",
     "orders": "Замовлення",
     "bonuses": "Бонуси",
-    "logout": "Вийти"
+    "logout": "Вийти",
+    "active_bonuses": "Активні",
+    "no_bonuses": "Бонусів поки немає",
+    "will_become_active": "стануть активні",
+    "no_active_bonuses": "Наразі у вас немає активних бонусів.<br /> Робіть покупки та отримуйте бонуси."
   },
   "Sorting": {
     "newest": "Найновіші",

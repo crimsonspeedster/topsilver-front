@@ -183,6 +183,7 @@
     }
 
     .topbar-toolbar {
+        button,
         a {
             display: inline-block;
             color: var(--#{$prefix}body-color);

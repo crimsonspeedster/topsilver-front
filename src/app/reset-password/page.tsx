@@ -1,0 +1,38 @@
+import ResetPasswordForm from "@src/components/ResetPasswordForm";
+import {redirect} from "next/navigation";
+import {Metadata} from "next";
+
+
+type Props = {
+    searchParams: Promise<Record<string, string | string[] | undefined>>,
+}
+
+const ResetPassword = async (
+    {
+        searchParams,
+    }: Props
+) => {
+    const {token, email} = await searchParams;
+
+    if (!token && !email) {
+        redirect('/forgot-password');
+    }
+
+    return (
+        <ResetPasswordForm
+            email={email?.toString() ?? ''}
+            token={token?.toString() ?? ''}
+        />
+    );
+}
+
+export default ResetPassword;
+
+export const metadata: Metadata = {
+    title: 'Зміна пароля',
+    description: 'Створення нового пароля для акаунта',
+    robots: {
+        index: false,
+        follow: false,
+    },
+};

@@ -7,17 +7,20 @@ import {usePathname, useRouter} from 'next/navigation';
 import Cookies from 'js-cookie';
 import axios from "axios";
 import axiosClient from "@lib/axiosClient";
+import {useAuthStore} from "@src/store/client-store";
 
 
 export default function DashboardSidebar() {
     const tDashboard = useTranslations('Dashboard');
     const pathname = usePathname();
     const router = useRouter();
+    const logout = useAuthStore((state) => state.clearUser);
 
     const logOut = async () => {
         const res = await axiosClient.post('/logout');
 
         if (res.status === 200) {
+            logout();
             router.replace('/');
         }
     }
@@ -43,7 +46,8 @@ export default function DashboardSidebar() {
                         <Link
                             href="/dashboard/orders"
                             className={
-                                pathname === '/dashboard/orders'
+                                pathname === '/dashboard/orders' ||
+                                pathname.startsWith('/dashboard/orders/page/')
                                     ? 'active'
                                     : ''
                             }
