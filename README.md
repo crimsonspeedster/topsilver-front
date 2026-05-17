@@ -50,27 +50,34 @@ Internationalization
 * next-intl (i18n)
 
 📦 Installation
+
 npm install or yarn install
 
 🧪 Development
+
 npm run dev
 
 Application runs at:
+
 http://localhost:3000
 
 🏗️ Build Project
+
 npm run build
 
 🚀 Production Start
+
 npm run start
 
 🌍 Internationalization (i18n)
+
 TopSilver uses next-intl for localization.
 
 Supported locales:
 * Ukrainian (ua)
 
 🔐 Authentication
+
 Authentication is handled via Laravel backend API.
 
 Flow:
@@ -80,6 +87,7 @@ Flow:
 * Middleware handles access control
 
 📡 API Layer (Laravel Backend)
+
 All requests are handled through a centralized Axios instance.
 
 NEXT_PUBLIC_ENV_API_V1_LINK=https://api.example.com
