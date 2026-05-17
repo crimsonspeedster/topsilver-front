@@ -7,7 +7,7 @@ export default async function Bonuses () {
 
     return (
         <ProfileBonuses
-            active_total={bonuses?.active_total ?? 0}
+            active_total={bonuses?.active_total ?? '0'}
             active_bonuses={bonuses?.active_bonuses ?? []}
             future_bonuses={bonuses?.future_bonuses ?? []}
         />

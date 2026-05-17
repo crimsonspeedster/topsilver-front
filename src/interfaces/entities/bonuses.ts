@@ -1,5 +1,5 @@
 export type BonusesObject = {
-    active_total: number,
+    active_total: string,
     active_bonuses: BonusObject[],
     future_bonuses: BonusObject[],
 }
