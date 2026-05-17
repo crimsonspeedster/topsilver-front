@@ -1,4 +1,5 @@
 🛒 TopSilver
+
 Modern e-commerce frontend built with Next.js 15 (App Router), SSR + ISR, and Laravel API backend.
 TopSilver is a Ukrainian online store built on a customized frontend based on a Kalles template, fully adapted and extended for production use.
 
