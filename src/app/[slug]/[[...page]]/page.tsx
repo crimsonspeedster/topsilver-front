@@ -4,6 +4,7 @@ import TaxonomyProductsTemplate from "@templates/TaxonomyProductsTemplate";
 import {parseTaxonomySearchParams} from "@services/taxonomy/taxonomy.utils";
 import ProductDetailTemplate from "@templates/ProductDetailTemplate";
 import {Metadata} from "next";
+import {headers} from "next/headers";
 
 
 type Props = {
@@ -12,6 +13,18 @@ type Props = {
         page?: string[],
     }>,
     searchParams: Promise<Record<string, string | string[] | undefined>>,
+}
+
+const getBaseUrl = async () => {
+    const headersList = await headers();
+
+    const host = headersList.get('host');
+    const protocol =
+        process.env.NODE_ENV === 'development'
+            ? 'http'
+            : 'https';
+
+    return `${protocol}://${host}`;
 }
 
 const Page = async (
@@ -85,29 +98,44 @@ const Page = async (
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug, page } = await params;
+    const currentPage = page?.length === 2 && page?.[0] === 'page'
+        ? Number(page[1])
+        : 1;
     const seoData = await getPageSeo(slug);
+    const baseUrl = await getBaseUrl();
 
-    if (!seoData) {
+    if (!seoData?.seo) {
         return {};
     }
 
     const seo = seoData.seo;
     const media = seoData.media;
 
-    if (!seo) {
-        return {};
-    }
+    const isFirstPage = currentPage <= 1;
+
+    const title = isFirstPage
+        ? seo.title
+        : `${seo.title} - Сторінка ${currentPage}`;
+
+    const description = isFirstPage
+        ? seo.description ?? ''
+        : `${seo.description ?? ''} - Сторінка ${currentPage}`;
 
     return {
-        title: seo.title,
-        description: seo.description ?? '',
+        title,
+        description,
         robots: {
             index: seo.robots.index,
             follow: seo.robots.follow,
         },
+        alternates: {
+            canonical: isFirstPage
+                ? `${baseUrl}/${slug}`
+                : `${baseUrl}/${slug}/page/${currentPage}`,
+        },
         openGraph: {
-            title: seo.title,
-            description: seo.description ?? '',
+            title,
+            description,
             images: media ? [media.url] : [],
             type: 'website',
         },
