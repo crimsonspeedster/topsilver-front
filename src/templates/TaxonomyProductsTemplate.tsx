@@ -1,8 +1,5 @@
 "use client";
 
-import Header from "@src/components/Headers/Header";
-import FooterPage from "@src/components/Footer";
-import WomenColting from "@src/commonsections/WomenCloting";
 import FilterTab from "@src/commonsections/FilterTab";
 import {ProductCardObject} from "@interfaces/entities/product";
 import {PaginationObject} from "@interfaces/common";
@@ -10,7 +7,7 @@ import PaginationComponent from "@src/components/PaginationComponent";
 import {PriceObject, TaxonomyFiltersObject, TaxonomyObject} from "@interfaces/entities/taxonomy";
 import LoadMoreButton from "@src/commonsections/LoadMoreButton";
 import {useTaxonomyProducts} from "@hooks/useTaxonomyProducts";
-import ProductPopups from "@src/components/Product/ProductPopups";
+import PageBanner from "@src/commonsections/PageBanner";
 
 
 export type TaxonomyProductsTemplateProps = {
@@ -30,7 +27,7 @@ const TaxonomyProductsTemplate = (props: TaxonomyProductsTemplateProps) => {
 
     return (
         <>
-            <WomenColting
+            <PageBanner
                 title={props.entity.title}
                 description={props.entity.description}
                 media={props.entity.media}

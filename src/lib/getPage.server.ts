@@ -1,4 +1,6 @@
-import {SeoObject, SeoPromiseObject} from "@interfaces/entities/seo";
+import {SeoPromiseObject} from "@interfaces/entities/seo";
+import {PageEntityObject} from "@interfaces/common";
+
 
 type GetPageParams = {
     slug: string,
@@ -19,7 +21,7 @@ export const getPage = async (
         sort = process.env.NEXT_PUBLIC_ENV_FIRST_SORT_TYPE ?? "",
         price,
     }: GetPageParams
-) => {
+): Promise<PageEntityObject|null> => {
     const url = new URL(
         `${process.env.NEXT_PUBLIC_ENV_API_V1_LINK}/slug-resolver/${slug}`
     );

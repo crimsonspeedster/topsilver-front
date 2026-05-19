@@ -2,6 +2,7 @@ import {MediaObject, VideoObject} from "@interfaces/common";
 import {LabelsObject} from "@interfaces/entities/label";
 import {attributeObject, attributeTermFunctionalityObject, attributeTermObject} from "@interfaces/entities/attribute";
 import {TaxonomyCollectionObject} from "@interfaces/entities/taxonomy";
+import {ReviewObject} from "@interfaces/entities/reviews";
 
 
 export type VariantAttributeObject = {
@@ -18,6 +19,22 @@ export type BreadcrumbsObject = {
     title: string,
     slug: string|null,
 }
+
+export type BundleObject = {
+    id: number;
+    title: string;
+    old_price: string;
+    price: string;
+    price_formatted: string;
+    old_price_formatted: string;
+    items: BundleItemObject[];
+};
+
+export type BundleItemObject = {
+    id: number;
+    quantity: number;
+    product: ProductCardObject;
+};
 
 export type ProductVariantObject = {
     id: number,
@@ -69,6 +86,7 @@ export type ProductCardObject = Pick<
     | 'price_formatted'
     | 'price_on_sale_formatted'
     | 'labels'
+    | 'type'
     | 'media'
     | 'stock_status'
     | 'stock'
@@ -120,4 +138,16 @@ export type ProductQuickViewObject = Pick<
     | 'rating_count'
 > & {
     slug: string,
+}
+
+
+export type ProductPageEntityObject = {
+    type: 'product',
+    entity: ProductObject,
+    prev_next: {
+        prev: ProductCardObject | null,
+        next: ProductCardObject | null,
+    },
+    breadcrumbs: BreadcrumbsObject[],
+    reviews: ReviewObject[],
 }

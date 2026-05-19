@@ -1,3 +1,7 @@
+import {ProductPageEntityObject} from "@interfaces/entities/product";
+import {TaxonomyPageEntityObject} from "@interfaces/entities/taxonomy";
+
+
 export type PaginationObject = {
     total_items: number,
     total_pages: number,
@@ -22,3 +26,7 @@ export type SortObject = {
     slug: string,
     name: string,
 }
+
+export type PageEntityObject =
+    | TaxonomyPageEntityObject
+    | ProductPageEntityObject;

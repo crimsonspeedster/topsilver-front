@@ -5,6 +5,8 @@ import {parseTaxonomySearchParams} from "@services/taxonomy/taxonomy.utils";
 import ProductDetailTemplate from "@templates/ProductDetailTemplate";
 import {Metadata} from "next";
 import {headers} from "next/headers";
+import {TaxonomyObject} from "@interfaces/entities/taxonomy";
+import {ProductObject} from "@interfaces/entities/product";
 
 
 type Props = {
@@ -60,7 +62,10 @@ const Page = async (
         notFound();
     }
 
-    if (data.pagination && currentPage > data.pagination.total_pages) {
+    const isTaxonomyPage =
+        data.type === 'category' || data.type === 'filter_page';
+
+    if (isTaxonomyPage && currentPage > data.pagination.total_pages) {
         notFound();
     }
 
@@ -74,7 +79,7 @@ const Page = async (
 
             return <TaxonomyProductsTemplate
                 entity={data.entity}
-                initialProducts={data.products}
+                initialProducts={data.products ?? []}
                 initialPagination={data.pagination}
                 initialFilters={data.filters}
                 initialSort={parsedSearchParams.sort}

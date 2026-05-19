@@ -209,7 +209,7 @@ const ShoppingCardModal = ({ shoppingShow, handleShoppingClose }: any) => {
                         className="fs-13 text-muted"
                     />
                     <div className="mt-3 vstack gap-3">
-                        <Link href="/shopping-cart">
+                        <Link href="/cart">
                             <Button variant="light" className="w-100 rounded-pill text-uppercase fw-semibold" style={{ letterSpacing: '4px', fontSize: '11px' }}>
                                 View cart
                             </Button>

@@ -99,6 +99,9 @@ const ProductDetailTemplate = (
                 categories={product.categories}
                 sku={product.sku}
                 variants={product.variants}
+                manage_stock={product.manage_stock}
+                stock={product.stock}
+                stock_status={product.stock_status}
             />
 
             <ProductTabs

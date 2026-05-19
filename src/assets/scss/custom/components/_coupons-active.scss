@@ -1,0 +1,24 @@
+.coupons-active {
+    &__row {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        gap: 12px;
+        align-items: center;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 5px;
+
+        &-title {
+            margin-bottom: 0;
+        }
+
+        &-button {
+
+        }
+    }
+}

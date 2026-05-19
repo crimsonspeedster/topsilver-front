@@ -5,12 +5,14 @@ import {attributeTermObject} from "@interfaces/entities/attribute";
 type Props = {
     term: attributeTermObject,
     isActive: boolean,
+    handleClick: (termId: number) => void;
 };
 
 const VariationTerm = (
     {
         term,
         isActive,
+        handleClick,
     }: Props
 ) => {
     return (
@@ -23,6 +25,7 @@ const VariationTerm = (
             }
         >
             <button
+                onClick={() => handleClick(term.id)}
                 className={`d-inline-block rounded-circle square-xs ${isActive ? 'active' : ''}`}
                 style={
                     term.meta_value ?

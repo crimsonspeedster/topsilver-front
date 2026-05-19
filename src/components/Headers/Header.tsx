@@ -29,6 +29,7 @@ import 'swiper/css/navigation';
 import "swiper/css/free-mode";
 import "swiper/css/thumbs";
 import {useAuthStore} from "@src/store/client-store";
+import CartBadge from "@src/components/CartBadge";
 
 const country = [
     {
@@ -630,18 +631,20 @@ const Header = () => {
                                         className="d-md-block d-none"
                                         href="/dashboard/profile"
                                     >
-                                        <i className="iccl iccl-user"></i>
+                                        <i className="iccl iccl-user" />
                                     </Link>
                                     :
                                     <button
                                         className="btn p-0 d-md-block d-none"
                                         onClick={handleLoginShow}
                                     >
-                                        <i className="iccl iccl-user"></i>
+                                        <i className="iccl iccl-user" />
                                     </button>
                             }
                             <Link className="d-md-block d-none" href="/wishlist"><i className="iccl iccl-heart"></i><span className="tcount bg-dark text-white rounded-circle d-flex align-items-center justify-content-center">3</span></Link>
-                            <Link data-bs-toggle="offcanvas" href="#shoppingCartOffcanvas" aria-controls="shoppingCartOffcanvas" onClick={handleShoppingShow}><i className="iccl iccl-cart"></i><span className="tcount bg-dark text-white rounded-circle d-flex align-items-center justify-content-center">5</span></Link>
+                            <CartBadge
+                                handleClick={handleShoppingShow}
+                            />
                         </div>
                     </div >
                 </nav >

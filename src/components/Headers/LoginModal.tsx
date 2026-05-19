@@ -99,7 +99,9 @@ const LoginModal = ({ loginShow, handleLoginClose }: any) => {
             <Offcanvas.Header className='border-bottom'>
                 <h5 className="offcanvas-title fs-16 text-uppercase" id="accountOffcanvasLabel">{tAuth('authorization')}</h5>
 
-                <button type="button" className="btn-close btn-close-none" data-bs-dismiss="offcanvas" aria-label="Close" onClick={handleLoginClose}><i className="pe-7s-close pegk"></i></button>
+                <button type="button" className="btn-close btn-close-none" onClick={handleLoginClose}>
+                    <i className="pe-7s-close pegk" />
+                </button>
             </Offcanvas.Header>
 
             <Offcanvas.Body>

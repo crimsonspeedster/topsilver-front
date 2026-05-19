@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 import {CityObject} from "@interfaces/entities/city";
 import {SelectGroup, SelectOption} from "@interfaces/layouts/formField";
+import {CartObject} from "@interfaces/entities/cart";
 
 export const getWishlist = (): number[] => {
     const wishlist = Cookies .get('wishlist');
@@ -32,3 +33,16 @@ export const groupCitiesByRegion = (cities: CityObject[]): SelectGroup[] => {
 
     return Object.values(grouped);
 };
+
+export const emptyCartObject: CartObject = {
+    items: [],
+    subtotal: "0.00",
+    total: "0.00",
+    bonuses_used: 0,
+    total_formatted: "₴0",
+    subtotal_formatted: "₴0",
+    coupon: null,
+    certificates: [],
+    items_count: 0,
+    total_qty: 0,
+}

@@ -8,7 +8,7 @@ type Props = {
     onChange: (value: number) => void;
 
     min?: number;
-    max?: number;
+    max: number|null;
 
     disabled?: boolean;
     loading?: boolean;
@@ -29,6 +29,8 @@ const Quantity = (
 
         className = '',
     }: Props) => {
+    const maxValue: number = max ?? 99;
+
     const updateValue = (newValue: number) => {
         if (Number.isNaN(newValue)) {
             return;
@@ -38,8 +40,8 @@ const Quantity = (
             newValue = min;
         }
 
-        if (typeof max === 'number' && newValue > max) {
-            newValue = max;
+        if (typeof maxValue === 'number' && newValue > maxValue) {
+            newValue = maxValue;
         }
 
         onChange(newValue);
@@ -77,7 +79,7 @@ const Quantity = (
                 className="product-quantity fw-bold fs-6"
                 value={value}
                 min={min}
-                max={max}
+                max={maxValue}
                 disabled={disabled || loading}
                 onChange={handleChange}
             />
@@ -89,7 +91,7 @@ const Quantity = (
                 disabled={
                     disabled ||
                     loading ||
-                    (typeof max === 'number' && value >= max)
+                    (typeof maxValue === 'number' && value >= maxValue)
                 }
             >
                 +

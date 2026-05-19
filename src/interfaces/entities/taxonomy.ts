@@ -1,6 +1,6 @@
-import {MediaObject} from "@interfaces/common";
+import {MediaObject, PaginationObject} from "@interfaces/common";
 import {SeoBlockObject, SeoObject} from "@interfaces/entities/seo";
-import {VariantAttributeFunctionalityObject} from "@interfaces/entities/product";
+import {ProductCardObject, VariantAttributeFunctionalityObject} from "@interfaces/entities/product";
 
 
 export type TaxonomyObject = {
@@ -25,4 +25,12 @@ export type TaxonomyFiltersObject = {
 export type PriceObject = {
     min: number,
     max: number
+}
+
+export type TaxonomyPageEntityObject = {
+    type: 'category' | 'filter_page',
+    entity: TaxonomyObject,
+    pagination: PaginationObject,
+    products: ProductCardObject[],
+    filters: TaxonomyFiltersObject,
 }

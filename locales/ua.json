@@ -76,6 +76,7 @@
     "bonuses": "бонусів",
     "through":"через",
     "days": "днів",
+    "return_to_home": "Повернутись на головну сторінку",
     "enter_your_email": "Введіть свою електронну адресу, і ми надішлемо вам посилання для скидання налаштувань"
   },
   "Reviews": {
@@ -93,7 +94,39 @@
     "collections": "Колекції",
     "reviews": "відгуків",
     "delivery_and_return": "Доставка та повернення",
-    "size_guid": "Довідник розмірів"
+    "size_guid": "Довідник розмірів",
+    "out_of_stock": "Немає в наявності",
+    "added_to_cart": "Товар доданий до кошика",
+    "notify_me": "Повідомити мене, коли цей товар буде в наявності",
+    "notify_button": "Повідомити"
+  },
+  "Cart": {
+    "cart": "Кошик",
+    "table_name_product": "Продукт",
+    "table_name_price": "Ціна",
+    "table_name_qty": "Кількість",
+    "table_name_total": "Всього",
+    "nothing_found": "Ваш кошик порожній",
+    "subtotal": "Проміжний підсумок",
+    "total": "Усього",
+    "checkout": "Перейти до оформлення",
+    "coupons": "Купони",
+    "certificates": "Сертифікати",
+    "bonuses": "Бонуси",
+    "code": "Код",
+    "amount": "Кількість",
+    "send": "Надіслати",
+    "coupon_added": "Купон доданий до кошика",
+    "coupon_removed": "Купон видалено",
+    "coupon_invalid": "Код купона недійсний",
+    "certificate_added": "Сертифікат додано до кошика",
+    "certificate_removed": "Сертифікат видалено",
+    "certificate_invalid": "Код сертифікату недійсний",
+    "bonuses_added": "Бонуси додані до кошика",
+    "bonuses_removed": "Бонуси видалені",
+    "bonuses_invalid": "Не доступна кількість бонусів",
+    "bonuses_available": "Бонусов доступно",
+    "auth_invalid": "Для застосування сертивікату необхідно авторизуватись"
   },
   "Dashboard": {
     "profile": "Профіль",

@@ -5,3 +5,16 @@
 .w-max {
     width: max-content;
 }
+
+.cart {
+    &__bottom {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 50px;
+
+        @media (max-width: 767px) {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 30px;
+        }
+    }
+}
