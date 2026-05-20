@@ -115,6 +115,18 @@ export type ProductQuickShopObject = Pick<
     slug: string,
 }
 
+export type ProductSearchObject = Pick<
+    ProductObject,
+    | 'id'
+    | 'title'
+    | 'price_formatted'
+    | 'price_on_sale_formatted'
+    | 'media'
+    | 'discount_percent'
+> & {
+    slug: string,
+};
+
 export type ProductQuickViewObject = Pick<
     ProductObject,
     | 'id'

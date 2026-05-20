@@ -124,7 +124,7 @@ const ProductModal = (
                         <div className="pt-30 ps-4 ps-md-0 pe-4">
                             <h6 className="fs-20 mb-2">
                                 <Link
-                                    href={product.slug}
+                                    href={`/${product.slug}`}
                                     className="main_link"
                                     onNavigate={()=>{handleClose('quick_view')}}
                                 >{product.title}</Link>
@@ -173,7 +173,7 @@ const ProductModal = (
 
                             <div>
                                 <Link
-                                    href={product.slug}
+                                    href={`/${product.slug}`}
                                     className="fw-medium detail_link "
                                     onNavigate={()=>{handleClose('quick_view')}}
                                 >

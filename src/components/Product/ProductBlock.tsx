@@ -74,7 +74,7 @@ const ProductBlock = (
                 }
 
                 <Link
-                    href={product.slug}
+                    href={`/${product.slug}`}
                 >
                     <Image
                         src={product.media ? product.media.url : FallbackImage}
@@ -154,7 +154,7 @@ const ProductBlock = (
 
             <div className="mt-3">
                 <h6 className="mb-1 fw-medium">
-                    <Link href={product.slug} className="main_link_acid_green">{product.title}</Link>
+                    <Link href={`/${product.slug}`} className="main_link_acid_green">{product.title}</Link>
                 </h6>
 
                 <p className="mb-0 fs-14 text-muted">

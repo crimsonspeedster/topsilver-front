@@ -32,7 +32,7 @@ const ProductInfo = (
                         categories.map((category, index) => (
                             <Link
                                 key={category.id}
-                                href={category.slug}
+                                href={`/${category.slug}`}
                                 className="main_link text-muted"
                             >
                                 {category.title}
@@ -56,7 +56,7 @@ const ProductInfo = (
                         collections.map((collection, index) => (
                             <Link
                                 key={collection.id}
-                                href={collection.slug}
+                                href={`/${collection.slug}`}
                                 className="main_link text-muted"
                             >
                                 {collection.title}

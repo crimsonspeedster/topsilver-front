@@ -79,7 +79,7 @@ const CartItemProduct = (
                 <div className="d-flex gap-3 align-items-start align-items-md-center">
                     <Link
                         className=""
-                        href={item.entity.slug}
+                        href={`/${item.entity.slug}`}
                         >
                         <Image
                             src={item.entity.media?.url ?? FallbackImage}
@@ -94,7 +94,7 @@ const CartItemProduct = (
                         <div className="px-2 pb-2">
                             <Link
                                 className="fs-16"
-                                href={item.entity.slug}
+                                href={`/${item.entity.slug}`}
                             >
                                 {item.entity.title}
                             </Link>

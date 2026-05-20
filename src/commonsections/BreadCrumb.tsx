@@ -32,7 +32,7 @@ const BreadCrumb = (
                                     >
                                         {
                                             item.slug ?
-                                                <Link href={item.slug}>{item.title}</Link>
+                                                <Link href={`/${item.slug}`}>{item.title}</Link>
                                                 :
                                                 <>{item.title}</>
                                         }
@@ -48,7 +48,7 @@ const BreadCrumb = (
                             {
                                 prev_next.prev &&
                                 <li>
-                                    <Link href={prev_next.prev.slug} className="fs-18">
+                                    <Link href={`/${prev_next.prev.slug}`} className="fs-18">
                                         <i className="las la-angle-left"></i>
                                     </Link>
                                 </li>
@@ -57,7 +57,7 @@ const BreadCrumb = (
                             {
                                 prev_next.next &&
                                 <li>
-                                    <Link href={prev_next.next.slug} className="fs-18">
+                                    <Link href={`/${prev_next.next.slug}`} className="fs-18">
                                         <i className="las la-angle-right"></i>
                                     </Link>
                                 </li>

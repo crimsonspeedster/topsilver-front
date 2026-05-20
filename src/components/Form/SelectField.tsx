@@ -35,16 +35,19 @@ const SelectField = <T extends Record<string, any>,>(
 
     return (
         <Form.Group className="mb-3">
-            <Form.Label>
-                {label}
+            {
+                label &&
+                <Form.Label>
+                    {label}
 
-                {
-                    required ?
-                        <span className="text-danger"> *</span>
-                        :
-                        <span> ({tAuth('optional')})</span>
-                }
-            </Form.Label>
+                    {
+                        required ?
+                            <span className="text-danger"> *</span>
+                            :
+                            <span> ({tAuth('optional')})</span>
+                    }
+                </Form.Label>
+            }
 
             <Select
                 options={options}

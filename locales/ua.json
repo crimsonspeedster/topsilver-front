@@ -134,6 +134,14 @@
   "Wishlist": {
     "wishlist": "Список бажань"
   },
+  "Search": {
+    "all_categories": "Усі категорії",
+    "search": "Пошук",
+    "show_all": "Показати все",
+    "search_on_site": "Пошук по сайту",
+    "search_results": "Результати пошуку",
+    "nothing_found": "Нічого не знайдено"
+  },
   "Dashboard": {
     "profile": "Профіль",
     "password_change": "Зміна пароля",

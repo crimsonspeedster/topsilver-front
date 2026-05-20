@@ -1,5 +1,6 @@
 import {SeoPromiseObject} from "@interfaces/entities/seo";
 import {PageEntityObject} from "@interfaces/common";
+import axiosClient from "@lib/axiosClient";
 
 
 type GetPageParams = {
@@ -22,68 +23,44 @@ export const getPage = async (
         price,
     }: GetPageParams
 ): Promise<PageEntityObject|null> => {
-    const url = new URL(
-        `${process.env.NEXT_PUBLIC_ENV_API_V1_LINK}/slug-resolver/${slug}`
-    );
-
-    url.searchParams.set(
-        "page",
-        page.toString(),
-    );
-
-    url.searchParams.set(
-        "sort",
+    const paramsToSend: any = {
+        page,
         sort,
-    );
+    };
 
     Object.entries(filters).forEach(
         ([attributeId, termIds]) => {
-            url.searchParams.set(
-                `filters[${attributeId}]`,
-                termIds.join(","),
-            );
+            paramsToSend[`filters[${attributeId}]`] = termIds.join(",");
         }
     );
 
     if (price?.min !== undefined) {
-        url.searchParams.set(
-            "price[min]",
-            String(price.min),
-        );
+        paramsToSend['price[min]'] = String(price.min);
     }
 
     if (price?.max !== undefined) {
-        url.searchParams.set(
-            "price[max]",
-            String(price.max),
-        );
+        paramsToSend['price[max]'] = String(price.max);
     }
 
-    const res = await fetch(url.toString(), {
-        cache: "no-store",
-    });
+    try {
+        const res = await axiosClient.get(`/slug-resolver/${slug}`, {
+            params: paramsToSend,
+        });
 
-    if (!res.ok) {
+        return res.status === 200 ? res.data.data : null;
+    }
+    catch (error) {
         return null;
     }
-
-    const json = await res.json();
-    return json?.data ?? null;
 };
 
 export const getPageSeo = async (slug: string): Promise<SeoPromiseObject | null> => {
-    const baseUrl = process.env.NEXT_PUBLIC_ENV_API_V1_LINK;
+    try {
+        const res = await axiosClient.get(`slug-resolver/${slug}/seo`);
 
-    const url = `${baseUrl}/slug-resolver/${slug}/seo`;
-
-    const res = await fetch(url, {
-        method: "GET",
-        cache: "no-store",
-    });
-
-    if (!res.ok) return null;
-
-    const json = await res.json();
-
-    return json?.data ?? null;
+        return res.status === 200 ? res.data.data : null;
+    }
+    catch (error) {
+        return null;
+    }
 };

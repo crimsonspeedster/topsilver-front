@@ -78,7 +78,7 @@ const MiniCartItemProduct = (
                 <div className="col-5">
                     <Link
                         className=""
-                        href={item.entity.slug}
+                        href={`/${item.entity.slug}`}
                         onNavigate={handleShoppingClose}
                     >
                         <Image
@@ -94,7 +94,7 @@ const MiniCartItemProduct = (
                 <div className="col-7">
                     <h6 className="mb-1">
                         <Link
-                            href={item.entity.slug}
+                            href={`/${item.entity.slug}`}
                             className="product-title"
                             onNavigate={handleShoppingClose}
                         >

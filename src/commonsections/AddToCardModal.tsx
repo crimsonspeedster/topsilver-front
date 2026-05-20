@@ -54,7 +54,7 @@ const AddToCardModal = (
 
                 <Row>
                     <Link
-                        href={product.slug}
+                        href={`/${product.slug}`}
                         className="col-4"
                         onNavigate={()=>handleAddToCardModalClose('quick_shop')}
                     >
@@ -71,7 +71,7 @@ const AddToCardModal = (
                         <h6>
                             <Link
                                 className="cd chp"
-                                href={product.slug}
+                                href={`/${product.slug}`}
                                 onNavigate={()=>handleAddToCardModalClose('quick_shop')}
                             >
                                 {product.title}
@@ -106,7 +106,7 @@ const AddToCardModal = (
                         }
 
                         <Link
-                            href={product.slug}
+                            href={`/${product.slug}`}
                             className="btn fs-16 fw-semibold detail_link"
                             onNavigate={()=>handleAddToCardModalClose('quick_shop')}
                         >

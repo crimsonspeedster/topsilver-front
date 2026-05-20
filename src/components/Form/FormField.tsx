@@ -12,22 +12,27 @@ const FormField = <T extends Record<string, any>, >(
         type = 'text',
         formik,
         required,
+        classesString,
+        placeholder,
     }: FormFieldProps<T>
 ) => {
     const tAuth = useTranslations('Auth');
 
     return (
         <Form.Group className="mb-3">
-            <Form.Label>
-                {label}
+            {
+                label &&
+                <Form.Label>
+                    {label}
 
-                {
-                    required ?
-                        <span className="text-danger"> *</span>
-                        :
-                        <span> ({tAuth('optional')})</span>
-                }
-            </Form.Label>
+                    {
+                        required ?
+                            <span className="text-danger"> *</span>
+                            :
+                            <span> ({tAuth('optional')})</span>
+                    }
+                </Form.Label>
+            }
 
             <Form.Control
                 type={type}
@@ -35,10 +40,12 @@ const FormField = <T extends Record<string, any>, >(
                 value={String(formik.values[name] ?? '')}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                className={classesString}
                 isInvalid={
                     !!formik.touched[name] &&
                     !!formik.errors[name]
                 }
+                placeholder={placeholder}
             />
 
             <Form.Control.Feedback type="invalid">

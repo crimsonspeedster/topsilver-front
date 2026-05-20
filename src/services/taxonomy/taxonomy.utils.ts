@@ -28,15 +28,18 @@ export type ParsedTaxonomySearchParams = {
         min?: number,
         max?: number,
     },
+    category_id: number|null,
+    search: string|null,
 };
 
 export const parseTaxonomySearchParams = (
-    searchParams: Record<string, string | string[] | undefined>,
+    searchParams: Record<string, string | string[] | undefined | null>,
 ): ParsedTaxonomySearchParams => {
     const filters: Record<number, number[]> = {};
 
-    let sort =
-        process.env.NEXT_PUBLIC_ENV_FIRST_SORT_TYPE ?? "";
+    let sort: string = process.env.NEXT_PUBLIC_ENV_FIRST_SORT_TYPE ?? "";
+    let search: string | null = null;
+    let category_id: number | null = null;
     let priceMin: number | undefined;
     let priceMax: number | undefined;
 
@@ -47,6 +50,16 @@ export const parseTaxonomySearchParams = (
 
         if (key === "sort") {
             sort = value;
+            return;
+        }
+
+        if (key === "search") {
+            search = value;
+            return;
+        }
+
+        if (key === 'category_id') {
+            category_id = Number(value);
             return;
         }
 
@@ -86,6 +99,8 @@ export const parseTaxonomySearchParams = (
     return {
         sort,
         filters,
+        category_id,
+        search,
         price: {
             min: priceMin,
             max: priceMax,

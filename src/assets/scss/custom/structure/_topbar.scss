@@ -216,6 +216,12 @@
 
 //mobile devices sidebar
 
+.search-input {
+    &.is-invalid {
+        background: none !important;
+    }
+}
+
 .search-box {
     input {
         padding-right: 50px;

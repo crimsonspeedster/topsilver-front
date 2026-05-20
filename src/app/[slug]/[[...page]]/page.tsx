@@ -62,6 +62,8 @@ const Page = async (
         notFound();
     }
 
+    console.log(data.entity.id);
+
     const isTaxonomyPage =
         data.type === 'category' || data.type === 'filter_page';
 

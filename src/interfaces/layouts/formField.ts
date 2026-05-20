@@ -2,7 +2,9 @@ import { GroupBase } from 'react-select';
 import {FormikProps} from "formik";
 
 export type FormFieldProps<T extends Record<string, any>> = {
-    label: string;
+    label?: string;
+    placeholder?: string;
+    classesString?: string;
     name: keyof T;
     type?: string;
     formik: FormikProps<T>;
@@ -21,7 +23,7 @@ export type SelectOption = {
 export type SelectGroup = GroupBase<SelectOption>;
 
 export type FormSelectFieldProps<T extends Record<string, any>> = {
-    label: string;
+    label?: string;
     name: keyof T;
     formik: FormikProps<T>;
     options: readonly (SelectOption | SelectGroup)[];

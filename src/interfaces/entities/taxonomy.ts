@@ -17,6 +17,8 @@ export type TaxonomyCollectionObject = {
     slug: string,
 }
 
+export type TaxonomyOptionsObject = Omit<TaxonomyCollectionObject, 'slug'>;
+
 export type TaxonomyFiltersObject = {
     attributes: VariantAttributeFunctionalityObject[],
     price: PriceObject,
