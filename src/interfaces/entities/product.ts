@@ -46,6 +46,7 @@ export type ProductVariantObject = {
     discount_percent: number|null,
     stock: number|null,
     stock_status: string,
+    attribute_terms?: attributeTermObject[],
 }
 
 export type ProductObject = {

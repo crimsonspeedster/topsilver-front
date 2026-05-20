@@ -29,7 +29,7 @@ const ProductPrices = (
 
     return (
         <div className="fs-16 me-1">
-            <del>{price_formatted}</del>
+            <del className="text-decoration-none">{price_formatted}</del>
         </div>
     );
 }

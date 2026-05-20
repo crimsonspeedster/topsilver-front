@@ -1,4 +1,5 @@
 import {ProductObject} from "@interfaces/entities/product";
+import {Dispatch, SetStateAction} from "react";
 
 export type ProductTopProps = Pick<
     ProductObject,
@@ -56,4 +57,9 @@ export type ProductPurchaseProps = Pick<
     | 'variants'
     | 'stock_status'
     | 'type'
->
+    | 'price_formatted'
+    | 'price_on_sale_formatted'
+    | 'discount_percent'
+> & {
+    priceHandle: (price: string, price_on_sale: string|null, discount_percent: number|null) => void;
+}

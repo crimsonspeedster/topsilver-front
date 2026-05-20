@@ -13,6 +13,8 @@ import WishListButton from "@src/components/Product/Parts/WishListButton";
 import Variations from "@src/components/Product/Parts/Variations";
 import Rating from "@src/components/Product/Parts/Rating";
 import ProductInfo from "@src/components/Product/Parts/ProductInfo";
+import ProductPurchase from "@src/components/Product/Forms/ProductPurchase";
+import ProductPrices from "@src/components/Product/Parts/ProductPrices";
 
 
 const ProductModal = (
@@ -34,16 +36,15 @@ const ProductModal = (
 
     const t = useTranslations('Product');
 
-    const [quantity, setQuantity] = useState<number>(1);
+    const [formatedPrice, setFormatedPrice] = useState<string>(product.price_formatted);
+    const [formatedOnSalePrice, setFormatedOnSalePrice] = useState<string|null>(product.price_on_sale_formatted);
+    const [discountPercentage, setDiscountPercentage] = useState<number|null>(product.discount_percent);
 
-    const handleQuantityChange = (change: number) => {
-        setQuantity((prev) => Math.max(1, prev + change)); // Ensure quantity is at least 1
-    };
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = Math.max(1, Math.min(100, Number(event.target.value))); // Ensure quantity is at least 1
-        setQuantity(value);
-    };
+    const priceHandle = (price: string, price_on_sale: string|null, discount_percent: number|null) => {
+        setFormatedPrice(price);
+        setFormatedOnSalePrice(price_on_sale);
+        setDiscountPercentage(discount_percent);
+    }
 
     const swiperParamss = {
         loop: true,
@@ -130,17 +131,11 @@ const ProductModal = (
                             </h6>
 
                             <div className="d-flex flex-wrap align-items-center gap-2 mb-4">
-                                {
-                                    product.price_on_sale_formatted ?
-                                        <p className="mb-0 fs-16 text-muted flex-grow-1">
-                                            <del>{product.price_formatted}</del>&nbsp;
-                                            <span className="text-danger">{product.price_on_sale_formatted}</span>
-                                        </p>
-                                        :
-                                        <p className="mb-0 fs-16 flex-grow-1">
-                                            <del>{product.price_formatted}</del>
-                                        </p>
-                                }
+                                <ProductPrices
+                                    price_formatted={formatedPrice}
+                                    price_on_sale_formatted={formatedOnSalePrice}
+                                    discount_percent={discountPercentage}
+                                />
 
                                 <Rating
                                     rating={product.rating_avg}
@@ -154,39 +149,21 @@ const ProductModal = (
                             }
 
                             {
-                                product.type === 'variable' &&
-                                <Variations
-                                    variants={product.variant_attributes}
+                                product.stock_status === 'in_stock' &&
+                                <ProductPurchase
+                                    id={product.id}
+                                    manage_stock={product.manage_stock}
+                                    stock={product.stock}
+                                    type={product.type}
+                                    stock_status={product.stock_status}
+                                    variants={product.variants}
+                                    variant_attributes={product.variant_attributes}
+                                    priceHandle={priceHandle}
+                                    price_formatted={product.price_formatted}
+                                    price_on_sale_formatted={product.price_on_sale_formatted}
+                                    discount_percent={product.discount_percent}
                                 />
                             }
-
-                            <div className="d-flex flex-wrap align-items-center gap-2 mt-4">
-                                <div className="input-step border border-dark rounded-pill">
-                                    <button type="button" className="minus material-shadow text-dark fw-bold" onClick={() => handleQuantityChange(-1)}>
-                                        –
-                                    </button>
-
-                                    <input
-                                        type="number"
-                                        className="product-quantity fw-bold fs-6"
-                                        value={quantity}
-                                        onChange={handleChange}
-                                    />
-
-                                    <button type="button" className="plus material-shadow text-dark fw-bold" onClick={() => handleQuantityChange(1)}>
-                                        +
-                                    </button>
-                                </div>
-
-                                <Button variant="teal" className="text-uppercase rounded-pill min-w-150">
-                                    {t('add_to_cart')}
-                                </Button>
-
-                                <WishListButton
-                                    id={product.id}
-                                    parentClasses='product_wishlist square-40 rounded-circle border border-dark bg-transparent text-center leading-40'
-                                />
-                            </div>
 
                             <ProductInfo
                                 collections={product.collections}

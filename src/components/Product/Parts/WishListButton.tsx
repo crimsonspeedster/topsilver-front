@@ -3,6 +3,7 @@
 import {getWishlist} from "@src/helpers";
 import Cookies from "js-cookie";
 import {useEffect, useState} from "react";
+import {useWishlistStore} from "@src/store/wishlist-store";
 
 
 type Props = {
@@ -18,37 +19,19 @@ const WishListButton = (
         childClasses,
     }: Props
 ) => {
-    const [isInWishlist, setIsInWishlist] = useState<boolean>(false);
-
-    useEffect(() => {
-        const wishlist = getWishlist();
-
-        setIsInWishlist(wishlist.includes(id));
-    }, [id]);
-
-    const wishListHandler = (id: number) => {
-        const wishlist = getWishlist();
-
-        const updatedWishlist = wishlist.includes(id)
-            ? wishlist.filter(itemId => itemId !== id)
-            : [...wishlist, id];
-
-        Cookies.set('wishlist', JSON.stringify(updatedWishlist), {
-            expires: 365,
-            path: '/',
-        });
-
-        setIsInWishlist(updatedWishlist.includes(id));
-    };
+    const isInWishlist = useWishlistStore(state => state.wishlist.includes(id));
+    const toggleWishlist = useWishlistStore(state => state.toggleWishlist);
 
     return (
         <div
             className={parentClasses}
             onClick={
-                ()=>wishListHandler(id)
+                ()=>toggleWishlist(id)
             }
         >
-            <i className={childClasses + ` facl ${isInWishlist ? 'facl-heart' : 'facl-heart-o'}`} />
+            <i
+                className={childClasses + ` facl ${isInWishlist ? 'facl-heart' : 'facl-heart-o'}`}
+            />
         </div>
     );
 }

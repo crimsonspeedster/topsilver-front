@@ -13,9 +13,9 @@ import PDPTabComments from "@src/components/Product/Tabs/PDPTabComments";
 
 
 type Props = {
-    description: string|null,
-    characteristics: string|null,
-    guarantee: string|null,
+    description?: string|null,
+    characteristics?: string|null,
+    guarantee?: string|null,
     reviews: ReviewObject[],
     rating_avg: string,
     rating_count: number,
@@ -32,35 +32,51 @@ const ProductTabs = (
     }: Props
 ) => {
     const t = useTranslations('Common');
+    const tabs = [];
 
-    const [tabs, setTabs] = useState<TabProps[]>([
-        {
-            'title': t('tab_description'),
-            'slug': 'description',
-            'content': (
-                <PDPTabDescription
-                    description={description}
-                />
-            )
-        },
-        {
-            'title': t('tab_characteristics'),
-            'slug': 'characteristics',
-            'content': (
-                <PDPTabDescription
-                    description={characteristics}
-                />
-            )
-        },
-        {
-            'title': t('tab_guarantee'),
-            'slug': 'guarantee',
-            'content': (
-                <PDPTabDescription
-                    description={guarantee}
-                />
-            )
-        },
+    if (description) {
+        tabs.push(
+            {
+                'title': t('tab_description'),
+                'slug': 'description',
+                'content': (
+                    <PDPTabDescription
+                        description={description}
+                    />
+                )
+            }
+        );
+    }
+
+    if (guarantee) {
+        tabs.push(
+            {
+                'title': t('tab_guarantee'),
+                'slug': 'guarantee',
+                'content': (
+                    <PDPTabDescription
+                        description={guarantee}
+                    />
+                )
+            }
+        );
+    }
+
+    if (characteristics) {
+        tabs.push(
+            {
+                'title': t('tab_characteristics'),
+                'slug': 'characteristics',
+                'content': (
+                    <PDPTabDescription
+                        description={characteristics}
+                    />
+                )
+            }
+        );
+    }
+
+    tabs.push(
         {
             'title': t('tab_reviews'),
             'slug': 'reviews',
@@ -71,8 +87,9 @@ const ProductTabs = (
                     rating_avg={rating_avg}
                 />
             )
-        },
-    ]);
+        }
+    );
+
     const [activeTab, setActiveTab] = useState('description');
 
     return (

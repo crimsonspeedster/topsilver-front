@@ -102,6 +102,7 @@
   },
   "Cart": {
     "cart": "Кошик",
+    "view_cart": "Переглянути кошик",
     "table_name_product": "Продукт",
     "table_name_price": "Ціна",
     "table_name_qty": "Кількість",
@@ -122,11 +123,16 @@
     "certificate_added": "Сертифікат додано до кошика",
     "certificate_removed": "Сертифікат видалено",
     "certificate_invalid": "Код сертифікату недійсний",
+    "item_removed": "Продукт видалено",
     "bonuses_added": "Бонуси додані до кошика",
     "bonuses_removed": "Бонуси видалені",
     "bonuses_invalid": "Не доступна кількість бонусів",
     "bonuses_available": "Бонусов доступно",
-    "auth_invalid": "Для застосування сертивікату необхідно авторизуватись"
+    "auth_invalid": "Для застосування сертивікату необхідно авторизуватись",
+    "amount_updated": "Кількість оновлено"
+  },
+  "Wishlist": {
+    "wishlist": "Список бажань"
   },
   "Dashboard": {
     "profile": "Профіль",

@@ -9,7 +9,7 @@ import ProductTopHeader from "@src/components/Product/Parts/ProductTopHeader";
 import ProductPurchase from "@src/components/Product/Forms/ProductPurchase";
 import {ProductTopInfoProps} from "@interfaces/layouts/product";
 import {Button} from "react-bootstrap";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import NotifyMe from "@src/components/Product/NotifyMe";
 
 
@@ -18,13 +18,23 @@ const ProductTopInfo = (
 ) => {
     const tProduct = useTranslations('Product');
 
+    const [formatedPrice, setFormatedPrice] = useState<string>(props.price_formatted);
+    const [formatedOnSalePrice, setFormatedOnSalePrice] = useState<string|null>(props.price_on_sale_formatted);
+    const [discountPercentage, setDiscountPercentage] = useState<number|null>(props.discount_percent);
+
+    const priceHandle = (price: string, price_on_sale: string|null, discount_percent: number|null) => {
+        setFormatedPrice(price);
+        setFormatedOnSalePrice(price_on_sale);
+        setDiscountPercentage(discount_percent);
+    }
+
     return (
         <>
             <ProductTopHeader
                 title={props.title}
-                price_formatted={props.price_formatted}
-                price_on_sale_formatted={props.price_on_sale_formatted}
-                discount_percent={props.discount_percent}
+                price_formatted={formatedPrice}
+                price_on_sale_formatted={formatedOnSalePrice}
+                discount_percent={discountPercentage}
                 short_description={props.short_description}
             />
 
@@ -38,6 +48,10 @@ const ProductTopInfo = (
                         stock_status={props.stock_status}
                         variants={props.variants}
                         variant_attributes={props.variant_attributes}
+                        priceHandle={priceHandle}
+                        price_formatted={props.price_formatted}
+                        price_on_sale_formatted={props.price_on_sale_formatted}
+                        discount_percent={props.discount_percent}
                     />
                     :
                     <NotifyMe

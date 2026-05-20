@@ -9,6 +9,7 @@ import FallbackImage from '@assets/images/fallback.png';
 import {useTranslations} from "next-intl";
 import Variations from "@src/components/Product/Parts/Variations";
 import ProductPrices from "@src/components/Product/Parts/ProductPrices";
+import ProductPurchase from "@src/components/Product/Forms/ProductPurchase";
 
 
 const AddToCardModal = (
@@ -29,16 +30,16 @@ const AddToCardModal = (
     }
 
     const t = useTranslations('Product');
-    const [quantity, setQuantity] = useState<number>(1);
 
-    const handleQuantityChange = (change: number) => {
-        setQuantity((prev) => Math.max(1, prev + change)); // Ensure quantity is at least 1
-    };
+    const [formatedPrice, setFormatedPrice] = useState<string>(product.price_formatted);
+    const [formatedOnSalePrice, setFormatedOnSalePrice] = useState<string|null>(product.price_on_sale_formatted);
+    const [discountPercentage, setDiscountPercentage] = useState<number|null>(product.discount_percent);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = Math.max(1, Math.min(100, Number(event.target.value))); // Ensure quantity is at least 1
-        setQuantity(value);
-    };
+    const priceHandle = (price: string, price_on_sale: string|null, discount_percent: number|null) => {
+        setFormatedPrice(price);
+        setFormatedOnSalePrice(price_on_sale);
+        setDiscountPercentage(discount_percent);
+    }
 
     return (
         <Modal show={cardShow} onHide={()=>handleAddToCardModalClose('quick_shop')} centered className="fade modal-overl mx-auto quickViewModall">
@@ -79,29 +80,30 @@ const AddToCardModal = (
 
                         <div className="d-flex mb-2 align-items-center">
                             <ProductPrices
-                                price_formatted={product.price_formatted}
-                                price_on_sale_formatted={product.price_on_sale_formatted}
-                                discount_percent={product.discount_percent}
+                                price_formatted={formatedPrice}
+                                price_on_sale_formatted={formatedOnSalePrice}
+                                discount_percent={discountPercentage}
                             />
                         </div>
                     </div>
 
                     <div className="text-center mt-4">
                         {
-                            product.type === 'variable' &&
-                            <Variations
-                                variants={product.variant_attributes}
-                                isTermsCentered={true}
+                            product.stock_status === 'in_stock' &&
+                            <ProductPurchase
+                                id={product.id}
+                                manage_stock={product.manage_stock}
+                                stock={product.stock}
+                                type={product.type}
+                                stock_status={product.stock_status}
+                                variants={product.variants}
+                                variant_attributes={product.variant_attributes}
+                                priceHandle={priceHandle}
+                                price_formatted={product.price_formatted}
+                                price_on_sale_formatted={product.price_on_sale_formatted}
+                                discount_percent={product.discount_percent}
                             />
                         }
-
-                        // QUANITY
-
-                        <div className="my-3">
-                            <Button type="submit" className="btn w-100 btn-teal rounded-pill text-uppercase px-4 fw-semibold">
-                                {t('add_to_cart')}
-                            </Button>
-                        </div>
 
                         <Link
                             href={product.slug}

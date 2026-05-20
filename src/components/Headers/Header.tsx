@@ -29,7 +29,10 @@ import 'swiper/css/navigation';
 import "swiper/css/free-mode";
 import "swiper/css/thumbs";
 import {useAuthStore} from "@src/store/client-store";
-import CartBadge from "@src/components/CartBadge";
+import {useCartStore} from "@src/store/cart-store";
+import CartBadge from "@src/components/Badges/CartBadge";
+import LoginBadge from "@src/components/Badges/LoginBadge";
+import WishListBadge from "@src/components/Badges/WishListBadge";
 
 const country = [
     {
@@ -180,6 +183,7 @@ const HeaderCard = ({ product }: String | any) => {
 
 const Header = () => {
     const user = useAuthStore((state) => state.user);
+    const cart = useCartStore((state) => state.cart);
 
     const headerRef = useRef(null)
     const [loginShow, setLoginShow] = useState(false);
@@ -625,23 +629,13 @@ const Header = () => {
                         </div>
                         <div className="topbar-toolbar d-flex align-items-center gap-3">
                             <Link data-bs-toggle="offcanvas" href="#searchOffcanvas" aria-controls="searchOffcanvas" onClick={handleShow}><i className="iccl iccl-search"></i></Link>
-                            {
-                                user ?
-                                    <Link
-                                        className="d-md-block d-none"
-                                        href="/dashboard/profile"
-                                    >
-                                        <i className="iccl iccl-user" />
-                                    </Link>
-                                    :
-                                    <button
-                                        className="btn p-0 d-md-block d-none"
-                                        onClick={handleLoginShow}
-                                    >
-                                        <i className="iccl iccl-user" />
-                                    </button>
-                            }
-                            <Link className="d-md-block d-none" href="/wishlist"><i className="iccl iccl-heart"></i><span className="tcount bg-dark text-white rounded-circle d-flex align-items-center justify-content-center">3</span></Link>
+
+                            <LoginBadge
+                                handleClick={handleLoginShow}
+                            />
+
+                            <WishListBadge />
+
                             <CartBadge
                                 handleClick={handleShoppingShow}
                             />

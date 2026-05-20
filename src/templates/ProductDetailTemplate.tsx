@@ -106,8 +106,8 @@ const ProductDetailTemplate = (
 
             <ProductTabs
                 description={product.description}
-                characteristics={product.description}
-                guarantee={product.description}
+                characteristics={''}
+                guarantee={''}
                 reviews={reviews}
                 rating_count={product.rating_count}
                 rating_avg={product.rating_avg}

@@ -51,6 +51,10 @@ const ProductPurchase = (
         if (selectedVariant) {
             setStockStatus(selectedVariant.stock_status);
 
+            props.priceHandle(selectedVariant.price_formatted, selectedVariant.price_on_sale_formatted, selectedVariant.discount_percent);
+
+            console.log(selectedVariant);
+
             setMaxQty(
                 props.manage_stock
                     ? selectedVariant.stock ?? 1
@@ -60,6 +64,8 @@ const ProductPurchase = (
             setIsSubmitting(false);
         } else {
             setStockStatus(props.stock_status);
+
+            props.priceHandle(props.price_formatted, props.price_on_sale_formatted, props.discount_percent);
 
             setMaxQty(
                 props.manage_stock

@@ -14,7 +14,17 @@ import PhoneFormField from "@src/components/Form/PhoneFormField";
 import {useRouter} from "next/navigation";
 
 
-const LoginModal = ({ loginShow, handleLoginClose }: any) => {
+type Props = {
+    loginShow: boolean,
+    handleLoginClose: ()=>void,
+}
+
+const LoginModal = (
+    {
+        loginShow,
+        handleLoginClose,
+    }: Props
+) => {
     const tAuth = useTranslations('Auth');
     const tCommon = useTranslations('Common');
     const setUser = useAuthStore((state) => state.setUser);
@@ -76,7 +86,7 @@ const LoginModal = ({ loginShow, handleLoginClose }: any) => {
 
                     resetForm();
 
-                    handleLoginClose(true);
+                    handleLoginClose();
 
                     router.push('/dashboard/profile');
                 }
@@ -149,6 +159,7 @@ const LoginModal = ({ loginShow, handleLoginClose }: any) => {
                     <Link
                         href="/register"
                         className="product-title"
+                        onNavigate={handleLoginClose}
                     > {tAuth('create_your_account')}</Link>
                 </p>
 
@@ -158,6 +169,7 @@ const LoginModal = ({ loginShow, handleLoginClose }: any) => {
                     <Link
                         href="/forgot-password"
                         className="product-title"
+                        onNavigate={handleLoginClose}
                     > {tAuth('recover_password')}</Link>
                 </p>
             </Offcanvas.Body>

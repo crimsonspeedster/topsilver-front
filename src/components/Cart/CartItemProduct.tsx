@@ -8,6 +8,10 @@ import Link from "next/link";
 import CartItemRemove from "@src/components/Cart/CartItemRemove";
 import Quantity from "@src/components/Product/Forms/Quantity";
 import React, {useState} from "react";
+import {useTranslations} from "next-intl";
+import {useCartStore} from "@src/store/cart-store";
+import axiosClient from "@lib/axiosClient";
+import {toast} from "react-toastify";
 
 
 type Props = {
@@ -19,12 +23,55 @@ const CartItemProduct = (
         item,
     }: Props
 ) => {
-    const [quantity, setQuantity] = useState<number>(item.quantity);
-
+    const tCart = useTranslations('Cart');
+    const setCart = useCartStore((state) => state.setCart);
     const maxQty = item.entity.manage_stock ?
         item.product_variant?.stock ?? item.entity.stock
         :
         99;
+
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const [quantity, setQuantity] = useState<number>(item.quantity);
+
+    const handleQty = async (qty: number) => {
+        if (isSubmitting) {
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            const response = await axiosClient.patch(
+                `/cart/items/${item.id}`,
+                {
+                    quantity: qty,
+                }
+            );
+
+            setCart(response.data.data);
+
+            setQuantity(qty);
+
+            toast.success(tCart('amount_updated'));
+        }
+        catch (error: any) {
+            if (error.response) {
+                switch (error.response.status) {
+                    case 422:
+                        toast.error(error.response.data.message);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else {
+                console.error('Unexpected error:', error);
+            }
+        }
+        finally {
+            setIsSubmitting(false);
+        }
+    }
 
     return (
         <Row className="g-0 border-bottom align-items-center py-3 border-bottom">
@@ -52,10 +99,34 @@ const CartItemProduct = (
                                 {item.entity.title}
                             </Link>
 
+                            {
+                                item.product_variant &&
+                                <p className="text-muted fs-12">
+                                    {
+                                        item.product_variant.attribute_terms && item.product_variant.attribute_terms.length > 0 &&
+                                        item.product_variant.attribute_terms.map((attr, i) => (
+                                            <span
+                                                key={attr.id}
+                                            >
+                                        {
+                                            attr.title
+                                        }
+                                                {
+                                                    ' '
+                                                }
+                                    </span>
+                                        ))
+                                    }
+                                </p>
+                            }
+
                             <div className="mt-3">
-                                <CartItemRemove />
+                                <CartItemRemove
+                                    id={item.id}
+                                />
                             </div>
                         </div>
+
                         <div className="border-bottom border-top border-dotted p-2 d-md-none">
                             <p className="text-muted m-0">{item.price_formatted}</p>
                         </div>
@@ -63,7 +134,7 @@ const CartItemProduct = (
                         <div className="d-md-none my-2">
                             <Quantity
                                 value={quantity}
-                                onChange={setQuantity}
+                                onChange={handleQty}
                                 max={maxQty}
                             />
                         </div>
@@ -80,7 +151,7 @@ const CartItemProduct = (
 
                 <Quantity
                     value={quantity}
-                    onChange={setQuantity}
+                    onChange={handleQty}
                     max={maxQty}
                 />
 
