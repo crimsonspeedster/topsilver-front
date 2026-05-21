@@ -23,19 +23,20 @@ const ResetPasswordForm = (
     }: Props
 ) => {
     const tAuth = useTranslations('Auth');
+    const tForm = useTranslations('Form');
     const router = useRouter();
 
     const validationSchema = useMemo(() => Yup.object({
         password: Yup.string()
-            .min(8, tAuth('errors.min'))
-            .matches(/[A-Z]/, tAuth('errors.uppercase'))
-            .matches(/[0-9]/, tAuth('errors.number'))
-            .required(tAuth('errors.required')),
+            .min(8, tForm('errors.min'))
+            .matches(/[A-Z]/, tForm('errors.uppercase'))
+            .matches(/[0-9]/, tForm('errors.number'))
+            .required(tForm('errors.required')),
 
         password_confirmation: Yup.string()
-            .oneOf([Yup.ref('password')], tAuth('errors.passwordMatch'))
-            .required(tAuth('errors.required')),
-    }), [tAuth]);
+            .oneOf([Yup.ref('password')], tForm('errors.passwordMatch'))
+            .required(tForm('errors.required')),
+    }), [tForm]);
 
     const formik = useFormik({
         initialValues: {
@@ -107,7 +108,7 @@ const ResetPasswordForm = (
                             className="btn btn-info rounded-pill"
                             disabled={formik.isSubmitting}
                         >
-                            {tAuth('change_my_password')}
+                            {tForm('buttons.change_my_password')}
                         </Button>
                     </div>
                 </Form>

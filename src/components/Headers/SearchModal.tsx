@@ -26,7 +26,7 @@ const SearchModal = (
         handleClose,
     }: Props
 ) => {
-    const tAuth = useTranslations('Auth');
+    const tForm = useTranslations('Form');
     const tSearch = useTranslations('Search');
 
     const [categories, setCategories] = useState<TaxonomyOptionsObject[]>([]);
@@ -43,8 +43,8 @@ const SearchModal = (
 
     const validationSchema = useMemo(() => Yup.object({
         search: Yup.string()
-            .required(tAuth('errors.required')),
-    }), [tAuth]);
+            .required(tForm('errors.required')),
+    }), [tForm]);
 
     const formik = useFormik({
         initialValues: {

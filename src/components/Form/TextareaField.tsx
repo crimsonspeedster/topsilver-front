@@ -3,6 +3,7 @@
 import Form from 'react-bootstrap/Form';
 import {FormTextareaFieldProps} from "@interfaces/layouts/formField";
 import {useTranslations} from "next-intl";
+import {useFormikContext} from "formik";
 
 
 const TextareaField = <T extends Record<string, any>,>(
@@ -15,7 +16,9 @@ const TextareaField = <T extends Record<string, any>,>(
         rows = 4,
     }: FormTextareaFieldProps<T>
 ) => {
-    const tAuth = useTranslations('Auth');
+    const tForm = useTranslations('Form');
+    const formikContext = useFormikContext<T>();
+    const f = formik ?? formikContext;
 
     return (
         <Form.Group className="mb-3">
@@ -26,7 +29,7 @@ const TextareaField = <T extends Record<string, any>,>(
                     required ?
                         <span className="text-danger"> *</span>
                         :
-                        <span> ({tAuth('optional')})</span>
+                        <span> ({tForm('fields.optional')})</span>
                 }
             </Form.Label>
 
@@ -34,18 +37,18 @@ const TextareaField = <T extends Record<string, any>,>(
                 as="textarea"
                 rows={rows}
                 name={String(name)}
-                value={formik.values[name] ?? ''}
+                value={f.values[name] ?? ''}
                 placeholder={placeholder}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+                onChange={f.handleChange}
+                onBlur={f.handleBlur}
                 isInvalid={
-                    !!formik.touched[name] &&
-                    !!formik.errors[name]
+                    !!f.touched[name] &&
+                    !!f.errors[name]
                 }
             />
 
             <Form.Control.Feedback type="invalid">
-                {String(formik.errors[name] ?? '')}
+                {String(f.errors[name] ?? '')}
             </Form.Control.Feedback>
         </Form.Group>
     );

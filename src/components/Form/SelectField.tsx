@@ -2,6 +2,7 @@ import Form from 'react-bootstrap/Form';
 import {FormSelectFieldProps} from "@interfaces/layouts/formField";
 import dynamic from "next/dynamic";
 import {useTranslations} from "next-intl";
+import {useFormikContext} from "formik";
 
 
 const Select = dynamic(() => import('react-select'), {
@@ -19,9 +20,11 @@ const SelectField = <T extends Record<string, any>,>(
         placeholder,
     }: FormSelectFieldProps<T>
 ) => {
-    const tAuth = useTranslations('Auth');
+    const tForm = useTranslations('Form');
+    const formikContext = useFormikContext<T>();
+    const f = formik ?? formikContext;
 
-    const value = formik.values[name];
+    const value = f.values[name];
 
     const flatOptions = options.flatMap((opt: any) =>
         'options' in opt ? opt.options : opt
@@ -44,7 +47,7 @@ const SelectField = <T extends Record<string, any>,>(
                         required ?
                             <span className="text-danger"> *</span>
                             :
-                            <span> ({tAuth('optional')})</span>
+                            <span> ({tForm('fields.optional')})</span>
                     }
                 </Form.Label>
             }
@@ -64,20 +67,20 @@ const SelectField = <T extends Record<string, any>,>(
                             ? value.map((item) => item.value)
                             : [];
 
-                        formik.setFieldValue(name as string, values);
+                        f.setFieldValue(name as string, values);
                     } else {
-                        formik.setFieldValue(
+                        f.setFieldValue(
                             name as string,
                             value?.value ?? ''
                         );
                     }
                 }}
-                onBlur={() => formik.setFieldTouched(name as string, true)}
+                onBlur={() => f.setFieldTouched(name as string, true)}
             />
 
-            {formik.touched[name] && formik.errors[name] && (
+            {f.touched[name] && f.errors[name] && (
                 <div className="invalid-feedback d-block">
-                    {String(formik.errors[name])}
+                    {String(f.errors[name])}
                 </div>
             )}
         </Form.Group>

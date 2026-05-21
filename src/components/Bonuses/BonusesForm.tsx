@@ -22,7 +22,7 @@ const BonusesForm = (
         bonuses,
     }: Props
 ) => {
-    const tAuth = useTranslations('Auth');
+    const tForm = useTranslations('Form');
     const tCart = useTranslations('Cart');
     const setCart = useCartStore((state) => state.setCart);
 
@@ -30,8 +30,8 @@ const BonusesForm = (
         amount: Yup.number()
             .min(0)
             .max(Number(bonuses?.active_total ?? '0'))
-            .required(tAuth('errors.required')),
-    }), [tAuth]);
+            .required(tForm('errors.required')),
+    }), [tForm]);
 
     const formik = useFormik({
         initialValues: {
@@ -96,7 +96,7 @@ const BonusesForm = (
                 className="btn btn-info rounded-pill"
                 disabled={formik.isSubmitting}
             >
-                {tCart('send')}
+                {tForm('buttons.send')}
             </Button>
         </Form>
     );

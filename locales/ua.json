@@ -1,40 +1,16 @@
 {
-  "Auth": {
-    "name": "Ім'я",
-    "surname": "Прізвище",
-    "middleName": "По-батькові",
-    "login": "Email або Номер телефону",
-    "sign_in": "Увійдіть",
-    "authorization": "Авторизація",
-    "send_reset_link": "Надіслати посилання для скидання",
-    "change_your_password": "Змініть свій пароль",
-    "change_my_password": "Змінити мій пароль",
-    "email": "Email",
-    "phone": "Номер телефону",
-    "password": "Пароль",
-    "current_password": "Поточний пароль",
-    "new_password": "Новий пароль",
-    "confirmPassword": "Підтвердіть пароль",
-    "register": "Зареєструватися",
-    "passwordRequirements": "Пароль повинен містити:",
-    "minChars": "Мінімум 8 символів",
-    "sex": "Стать",
-    "dob": "Дата народження",
-    "uppercase": "Хоча б одну велику літеру",
-    "number": "Хоча б одну цифру",
-    "optional": "Необов'язково",
-    "update": "Оновити",
-    "profile_updated_successfully": "Профіль успішно оновлено",
-    "authorization_successfully": "Ви успішно увійшли",
-    "create_your_account": "Створіть свій акаунт",
-    "recover_password": "Відновити пароль",
-    "lost_password": "Забули пароль?",
-    "new_customer": "Новий клієнт?",
-    "city": "Місто",
-    "about": "Про себе",
-    "sex_options": {
-      "man": "Чоловічий",
-      "woman": "Жіночий"
+  "Form": {
+    "buttons": {
+      "sign_in": "Увійдіть",
+      "send": "Надіслати",
+      "update": "Оновити",
+      "notify_button": "Повідомити",
+      "register": "Зареєструватися",
+      "change_my_password": "Змінити мій пароль",
+      "send_order": "Підтвердити замовлення"
+    },
+    "fields": {
+      "optional": "Необов'язково"
     },
     "errors": {
       "required": "Обов'язкове поле",
@@ -52,13 +28,46 @@
       "invalidName": "Має містити лише літери, пробіли, апостроф, дефіс або крапку"
     }
   },
+  "Auth": {
+    "or": "Або",
+    "name": "Ім'я",
+    "surname": "Прізвище",
+    "middleName": "По-батькові",
+    "login": "Email або Номер телефону",
+    "authorization": "Авторизація",
+    "send_reset_link": "Надіслати посилання для скидання",
+    "change_your_password": "Змініть свій пароль",
+    "email": "Email",
+    "phone": "Номер телефону",
+    "password": "Пароль",
+    "current_password": "Поточний пароль",
+    "new_password": "Новий пароль",
+    "confirmPassword": "Підтвердіть пароль",
+    "passwordRequirements": "Пароль повинен містити:",
+    "minChars": "Мінімум 8 символів",
+    "sex": "Стать",
+    "dob": "Дата народження",
+    "uppercase": "Хоча б одну велику літеру",
+    "number": "Хоча б одну цифру",
+    "profile_updated_successfully": "Профіль успішно оновлено",
+    "authorization_successfully": "Ви успішно увійшли",
+    "create_your_account": "Створіть свій акаунт",
+    "recover_password": "Відновити пароль",
+    "lost_password": "Забули пароль?",
+    "new_customer": "Новий клієнт?",
+    "city": "Місто",
+    "about": "Про себе",
+    "sex_options": {
+      "man": "Чоловічий",
+      "woman": "Жіночий"
+    }
+  },
   "Common": {
     "registration": "Реєстрація",
     "by": "За",
     "by_price": "За ціною",
     "not_found": "Сторінку не знайдено",
     "price": "Ціна",
-    "or": "Або",
     "apply": "Застосувати",
     "loadMore": "Завантажити більше",
     "filters": "Фільтри",
@@ -97,8 +106,7 @@
     "size_guid": "Довідник розмірів",
     "out_of_stock": "Немає в наявності",
     "added_to_cart": "Товар доданий до кошика",
-    "notify_me": "Повідомити мене, коли цей товар буде в наявності",
-    "notify_button": "Повідомити"
+    "notify_me": "Повідомити мене, коли цей товар буде в наявності"
   },
   "Cart": {
     "cart": "Кошик",
@@ -116,7 +124,6 @@
     "bonuses": "Бонуси",
     "code": "Код",
     "amount": "Кількість",
-    "send": "Надіслати",
     "coupon_added": "Купон доданий до кошика",
     "coupon_removed": "Купон видалено",
     "coupon_invalid": "Код купона недійсний",
@@ -130,6 +137,17 @@
     "bonuses_available": "Бонусов доступно",
     "auth_invalid": "Для застосування сертивікату необхідно авторизуватись",
     "amount_updated": "Кількість оновлено"
+  },
+  "Checkout": {
+    "checkout": "Чекаут",
+    "shipping_overhead": "Доставка",
+    "payment_overhead": "Оплата",
+    "payment_and_delivery": "Оплата та доставка",
+    "your_order": "Ваше замовлення",
+    "additional_overhead": "Додаткова інформація",
+    "personal_data_overhead": "Особисті дані",
+    "read_rules": "Я прочитав (а) і погоджуюся з <link>правилами сайту</link>",
+    "notes": "Нотатки до замовлення"
   },
   "Wishlist": {
     "wishlist": "Список бажань"

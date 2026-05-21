@@ -26,21 +26,21 @@ const LoginModal = (
     }: Props
 ) => {
     const tAuth = useTranslations('Auth');
-    const tCommon = useTranslations('Common');
+    const tForm = useTranslations('Form');
     const setUser = useAuthStore((state) => state.setUser);
 
     const router = useRouter();
 
     const validationSchema = useMemo(() => Yup.object({
         password: Yup.string()
-            .required(tAuth('errors.required')),
+            .required(tForm('errors.required')),
 
         email: Yup.string()
-            .email(tAuth('errors.invalidEmail')),
+            .email(tForm('errors.invalidEmail')),
 
         phone: Yup.string()
-            .matches(/^(\+?380)\d{9}$/, tAuth('errors.invalidPhone')),
-    }), [tAuth]);
+            .matches(/^(\+?380)\d{9}$/, tForm('errors.invalidPhone')),
+    }), [tForm]);
 
     const formik = useFormik({
         initialValues: {
@@ -56,13 +56,13 @@ const LoginModal = (
             const phone = values.phone?.trim();
 
             if (email && phone) {
-                errors.email = tAuth('errors.only_one_allowed');
-                errors.phone = tAuth('errors.only_one_allowed');
+                errors.email = tForm('errors.only_one_allowed');
+                errors.phone = tForm('errors.only_one_allowed');
             }
 
             if (!email && !phone) {
-                errors.email = tAuth('errors.required');
-                errors.phone = tAuth('errors.required');
+                errors.email = tForm('errors.required');
+                errors.phone = tForm('errors.required');
             }
 
             return errors;
@@ -127,7 +127,7 @@ const LoginModal = (
                         type="email"
                     />
 
-                    <p>{tCommon('or')}</p>
+                    <p>{tAuth('or')}</p>
 
                     <PhoneFormField
                         label={tAuth('phone')}
@@ -149,7 +149,7 @@ const LoginModal = (
                         className="btn btn-info w-100 rounded-pill"
                         disabled={formik.isSubmitting}
                     >
-                        {tAuth('sign_in')}
+                        {tForm('buttons.sign_in')}
                     </Button>
                 </Form>
 

@@ -12,14 +12,14 @@ import {toast} from "react-toastify";
 
 
 const CouponForm = () => {
-    const tAuth = useTranslations('Auth');
+    const tForm = useTranslations('Form');
     const tCart = useTranslations('Cart');
     const setCart = useCartStore((state) => state.setCart);
 
     const validationSchema = useMemo(() => Yup.object({
         code: Yup.string()
-            .required(tAuth('errors.required')),
-    }), [tAuth]);
+            .required(tForm('errors.required')),
+    }), [tForm]);
 
     const formik = useFormik({
         initialValues: {
@@ -79,7 +79,7 @@ const CouponForm = () => {
                 className="btn btn-info rounded-pill"
                 disabled={formik.isSubmitting}
             >
-                {tCart('send')}
+                {tForm('buttons.send')}
             </Button>
         </Form>
     );

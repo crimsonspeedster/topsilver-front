@@ -23,6 +23,7 @@ type Props = {
 
 export default function ProfileClient({ cities }: Props) {
     const tAuth = useTranslations('Auth');
+    const tForm = useTranslations('Form');
     const groupedCities = groupCitiesByRegion(cities);
     const tDashboard = useTranslations('Dashboard');
     const user = useAuthStore((state) => state.user);
@@ -30,38 +31,38 @@ export default function ProfileClient({ cities }: Props) {
 
     const validationSchema = useMemo(() => Yup.object({
         name: Yup.string()
-            .min(2, tAuth('errors.minName'))
-            .max(255, tAuth('errors.max'))
-            .matches(/^[\p{L}\s'\-\.]+$/u, tAuth('errors.invalidName'))
-            .required(tAuth('errors.required')),
+            .min(2, tForm('errors.minName'))
+            .max(255, tForm('errors.max'))
+            .matches(/^[\p{L}\s'\-\.]+$/u, tForm('errors.invalidName'))
+            .required(tForm('errors.required')),
 
         surname: Yup.string()
-            .min(2, tAuth('errors.minName'))
-            .max(255, tAuth('errors.max'))
-            .matches(/^[\p{L}\s'\-\.]+$/u, tAuth('errors.invalidName'))
-            .required(tAuth('errors.required')),
+            .min(2, tForm('errors.minName'))
+            .max(255, tForm('errors.max'))
+            .matches(/^[\p{L}\s'\-\.]+$/u, tForm('errors.invalidName'))
+            .required(tForm('errors.required')),
 
         middle_name: Yup.string()
-            .min(2, tAuth('errors.minName'))
-            .max(255, tAuth('errors.max'))
-            .matches(/^[\p{L}\s'\-\.]+$/u, tAuth('errors.invalidName')),
+            .min(2, tForm('errors.minName'))
+            .max(255, tForm('errors.max'))
+            .matches(/^[\p{L}\s'\-\.]+$/u, tForm('errors.invalidName')),
 
         email: Yup.string()
-            .email(tAuth('errors.invalidEmail'))
-            .required(tAuth('errors.required')),
+            .email(tForm('errors.invalidEmail'))
+            .required(tForm('errors.required')),
 
         phone: Yup.string()
-            .required(tAuth('errors.required'))
-            .matches(/^(\+?380)\d{9}$/, tAuth('errors.invalidPhone')),
+            .required(tForm('errors.required'))
+            .matches(/^(\+?380)\d{9}$/, tForm('errors.invalidPhone')),
 
         dob: Yup.date()
             .nullable()
-            .typeError(tAuth('errors.invalidDate'))
-            .max(new Date(), tAuth('errors.beforeToday')),
+            .typeError(tForm('errors.invalidDate'))
+            .max(new Date(), tForm('errors.beforeToday')),
 
         about: Yup.string()
-            .max(255, tAuth('errors.max')),
-    }), [tAuth]);
+            .max(255, tForm('errors.max')),
+    }), [tForm]);
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -216,7 +217,7 @@ export default function ProfileClient({ cities }: Props) {
                                 className="btn btn-info rounded-pill"
                                 disabled={formik.isSubmitting}
                             >
-                                {tAuth('update')}
+                                {tForm('buttons.update')}
                             </Button>
                         </div>
                     </Form>

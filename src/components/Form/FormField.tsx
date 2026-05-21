@@ -3,6 +3,7 @@
 import Form from 'react-bootstrap/Form';
 import {useTranslations} from "next-intl";
 import {FormFieldProps} from "@interfaces/layouts/formField";
+import {useFormikContext} from "formik";
 
 
 const FormField = <T extends Record<string, any>, >(
@@ -16,7 +17,9 @@ const FormField = <T extends Record<string, any>, >(
         placeholder,
     }: FormFieldProps<T>
 ) => {
-    const tAuth = useTranslations('Auth');
+    const tForm = useTranslations('Form');
+    const formikContext = useFormikContext<T>();
+    const f = formik ?? formikContext;
 
     return (
         <Form.Group className="mb-3">
@@ -29,7 +32,7 @@ const FormField = <T extends Record<string, any>, >(
                         required ?
                             <span className="text-danger"> *</span>
                             :
-                            <span> ({tAuth('optional')})</span>
+                            <span> ({tForm('fields.optional')})</span>
                     }
                 </Form.Label>
             }
@@ -37,19 +40,19 @@ const FormField = <T extends Record<string, any>, >(
             <Form.Control
                 type={type}
                 name={String(name)}
-                value={String(formik.values[name] ?? '')}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+                value={String(f.values[name] ?? '')}
+                onChange={f.handleChange}
+                onBlur={f.handleBlur}
                 className={classesString}
                 isInvalid={
-                    !!formik.touched[name] &&
-                    !!formik.errors[name]
+                    !!f.touched[name] &&
+                    !!f.errors[name]
                 }
                 placeholder={placeholder}
             />
 
             <Form.Control.Feedback type="invalid">
-                {String(formik.errors[name] ?? '')}
+                {String(f.errors[name] ?? '')}
             </Form.Control.Feedback>
         </Form.Group>
     );

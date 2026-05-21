@@ -13,23 +13,24 @@ import {useAuthStore} from "@src/store/client-store";
 
 const ProfilePasswordClient = () => {
     const tAuth = useTranslations('Auth');
+    const tForm = useTranslations('Form');
     const tDashboard = useTranslations('Dashboard');
     const setUser = useAuthStore((state) => state.setUser);
 
     const validationSchema = useMemo(() => Yup.object({
         current_password: Yup.string()
-            .required(tAuth('errors.required')),
+            .required(tForm('errors.required')),
 
         new_password: Yup.string()
-            .min(8, tAuth('errors.min'))
-            .matches(/[A-Z]/, tAuth('errors.uppercase'))
-            .matches(/[0-9]/, tAuth('errors.number'))
-            .required(tAuth('errors.required')),
+            .min(8, tForm('errors.min'))
+            .matches(/[A-Z]/, tForm('errors.uppercase'))
+            .matches(/[0-9]/, tForm('errors.number'))
+            .required(tForm('errors.required')),
 
         password_confirmation: Yup.string()
-            .oneOf([Yup.ref('new_password')], tAuth('errors.passwordMatch'))
-            .required(tAuth('errors.required')),
-    }), [tAuth]);
+            .oneOf([Yup.ref('new_password')], tForm('errors.passwordMatch'))
+            .required(tForm('errors.required')),
+    }), [tForm]);
 
     const formik = useFormik({
         initialValues: {
@@ -117,7 +118,7 @@ const ProfilePasswordClient = () => {
                                 className="btn btn-info rounded-pill"
                                 disabled={formik.isSubmitting}
                             >
-                                {tAuth('update')}
+                                {tForm('buttons.update')}
                             </Button>
                         </div>
                     </Form>

@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import {useTranslations} from "next-intl";
 import Input from 'react-phone-number-input/input';
 import {FormPhoneFieldProps} from "@interfaces/layouts/formField";
+import {useFormikContext} from "formik";
 
 
 const PhoneFormField = <T extends Record<string, any>, >(
@@ -14,7 +15,9 @@ const PhoneFormField = <T extends Record<string, any>, >(
         required,
     }: FormPhoneFieldProps<T>
 ) => {
-    const tAuth = useTranslations('Auth');
+    const tForm = useTranslations('Form');
+    const formikContext = useFormikContext<T>();
+    const f = formik ?? formikContext;
 
     return (
         <Form.Group className="mb-3">
@@ -25,28 +28,28 @@ const PhoneFormField = <T extends Record<string, any>, >(
                     required ?
                         <span className="text-danger"> *</span>
                         :
-                        <span> ({tAuth('optional')})</span>
+                        <span> ({tForm('fields.optional')})</span>
                 }
             </Form.Label>
 
             <Input
                 defaultCountry="UA"
-                value={formik.values[name]}
+                value={f.values[name]}
                 onChange={(value) => {
-                    formik.setFieldValue(name.toString(), value || '');
+                    f.setFieldValue(name.toString(), value || '');
                 }}
-                onBlur={() => formik.setFieldTouched('phone', true)}
+                onBlur={() => f.setFieldTouched('phone', true)}
                 className={
-                    formik.touched[name] && formik.errors[name]
+                    f.touched[name] && f.errors[name]
                         ? 'phone-input is-invalid form-control'
                         : 'phone-input form-control'
                 }
             />
 
             {
-                formik.touched[name] && formik.errors[name] &&
+                f.touched[name] && f.errors[name] &&
                 <Form.Control.Feedback type="invalid">
-                    {String(formik.errors[name] ?? '')}
+                    {String(f.errors[name] ?? '')}
                 </Form.Control.Feedback>
             }
         </Form.Group>

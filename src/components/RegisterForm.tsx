@@ -25,49 +25,50 @@ const RegisterForm = (
         cities,
     }: Props
 ) => {
+    const tAuth = useTranslations('Auth');
+    const tForm = useTranslations('Form');
     const router = useRouter();
     const groupedCities = groupCitiesByRegion(cities);
-    const t = useTranslations('Auth');
 
     const validationSchema = useMemo(() => Yup.object({
         name: Yup.string()
-            .min(2, t('errors.minName'))
-            .max(255, t('errors.max'))
-            .matches(/^[\p{L}\s'\-\.]+$/u, t('errors.invalidName'))
-            .required(t('errors.required')),
+            .min(2, tForm('errors.minName'))
+            .max(255, tForm('errors.max'))
+            .matches(/^[\p{L}\s'\-\.]+$/u, tForm('errors.invalidName'))
+            .required(tForm('errors.required')),
 
         surname: Yup.string()
-            .min(2, t('errors.minName'))
-            .max(255, t('errors.max'))
-            .matches(/^[\p{L}\s'\-\.]+$/u, t('errors.invalidName'))
-            .required(t('errors.required')),
+            .min(2, tForm('errors.minName'))
+            .max(255, tForm('errors.max'))
+            .matches(/^[\p{L}\s'\-\.]+$/u, tForm('errors.invalidName'))
+            .required(tForm('errors.required')),
 
         email: Yup.string()
-            .email(t('errors.invalidEmail'))
-            .required(t('errors.required')),
+            .email(tForm('errors.invalidEmail'))
+            .required(tForm('errors.required')),
 
         phone: Yup.string()
-            .required(t('errors.required'))
-            .matches(/^(\+?380)\d{9}$/, t('errors.invalidPhone')),
+            .required(tForm('errors.required'))
+            .matches(/^(\+?380)\d{9}$/, tForm('errors.invalidPhone')),
 
         password: Yup.string()
-            .min(8, t('errors.min'))
-            .matches(/[A-Z]/, t('errors.uppercase'))
-            .matches(/[0-9]/, t('errors.number'))
-            .required(t('errors.required')),
+            .min(8, tForm('errors.min'))
+            .matches(/[A-Z]/, tForm('errors.uppercase'))
+            .matches(/[0-9]/, tForm('errors.number'))
+            .required(tForm('errors.required')),
 
         password_confirmation: Yup.string()
-            .oneOf([Yup.ref('password')], t('errors.passwordMatch'))
-            .required(t('errors.required')),
+            .oneOf([Yup.ref('password')], tForm('errors.passwordMatch'))
+            .required(tForm('errors.required')),
 
         dob: Yup.date()
             .nullable()
-            .typeError(t('errors.invalidDate'))
-            .max(new Date(), t('errors.beforeToday')),
+            .typeError(tForm('errors.invalidDate'))
+            .max(new Date(), tForm('errors.beforeToday')),
 
         about: Yup.string()
-            .max(255, t('errors.max')),
-    }), [t]);
+            .max(255, tForm('errors.max')),
+    }), [tForm]);
 
     const formik = useFormik({
         initialValues: {
@@ -127,7 +128,7 @@ const RegisterForm = (
             onSubmit={formik.handleSubmit}
         >
             <FormField
-                label={t('name')}
+                label={tAuth('name')}
                 name="name"
                 formik={formik}
                 required={true}
@@ -135,7 +136,7 @@ const RegisterForm = (
             />
 
             <FormField
-                label={t('middleName')}
+                label={tAuth('middleName')}
                 name="middle_name"
                 formik={formik}
                 required={false}
@@ -143,7 +144,7 @@ const RegisterForm = (
             />
 
             <FormField
-                label={t('surname')}
+                label={tAuth('surname')}
                 name="surname"
                 formik={formik}
                 required={true}
@@ -151,7 +152,7 @@ const RegisterForm = (
             />
 
             <FormField
-                label={t('dob')}
+                label={tAuth('dob')}
                 name="dob"
                 formik={formik}
                 required={false}
@@ -159,16 +160,16 @@ const RegisterForm = (
             />
 
             <SelectField
-                label={t('sex')}
+                label={tAuth('sex')}
                 name="sex"
                 formik={formik}
                 options={[
                     {
-                        label: t('sex_options.man'),
+                        label: tAuth('sex_options.man'),
                         value: 'male',
                     },
                     {
-                        label: t('sex_options.woman'),
+                        label: tAuth('sex_options.woman'),
                         value: 'female',
                     },
                 ]}
@@ -176,7 +177,7 @@ const RegisterForm = (
             />
 
             <SelectField
-                label={t('city')}
+                label={tAuth('city')}
                 name="city_id"
                 formik={formik}
                 options={groupedCities}
@@ -184,7 +185,7 @@ const RegisterForm = (
             />
 
             <TextareaField
-                label={t('about')}
+                label={tAuth('about')}
                 name="about"
                 formik={formik}
                 required={false}
@@ -192,7 +193,7 @@ const RegisterForm = (
             />
 
             <FormField
-                label={t('email')}
+                label={tAuth('email')}
                 name="email"
                 formik={formik}
                 required={true}
@@ -200,14 +201,14 @@ const RegisterForm = (
             />
 
             <PhoneFormField
-                label={t('phone')}
+                label={tAuth('phone')}
                 name="phone"
                 formik={formik}
                 required={true}
             />
 
             <FormField
-                label={t('password')}
+                label={tAuth('password')}
                 name="password"
                 formik={formik}
                 required={true}
@@ -215,7 +216,7 @@ const RegisterForm = (
             />
 
             <FormField
-                label={t('confirmPassword')}
+                label={tAuth('confirmPassword')}
                 name="password_confirmation"
                 formik={formik}
                 required={true}
@@ -227,7 +228,7 @@ const RegisterForm = (
                 className="btn btn-info rounded-pill"
                 disabled={formik.isSubmitting}
             >
-                {t('register')}
+                {tForm('buttons.register')}
             </Button>
         </Form>
     );

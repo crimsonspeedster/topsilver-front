@@ -21,13 +21,14 @@ const NotifyMe = (
     }: Props
 ) => {
     const tProduct = useTranslations('Product');
+    const tForm = useTranslations('Form');
     const tAuth = useTranslations('Auth');
 
     const validationSchema = useMemo(() => Yup.object({
         email: Yup.string()
-            .email(tAuth('errors.invalidEmail'))
-            .required(tAuth('errors.required')),
-    }), [tAuth]);
+            .email(tForm('errors.invalidEmail'))
+            .required(tForm('errors.required')),
+    }), [tForm]);
 
     const formik = useFormik({
         initialValues: {
@@ -86,7 +87,7 @@ const NotifyMe = (
                         className="btn btn-info rounded-pill"
                         disabled={formik.isSubmitting}
                     >
-                        {tProduct('notify_button')}
+                        {tForm('buttons.notify_button')}
                     </Button>
                 </Form>
             </div>
