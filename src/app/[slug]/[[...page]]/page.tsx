@@ -7,6 +7,7 @@ import {Metadata} from "next";
 import {headers} from "next/headers";
 import {TaxonomyObject} from "@interfaces/entities/taxonomy";
 import {ProductObject} from "@interfaces/entities/product";
+import PageTemplate from "@templates/PageTemplate";
 
 
 type Props = {
@@ -96,6 +97,10 @@ const Page = async (
                 product={data.entity}
                 breadcrumbs={data.breadcrumbs}
                 reviews={data.reviews}
+            />;
+        case 'page':
+            return <PageTemplate
+                page={data.entity}
             />;
 
         default:

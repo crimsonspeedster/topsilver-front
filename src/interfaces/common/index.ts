@@ -1,5 +1,6 @@
 import {ProductPageEntityObject} from "@interfaces/entities/product";
 import {TaxonomyPageEntityObject} from "@interfaces/entities/taxonomy";
+import {PagePageEntityObject} from "@interfaces/entities/page";
 
 
 export type PaginationObject = {
@@ -29,4 +30,5 @@ export type SortObject = {
 
 export type PageEntityObject =
     | TaxonomyPageEntityObject
-    | ProductPageEntityObject;
+    | ProductPageEntityObject
+    | PagePageEntityObject;
