@@ -1,7 +1,7 @@
 'use client';
 
 import React, {useEffect, useState} from "react";
-import {ShopsObject} from "@interfaces/entities/shops";
+import {ShopsPickupObject} from "@interfaces/entities/shops";
 import axiosClient from "@lib/axiosClient";
 import {AxiosResponse} from "axios";
 import SelectField from "@src/components/Form/SelectField";
@@ -17,7 +17,7 @@ const LocalPickup = () => {
 
     useEffect(() => {
         axiosClient.get('reference/shops-pickup/')
-            .then(function (res: AxiosResponse<{data: ShopsObject[]}>) {
+            .then(function (res: AxiosResponse<{data: ShopsPickupObject[]}>) {
                 setGroupedShops(groupShopsByRegion(res.data.data));
             })
             .catch(function (error) {

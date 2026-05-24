@@ -8,6 +8,8 @@ import {headers} from "next/headers";
 import {TaxonomyObject} from "@interfaces/entities/taxonomy";
 import {ProductObject} from "@interfaces/entities/product";
 import PageTemplate from "@templates/PageTemplate";
+import {getBaseUrl} from "@helpers/functions.server";
+import ShopSingleTemplate from "@templates/ShopSingleTemplate";
 
 
 type Props = {
@@ -16,18 +18,6 @@ type Props = {
         page?: string[],
     }>,
     searchParams: Promise<Record<string, string | string[] | undefined>>,
-}
-
-const getBaseUrl = async () => {
-    const headersList = await headers();
-
-    const host = headersList.get('host');
-    const protocol =
-        process.env.NODE_ENV === 'development'
-            ? 'http'
-            : 'https';
-
-    return `${protocol}://${host}`;
 }
 
 const Page = async (
@@ -96,6 +86,12 @@ const Page = async (
                 breadcrumbs={data.breadcrumbs}
                 reviews={data.reviews}
             />;
+        case 'shop':
+            return (
+                <ShopSingleTemplate
+                    shop={data.entity}
+                />
+            )
         case 'page':
             return <PageTemplate
                 page={data.entity}

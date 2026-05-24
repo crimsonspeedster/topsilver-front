@@ -3,7 +3,7 @@ import {CityObject} from "@interfaces/entities/city";
 import {SelectGroup, SelectOption} from "@interfaces/layouts/formField";
 import {CartObject} from "@interfaces/entities/cart";
 import {UserObject} from "@interfaces/entities/user";
-import {ShopsObject} from "@interfaces/entities/shops";
+import {ShopsObject, ShopsPickupObject} from "@interfaces/entities/shops";
 
 export const getWishlist = (): number[] => {
     const wishlist = Cookies .get('wishlist');
@@ -36,7 +36,7 @@ export const groupCitiesByRegion = (cities: CityObject[]): SelectGroup[] => {
     return Object.values(grouped);
 };
 
-export const groupShopsByRegion = (shops: ShopsObject[]): SelectGroup[] => {
+export const groupShopsByRegion = (shops: ShopsPickupObject[]): SelectGroup[] => {
     const grouped: Record<
         string,
         { label: string; options: SelectOption[] }
@@ -45,7 +45,7 @@ export const groupShopsByRegion = (shops: ShopsObject[]): SelectGroup[] => {
     shops.forEach((shop) => {
         const regionName = shop.city.region.name;
 
-        const label = `${shop.name} (${shop.city.name} (${shop.city.region.name}) ${shop.address})`;
+        const label = `${shop.title} (${shop.address}) (${shop.city.name})`;
 
         if (!grouped[regionName]) {
             grouped[regionName] = {
