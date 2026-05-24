@@ -15,6 +15,7 @@ export type TaxonomyCollectionObject = {
     id: number,
     title: string,
     slug: string,
+    media: MediaObject|null,
 }
 
 export type TaxonomyOptionsObject = Omit<TaxonomyCollectionObject, 'slug'>;

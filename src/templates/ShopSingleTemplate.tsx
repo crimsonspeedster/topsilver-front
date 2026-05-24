@@ -2,6 +2,7 @@ import {ShopsObject} from "@interfaces/entities/shops";
 import PageBanner from "@src/commonsections/PageBanner";
 import ContentEntityBlocks from "@src/components/Pages/ContentEntityBlocks";
 
+
 type Props = {
     shop: ShopsObject,
 };
