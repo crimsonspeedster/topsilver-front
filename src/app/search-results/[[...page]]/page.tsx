@@ -22,8 +22,6 @@ const SearchResultsPage = async (
         ? Number(page[1])
         : 1;
 
-    console.log(parsedSearchParams);
-
     if (currentPage === 1 && page?.length) {
         if (page?.[0] === 'page') {
             permanentRedirect(`/search-results`);

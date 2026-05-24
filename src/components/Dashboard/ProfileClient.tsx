@@ -110,8 +110,6 @@ export default function ProfileClient({ cities }: Props) {
                     }
 
                     setErrors(formattedErrors);
-                } else {
-                    console.error('Unexpected error:', error);
                 }
             } finally {
                 setSubmitting(false);

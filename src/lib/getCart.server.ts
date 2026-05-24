@@ -16,7 +16,6 @@ export const getCartSSR = async (): Promise<CartObject> => {
 
         return res.status === 200 ? res.data.data : emptyCartObject;
     } catch (error) {
-        console.log(error);
         return emptyCartObject;
     }
 }

@@ -46,8 +46,6 @@ const ForgotPasswordForm = () => {
                     const backendError = error.response.data.message;
 
                     toast.error(backendError);
-                } else {
-                    console.error('Unexpected error:', error);
                 }
             } finally {
                 setSubmitting(false);

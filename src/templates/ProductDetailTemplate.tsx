@@ -62,7 +62,7 @@ const ProductDetailTemplate = (
 
             setRecentlyViewedProducts(response.data?.data ?? []);
         } catch (e) {
-            console.error(e);
+
         }
     };
 

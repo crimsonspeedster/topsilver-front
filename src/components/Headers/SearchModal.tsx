@@ -36,8 +36,7 @@ const SearchModal = (
     useEffect(()=>{
         if (show && categories.length === 0) {
             axiosClient.get('/reference/categories')
-                .then(res => setCategories(res.data.data))
-                .catch(err => console.log(err));
+                .then(res => setCategories(res.data.data));
         }
     }, [show]);
 
@@ -62,8 +61,6 @@ const SearchModal = (
                 });
 
                 // const response = await axiosClient.post('/reset-password', formData);
-            } catch (error) {
-                console.log(error);
             } finally {
                 setSubmitting(false);
             }

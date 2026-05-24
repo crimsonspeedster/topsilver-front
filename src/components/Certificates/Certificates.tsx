@@ -19,7 +19,7 @@ const Certificates = () => {
 
             toast.success(tCart('certificate_removed'));
         } catch (error) {
-            console.log(error);
+
         }
     }
 

@@ -63,9 +63,6 @@ const MiniCartItemProduct = (
                         break;
                 }
             }
-            else {
-                console.error('Unexpected error:', error);
-            }
         }
         finally {
             setIsSubmitting(false);

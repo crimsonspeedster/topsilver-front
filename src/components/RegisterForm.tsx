@@ -114,8 +114,6 @@ const RegisterForm = (
                     }
 
                     setErrors(formattedErrors);
-                } else {
-                    console.error('Unexpected error:', error);
                 }
             } finally {
                 setSubmitting(false);

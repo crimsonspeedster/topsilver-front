@@ -23,7 +23,7 @@ const CartItemRemove = (
 
             toast.success(tCart('item_removed'));
         } catch (error) {
-            console.error(error);
+
         }
     }
 

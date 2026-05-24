@@ -27,8 +27,9 @@ const WishListClient = () => {
                     .then((res) => {
                         setProducts(res.data.data);
                     });
-            } catch (error) {
-                console.error(error);
+            }
+            catch (error) {
+
             }
         }
         else {

@@ -12,9 +12,26 @@ import OrderInfo from "@src/components/Checkout/OrderInfo";
 import ShippingInfo from "@src/components/Checkout/ShippingInfo";
 import PaymentInfo from "@src/components/Checkout/PaymentInfo";
 import NotesInfo from "@src/components/Checkout/NotesInfo";
+import {CartObject} from "@interfaces/entities/cart";
+import {PaymentMethodObject} from "@interfaces/entities/payment-method";
+import {ShippingMethodObject} from "@interfaces/entities/shipping-method";
+import {UserObject} from "@interfaces/entities/user";
+import {getUserFormData} from "@src/helpers";
+import CheckoutUserSync from "@src/components/Checkout/CheckoutUserSync";
+import {CheckoutFormValues} from "@interfaces/layouts/checkoutForm";
+import {SelectOption} from "@interfaces/layouts/formField";
 
 
-const CheckoutForm = () => {
+type Props = {
+    cart: CartObject,
+    paymentMethods: PaymentMethodObject[],
+    shippingMethods: ShippingMethodObject[],
+    initUserData: UserObject|null,
+};
+
+const CheckoutForm = (
+    props: Props
+) => {
     const tForm = useTranslations('Form');
 
     const validationSchema = useMemo(() => Yup.object({
@@ -44,39 +61,96 @@ const CheckoutForm = () => {
 
         notes: Yup.string()
             .max(255, tForm('errors.max')),
+
+        rules: Yup.boolean()
+            .oneOf([true], tForm('errors.required')),
+
+        shop_id: Yup.string().when('shipping_method', {
+            is: (shipping_method: ShippingMethodObject) => shipping_method.type === 'local_pickup',
+            then: (schema) =>
+                schema.required(tForm('errors.required')),
+            otherwise: (schema) =>
+                schema.notRequired(),
+        }),
+
+        np_area: Yup.string().when('shipping_method', {
+            is: (shipping_method: ShippingMethodObject|null) => shipping_method?.type === 'nova_poshta_warehouse',
+            then: (schema) =>
+                schema.required(tForm('errors.required')),
+            otherwise: (schema) =>
+                schema.notRequired(),
+        }),
+
+        np_city: Yup.mixed().when('shipping_method', {
+            is: (sm: ShippingMethodObject|null) => sm?.type === 'nova_poshta_warehouse',
+            then: (schema) => schema.required(tForm('errors.required')),
+            otherwise: (schema) =>
+                schema.notRequired(),
+        }),
+
+        np_warehouse: Yup.mixed().when('shipping_method', {
+            is: (sm: ShippingMethodObject|null) => sm?.type === 'nova_poshta_warehouse',
+            then: (schema) => schema.required(tForm('errors.required')),
+            otherwise: (schema) =>
+                schema.notRequired(),
+        }),
+
+        np_locality: Yup.mixed().when('shipping_method', {
+            is: (sm: ShippingMethodObject|null) => sm?.type === 'nova_poshta_courier',
+            then: (schema) => schema.required(tForm('errors.required')),
+            otherwise: (schema) =>
+                schema.notRequired(),
+        }),
+
+        np_street: Yup.mixed().when('shipping_method', {
+            is: (sm: ShippingMethodObject|null) => sm?.type === 'nova_poshta_courier',
+            then: (schema) => schema.required(tForm('errors.required')),
+            otherwise: (schema) =>
+                schema.notRequired(),
+        }),
+
+        np_house_number: Yup.string().when('shipping_method', {
+            is: (shipping_method: ShippingMethodObject|null) => shipping_method?.type === 'nova_poshta_courier',
+            then: (schema) =>
+                schema.required(tForm('errors.required')),
+            otherwise: (schema) =>
+                schema.notRequired(),
+        }),
     }), [tForm]);
 
-    const initialValues = {
-        first_name: '',
-        middle_name: '',
-        last_name: '',
-        phone: '',
-        email: '',
+    const initialValues: CheckoutFormValues = useMemo(() => ({
+        ...getUserFormData(props.initUserData),
+
         notes: '',
 
-        payment_method_id: '',
+        payment_method: props.paymentMethods?.[0] ?? null,
 
-        shipping_method_id: '',
+        shipping_method: props.shippingMethods?.[0] ?? null,
 
         shop_id: '',
 
-        np_warehouse_ref: '',
-        np_city: '',
-        np_street: '',
+        np_area: '',
+        np_city: null,
+        np_warehouse: null,
+
+        np_locality: null,
+        np_street: null,
         np_house_number: '',
         np_apartment_number: '',
-    };
+
+        rules: false,
+    }), [props.initUserData]);
 
     const handleSubmit = async (values: typeof initialValues, helpers: any) => {
         console.log(values);
 
-        try {
-            helpers.setSubmitting(true);
-        } catch (error: any) {
-            console.error(error);
-        } finally {
-            helpers.setSubmitting(false);
-        }
+        // try {
+        //     helpers.setSubmitting(true);
+        // } catch (error: any) {
+        //     console.error(error);
+        // } finally {
+        //     helpers.setSubmitting(false);
+        // }
     };
 
     return (
@@ -89,17 +163,17 @@ const CheckoutForm = () => {
                 >
                     {() => (
                         <Form className="row">
-                            <div className="col-md-6 col-lg-7">
-                                <PersonalInfo
+                            <CheckoutUserSync />
 
-                                />
+                            <div className="col-md-6 col-lg-7">
+                                <PersonalInfo />
 
                                 <ShippingInfo
-
+                                    methods={props.shippingMethods}
                                 />
 
                                 <PaymentInfo
-
+                                    methods={props.paymentMethods}
                                 />
 
                                 <NotesInfo />
@@ -107,7 +181,7 @@ const CheckoutForm = () => {
 
                             <div className="col-md-6 col-lg-5 mt-5 mt-md-0">
                                 <OrderInfo
-
+                                    cart={props.cart}
                                 />
                             </div>
                         </Form>

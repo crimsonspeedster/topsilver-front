@@ -17,7 +17,6 @@ export const getUserSSR = async (): Promise<UserObject | null> => {
 
         return res.status === 200 ? res.data.data : null;
     } catch (err) {
-        console.error(err);
         return null;
     }
 };
@@ -34,7 +33,6 @@ export const getUserBonusesSSR = async (): Promise<BonusesObject | null> => {
 
         return res.status === 200 ? res.data.data : null;
     } catch (err) {
-        console.error(err);
         return null;
     }
 };
@@ -62,7 +60,6 @@ export const getUserOrdersSSR = async (
 
         return res.status === 200 ? res.data.data : null;
     } catch (err) {
-        console.error(err);
         return null;
     }
 };

@@ -112,8 +112,6 @@ export const useTaxonomyProducts = (
                 min,
                 max
             });
-        } catch (error) {
-            console.error(error);
         } finally {
             setLoading(false);
         }
@@ -155,8 +153,6 @@ export const useTaxonomyProducts = (
             setHasMore(data.pagination.has_more_pages);
             setSorting(item);
             setPage(1);
-        } catch (error) {
-            console.error(error);
         } finally {
             setLoading(false);
         }
@@ -224,8 +220,6 @@ export const useTaxonomyProducts = (
             setPagination(data.pagination);
             setHasMore(data.pagination.has_more_pages);
             setPage(1);
-        } catch (error) {
-            console.error(error);
         } finally {
             setLoading(false);
         }
@@ -255,8 +249,6 @@ export const useTaxonomyProducts = (
             setPage(prev => prev+1);
             setPagination(data.pagination);
             setHasMore(data.pagination.has_more_pages);
-        } catch (error) {
-            console.error(error);
         } finally {
             setLoading(false);
         }

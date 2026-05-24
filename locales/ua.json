@@ -147,7 +147,18 @@
     "additional_overhead": "Додаткова інформація",
     "personal_data_overhead": "Особисті дані",
     "read_rules": "Я прочитав (а) і погоджуюся з <link>правилами сайту</link>",
-    "notes": "Нотатки до замовлення"
+    "notes": "Нотатки до замовлення",
+    "payment_methods_not_found": "Немає доступних методів оплати",
+    "shipping_methods_not_found": "Немає доступних методів доставки",
+    "select_shop": "Виберіть магазин",
+    "select_locality": "Виберіть населений пункт",
+    "select_area": "Виберіть область",
+    "select_warehouse": "Виберіть відділення",
+    "select_street": "Виберіть вулицю",
+    "select_house": "Вкажіть будинок",
+    "select_apartment": "Вкажіть квартиру",
+    "enter_delivery_address": "Вкажіть адресу доставки",
+    "min_3_symbols": "Введіть 3 або більше символів для пошуку"
   },
   "Wishlist": {
     "wishlist": "Список бажань"

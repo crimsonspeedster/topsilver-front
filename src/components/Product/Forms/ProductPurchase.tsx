@@ -53,8 +53,6 @@ const ProductPurchase = (
 
             props.priceHandle(selectedVariant.price_formatted, selectedVariant.price_on_sale_formatted, selectedVariant.discount_percent);
 
-            console.log(selectedVariant);
-
             setMaxQty(
                 props.manage_stock
                     ? selectedVariant.stock ?? 1
@@ -120,8 +118,6 @@ const ProductPurchase = (
                 const backendError = error.response.data.message;
 
                 toast.error(backendError);
-            } else {
-                console.error('Unexpected error:', error);
             }
         } finally {
             setIsSubmitting(false);

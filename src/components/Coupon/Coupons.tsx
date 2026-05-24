@@ -19,7 +19,7 @@ const Coupons = () => {
 
             toast.success(tCart('coupon_removed'));
         } catch (error) {
-            console.log(error);
+
         }
     }
 

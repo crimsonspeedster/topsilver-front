@@ -87,16 +87,12 @@ const LoginModal = (
                     resetForm();
 
                     handleLoginClose();
-
-                    router.push('/dashboard/profile');
                 }
             } catch (error: any) {
                 if (error.response && error.response.status === 422) {
                     const backendError = error.response.data.message;
 
                     toast.error(backendError);
-                } else {
-                    console.error('Unexpected error:', error);
                 }
             } finally {
                 setSubmitting(false);

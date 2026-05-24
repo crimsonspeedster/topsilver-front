@@ -7,7 +7,7 @@ const NotesInfo = () => {
     const tCheckout = useTranslations('Checkout');
 
     return (
-        <>
+        <div className="mt-3">
             <CheckoutOverhead
                 title={tCheckout('additional_overhead')}
             />
@@ -18,7 +18,7 @@ const NotesInfo = () => {
                 required={false}
                 rows={6}
             />
-        </>
+        </div>
     );
 }
 

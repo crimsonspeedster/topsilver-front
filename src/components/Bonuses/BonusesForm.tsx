@@ -70,9 +70,6 @@ const BonusesForm = (
                             break;
                     }
                 }
-                else {
-                    console.error('Unexpected error:', error);
-                }
             } finally {
                 setSubmitting(false);
             }

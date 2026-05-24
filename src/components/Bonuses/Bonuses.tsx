@@ -19,7 +19,7 @@ const Bonuses = () => {
 
             toast.success(tCart('bonuses_removed'));
         } catch (error) {
-            console.log(error);
+
         }
     }
 

@@ -78,9 +78,9 @@ const SelectField = <T extends Record<string, any>,>(
                 onBlur={() => f.setFieldTouched(name as string, true)}
             />
 
-            {f.touched[name] && f.errors[name] && (
+            {f.touched[name as string] && f.errors[name as string] && (
                 <div className="invalid-feedback d-block">
-                    {String(f.errors[name])}
+                    {String(f.errors[name as string])}
                 </div>
             )}
         </Form.Group>

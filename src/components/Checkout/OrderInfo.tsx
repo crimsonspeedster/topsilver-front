@@ -1,13 +1,24 @@
 import {useTranslations} from "next-intl";
 import {useFormikContext} from "formik";
 import Link from "next/link";
+import {CartObject} from "@interfaces/entities/cart";
+import CheckoutItem from "@src/components/Checkout/CheckoutItem";
+import {CheckoutFormValues} from "@interfaces/layouts/checkoutForm";
 
 
-const OrderInfo = () => {
+type Props = {
+    cart: CartObject;
+}
+
+const OrderInfo = (
+    {
+        cart,
+    }: Props
+) => {
     const tCheckout = useTranslations('Checkout');
     const tCart = useTranslations('Cart');
     const tForm = useTranslations('Form');
-    const {isSubmitting, isValid} = useFormikContext();
+    const {isSubmitting, isValid, submitForm, errors, values, setFieldValue} = useFormikContext<CheckoutFormValues>();
 
     return (
         <div className="checkout-order">
@@ -25,36 +36,54 @@ const OrderInfo = () => {
             </div>
 
             <div>
-                // ITEMS
+                {
+                    cart.items.map((item) => (
+                        <CheckoutItem
+                            key={item.id}
+                            title={item.entity.title}
+                            qty={item.quantity}
+                            price={item.price_formatted}
+                        />
+                    ))
+                }
             </div>
 
             <div className="d-flex justify-content-between fw-medium border-bottom mb-0 p-2">
                 <h6 className="mb-0 lh-lg">{tCart('subtotal')}</h6>
 
-                <p className="mb-0 lh-lg">$85.00</p>
+                <p className="mb-0 lh-lg">{cart.subtotal_formatted}</p>
             </div>
 
             <div className="d-flex justify-content-between fw-medium border-bottom mb-0 p-2">
                 <h6 className="mb-0 lh-lg">{tCart('total')}</h6>
 
-                <p className="mb-0 lh-lg">$145.00</p>
+                <p className="mb-0 lh-lg">{cart.total_formatted}</p>
             </div>
 
             <div className="form-check mt-3">
                 <input
                     className="form-check-input"
                     type="checkbox"
-                    required
                     name="rules"
+                    checked={values.rules}
+                    onChange={(e) => {
+                        setFieldValue('rules', e.target.checked);
+                    }}
                 />
 
-                <label className="form-label form-check-label">
+                <div
+                    className="form-label form-check-label"
+                    onClick={() => {
+                        setFieldValue('rules', !values.rules);
+                    }}
+                >
                     {
                         tCheckout.rich('read_rules', {
                             link: (chunks) => (
                                 <Link
                                     href="/rules"
                                     className="underline"
+                                    target="_blank"
                                 >
                                     {chunks}
                                 </Link>
@@ -63,10 +92,13 @@ const OrderInfo = () => {
                     }
 
                     <span className="text-danger"> *</span>
-                </label>
+                </div>
             </div>
 
             <button
+                type="button"
+                onClick={submitForm}
+                disabled={!isValid || isSubmitting}
                 className="btn btn-teal mt-3 px-5 py-3 fw-bold w-100 rounded-pill btn btn-primary"
             >
                 {tForm('buttons.send_order')}
