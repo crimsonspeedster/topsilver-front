@@ -1,5 +1,12 @@
 import {SeoBlockObject} from "@interfaces/entities/seo";
 import {MediaObject} from "@interfaces/common";
+import {CategoriesGridLayoutObject} from "@interfaces/entities/blocks/categories-grid";
+import {ProductsGridLayoutObject} from "@interfaces/entities/blocks/products-grid";
+import {AdvantagesLayoutObject} from "@interfaces/entities/blocks/advantages";
+import {BannersLayoutObject} from "@interfaces/entities/blocks/banners";
+import {ContentBlockLayoutObject} from "@interfaces/entities/blocks/content-block";
+import {InstagramGridLayoutObject} from "@interfaces/entities/blocks/instagram-grid";
+import {ProductGridWithTabsLayoutObject} from "@interfaces/entities/blocks/products-grid-with-tabs";
 
 
 export type ContentEntityObject = {
@@ -18,7 +25,13 @@ export type LayoutBaseObject = {
 }
 
 export type LayoutObject =
-    | (LayoutBaseObject & {})
+    | (LayoutBaseObject & CategoriesGridLayoutObject)
+    | (LayoutBaseObject & ProductsGridLayoutObject)
+    | (LayoutBaseObject & AdvantagesLayoutObject)
+    | (LayoutBaseObject & BannersLayoutObject)
+    | (LayoutBaseObject & ContentBlockLayoutObject)
+    | (LayoutBaseObject & InstagramGridLayoutObject)
+    | (LayoutBaseObject & ProductGridWithTabsLayoutObject);
 
 export type PagePageEntityObject = {
     type: 'page';

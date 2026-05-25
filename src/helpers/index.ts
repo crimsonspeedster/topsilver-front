@@ -3,7 +3,7 @@ import {CityObject} from "@interfaces/entities/city";
 import {SelectGroup, SelectOption} from "@interfaces/layouts/formField";
 import {CartObject} from "@interfaces/entities/cart";
 import {UserObject} from "@interfaces/entities/user";
-import {ShopsObject, ShopsPickupObject} from "@interfaces/entities/shops";
+import {ShopsPickupObject} from "@interfaces/entities/shops";
 
 export const getWishlist = (): number[] => {
     const wishlist = Cookies .get('wishlist');

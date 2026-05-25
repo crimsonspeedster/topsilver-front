@@ -47,9 +47,11 @@ const WishListClient = () => {
                     <Row className="g-lg-4 g-3">
                         {
                             products.map(product => (
-                                <div className='col-6 col-lg-4 col-xl-3' key={product.id}>
+                                <div
+                                    className='col-6 col-lg-4 col-xl-3'
+                                     key={product.id}
+                                >
                                     <ProductBlock
-                                        key={product.id}
                                         product={product}
                                     />
                                 </div>

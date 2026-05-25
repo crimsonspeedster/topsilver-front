@@ -4,9 +4,6 @@ import TaxonomyProductsTemplate from "@templates/TaxonomyProductsTemplate";
 import {parseTaxonomySearchParams} from "@services/taxonomy/taxonomy.utils";
 import ProductDetailTemplate from "@templates/ProductDetailTemplate";
 import {Metadata} from "next";
-import {headers} from "next/headers";
-import {TaxonomyObject} from "@interfaces/entities/taxonomy";
-import {ProductObject} from "@interfaces/entities/product";
 import PageTemplate from "@templates/PageTemplate";
 import {getBaseUrl} from "@helpers/functions.server";
 import ShopSingleTemplate from "@templates/ShopSingleTemplate";
@@ -62,7 +59,6 @@ const Page = async (
 
     switch (data.type) {
         case 'category':
-        case 'collection':
         case 'filter_page':
             const initialPriceObject = {
                 min: parsedSearchParams.price?.min ?? data.filters.price.min,

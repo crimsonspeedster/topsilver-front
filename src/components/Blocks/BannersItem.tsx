@@ -1,0 +1,66 @@
+'use client';
+
+import {BannersItemObject} from "@interfaces/entities/blocks/banners";
+import Image from "next/image";
+import Link from "next/link";
+import {useTranslations} from "next-intl";
+
+
+const BannersItem = ({item}: {item: BannersItemObject}) => {
+    const tCommon = useTranslations('Common');
+    let layoutClasses = 'position-absolute d-flex';
+    const layoutSchemeClasses = item.text_color === 'white' ? 'text-white' : '';
+
+    switch (item.type) {
+        case 'bottom':
+            layoutClasses += ' start-0 start-0 end-0 top-0 bottom-0 align-items-end m-4 mb-5';
+            break;
+        case 'center':
+            layoutClasses += ' top-50 start-50 translate-middle align-items-center text-center';
+            break;
+        default:
+            break;
+    }
+
+    return (
+        <Link
+            href={item.link}
+            className="position-relative hover-zoom d-block"
+        >
+            <Image
+                src={item.image}
+                alt={item.title}
+                width={600}
+                height={300}
+                className="img-fluid hover-zoom-img w-100"
+            />
+
+            <div className={layoutClasses}>
+                <div className={layoutSchemeClasses}>
+                    {
+                        item.overhead &&
+                        <p className="fs-16 fw-medium mb-1">{item.overhead}</p>
+                    }
+
+                    <h2 className="fs-36 font-playfair fw-semibold mb-4">{item.title}</h2>
+
+                    {
+                        item.subtitle &&
+                        <p className="text-muted mb-0">{item.subtitle}</p>
+                    }
+
+                    {
+                        item.show_button &&
+                        <p className="fw-normal btn btn-dark rounded-0 font-futura mb-0 btn_icon_true d-inline-block position-relative fs-14">
+                            {
+                                tCommon('shop_now')
+                            }
+                        </p>
+                    }
+                </div>
+            </div>
+        </Link>
+    );
+}
+
+export default BannersItem;
