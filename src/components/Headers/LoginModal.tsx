@@ -12,6 +12,8 @@ import {useTranslations} from "next-intl";
 import FormField from "@src/components/Form/FormField";
 import PhoneFormField from "@src/components/Form/PhoneFormField";
 import {useRouter} from "next/navigation";
+import {useCartStore} from "@src/store/cart-store";
+import {getCartClient} from "@lib/getCart.client";
 
 
 type Props = {
@@ -28,6 +30,7 @@ const LoginModal = (
     const tAuth = useTranslations('Auth');
     const tForm = useTranslations('Form');
     const setUser = useAuthStore((state) => state.setUser);
+    const setCart = useCartStore((state) => state.setCart);
 
     const router = useRouter();
 
@@ -85,6 +88,10 @@ const LoginModal = (
                     setUser(response.data.data);
 
                     resetForm();
+
+                    const cartUpdateResponse = await getCartClient();
+
+                    setCart(cartUpdateResponse);
 
                     handleLoginClose();
                 }
