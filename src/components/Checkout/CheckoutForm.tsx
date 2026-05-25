@@ -142,15 +142,34 @@ const CheckoutForm = (
     }), [props.initUserData]);
 
     const handleSubmit = async (values: typeof initialValues, helpers: any) => {
+        helpers.setSubmitting(true);
+
+        console.log('values from formik');
         console.log(values);
 
-        // try {
-        //     helpers.setSubmitting(true);
-        // } catch (error: any) {
-        //     console.error(error);
-        // } finally {
-        //     helpers.setSubmitting(false);
-        // }
+        const formData = new FormData();
+
+        Object.entries(values).forEach(([key, value]) => {
+            formData.append(key, String(value ?? '').trim());
+        });
+
+        if (values.shipping_method) {
+            formData.append('shipping_method_id', values.shipping_method.id.toString())
+        }
+
+        if (values.payment_method) {
+            formData.append('payment_method_id', values.payment_method.id.toString())
+        }
+
+        try {
+            const response = await axiosClient.post('/checkout', formData);
+
+            console.log('response', response);
+        } catch (error: any) {
+            console.error(error);
+        } finally {
+            helpers.setSubmitting(false);
+        }
     };
 
     return (
