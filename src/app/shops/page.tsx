@@ -4,7 +4,8 @@ import {notFound} from "next/navigation";
 import ShopsArchiveTemplate from "@templates/ShopsArchiveTemplate";
 
 export default async function ShopsPage() {
-    const data = await getShopsSSR(1);
+    const currentPage = 1;
+    const data = await getShopsSSR(currentPage);
 
     if (!data?.shops || data.shops.length === 0) {
         notFound();
@@ -13,7 +14,7 @@ export default async function ShopsPage() {
     return (
         <ShopsArchiveTemplate
             shops={data.shops}
-            currentPage={1}
+            currentPage={currentPage}
             pagination={data.pagination}
         />
     );
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     title: 'Магазини',
     description: 'Наші магазини',
     robots: {
-        index: true,
-        follow: true,
+        index: process.env.NODE_ENV === 'production',
+        follow: process.env.NODE_ENV === 'production',
     },
 };

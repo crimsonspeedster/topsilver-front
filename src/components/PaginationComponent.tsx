@@ -40,47 +40,49 @@ const PaginationComponent = (
             : pathname;
     };
 
-    return (
-        total_pages > 1 && (
-            <div className="filter-pagination">
-                <ul className="pagination py-4 d-flex flex-wrap justify-content-center">
-                    {
-                        current_page > 1 &&
-                        <li>
-                            <Link href={buildHref(current_page - 1)}>
-                                {t('prev')}
-                            </Link>
-                        </li>
-                    }
+    if (total_pages <= 1) {
+        return null;
+    }
 
-                    {pages.map((page) => (
-                        <li
-                            key={page}
-                            className={page === current_page ? "active" : ""}
-                        >
-                            {page === current_page ? (
-                                <span className="text-danger">
+    return (
+        <div className="filter-pagination">
+            <ul className="pagination py-4 d-flex flex-wrap justify-content-center">
+                {
+                    current_page > 1 &&
+                    <li>
+                        <Link href={buildHref(current_page - 1)}>
+                            {t('prev')}
+                        </Link>
+                    </li>
+                }
+
+                {pages.map((page) => (
+                    <li
+                        key={page}
+                        className={page === current_page ? "active" : ""}
+                    >
+                        {page === current_page ? (
+                            <span className="text-danger">
                                     {page}
                                 </span>
-                            ) : (
-                                <Link href={buildHref(page)}>
-                                    {page}
-                                </Link>
-                            )}
-                        </li>
-                    ))}
-
-                    {
-                        current_page < total_pages &&
-                        <li>
-                            <Link href={buildHref(current_page + 1)}>
-                                {t('next')}
+                        ) : (
+                            <Link href={buildHref(page)}>
+                                {page}
                             </Link>
-                        </li>
-                    }
-                </ul>
-            </div>
-        )
+                        )}
+                    </li>
+                ))}
+
+                {
+                    current_page < total_pages &&
+                    <li>
+                        <Link href={buildHref(current_page + 1)}>
+                            {t('next')}
+                        </Link>
+                    </li>
+                }
+            </ul>
+        </div>
     );
 };
 

@@ -1,6 +1,6 @@
-import {getShopsSSR} from "@lib/getShops.server";
+import {getTaxonomiesSSR} from "@lib/getCollections.server";
 import {notFound, permanentRedirect} from "next/navigation";
-import ShopsArchiveTemplate from "@templates/ShopsArchiveTemplate";
+import TaxonomiesTemplate from "@templates/TaxonomiesTemplate";
 import {Metadata} from "next";
 import {getBaseUrl} from "@helpers/functions.server";
 
@@ -11,28 +11,30 @@ type Props = {
     }>
 }
 
-export default async function ShopsPaginatePage(
+export default async function CollectionsPaginatePage(
     {
         params,
     }: Props
 ) {
     const {page} = await params;
     const currentPage = Number(page);
-    const data = await getShopsSSR(currentPage);
+    const collectionsData = await getTaxonomiesSSR(currentPage, 'collection');
 
     if (currentPage === 1) {
-        permanentRedirect('/shops');
+        permanentRedirect('/collections');
     }
 
-    if (!data?.shops || data.shops.length === 0 || (data.pagination && currentPage > data.pagination.total_pages)) {
-        return notFound();
+    if (!collectionsData || (collectionsData.pagination && currentPage > collectionsData.pagination.total_pages)) {
+        notFound();
     }
 
     return (
-        <ShopsArchiveTemplate
-            shops={data.shops}
+        <TaxonomiesTemplate
+            title="Колекції"
+            taxonomies={collectionsData.taxonomies}
+            pagination={collectionsData.pagination}
+            slug="collections"
             currentPage={currentPage}
-            pagination={data.pagination}
         />
     );
 }
@@ -43,8 +45,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const baseUrl = await getBaseUrl();
 
     const isFirstPage = currentPage <= 1;
-    const title_base = 'Магазини';
-    const description_base = 'Наші магазини';
+    const title_base = 'Колекції';
+    const description_base = 'Список колекцій';
 
     const title = isFirstPage
         ? title_base
@@ -63,8 +65,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         },
         alternates: {
             canonical: isFirstPage
-                ? `${baseUrl}/shops`
-                : `${baseUrl}/shops/page/${currentPage}`,
+                ? `${baseUrl}/collections`
+                : `${baseUrl}/collections/page/${currentPage}`,
         },
         openGraph: {
             title,

@@ -2,7 +2,7 @@ export const buildTaxonomyProductsUrl = (
     type: string,
     id: number,
 ) => {
-    return `${process.env.NEXT_PUBLIC_ENV_API_V1_LINK}/taxonomies/${type}/${id}/products`;
+    return `${process.env.NEXT_PUBLIC_ENV_API_V1_LINK}/taxonomies/${type}/products/${id}`;
 };
 
 export const buildTaxonomyPageUrl = (

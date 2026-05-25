@@ -62,6 +62,7 @@ const Page = async (
 
     switch (data.type) {
         case 'category':
+        case 'collection':
         case 'filter_page':
             const initialPriceObject = {
                 min: parsedSearchParams.price?.min ?? data.filters.price.min,

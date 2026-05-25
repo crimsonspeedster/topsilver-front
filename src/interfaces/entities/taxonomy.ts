@@ -1,5 +1,5 @@
 import {MediaObject, PaginationObject} from "@interfaces/common";
-import {SeoBlockObject, SeoObject} from "@interfaces/entities/seo";
+import {SeoBlockObject} from "@interfaces/entities/seo";
 import {ProductCardObject, VariantAttributeFunctionalityObject} from "@interfaces/entities/product";
 
 
@@ -18,6 +18,11 @@ export type TaxonomyCollectionObject = {
     media: MediaObject|null,
 }
 
+export type TaxonomyCollectionPromiseObject = {
+    taxonomies: TaxonomyCollectionObject[];
+    pagination: PaginationObject;
+}
+
 export type TaxonomyOptionsObject = Omit<TaxonomyCollectionObject, 'slug'>;
 
 export type TaxonomyFiltersObject = {
@@ -31,7 +36,7 @@ export type PriceObject = {
 }
 
 export type TaxonomyPageEntityObject = {
-    type: 'category' | 'filter_page',
+    type: 'category' | 'filter_page' | 'collection',
     entity: TaxonomyObject,
     pagination: PaginationObject,
     products: ProductCardObject[],
