@@ -66,6 +66,8 @@
     "registration": "Реєстрація",
     "by": "За",
     "by_price": "За ціною",
+    "by_collections": "За колекціями",
+    "by_categories": "За категоріями",
     "not_found": "Сторінку не знайдено",
     "price": "Ціна",
     "apply": "Застосувати",
@@ -174,7 +176,8 @@
     "search": "Пошук",
     "show_all": "Показати все",
     "search_on_site": "Пошук по сайту",
-    "search_results": "Результати пошуку"
+    "search_results": "Результати пошуку",
+    "not_found": "Нічого не знайдено"
   },
   "Dashboard": {
     "profile": "Профіль",

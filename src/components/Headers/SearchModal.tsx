@@ -11,8 +11,9 @@ import {useFormik} from "formik";
 import {Form} from 'react-bootstrap';
 import FormField from "@src/components/Form/FormField";
 import SelectField from "@src/components/Form/SelectField";
-import {ProductSearchObject} from "@interfaces/entities/product";
+import {ProductCardObject, ProductSearchPromiseObject} from "@interfaces/entities/product";
 import ProductSearchItem from "@src/components/Product/ProductSearchItem";
+import {AxiosResponse} from "axios";
 
 
 type Props = {
@@ -30,7 +31,7 @@ const SearchModal = (
     const tSearch = useTranslations('Search');
 
     const [categories, setCategories] = useState<TaxonomyOptionsObject[]>([]);
-    const [searchItems, setSearchItems] = useState<ProductSearchObject[]>([]);
+    const [searchItems, setSearchItems] = useState<ProductCardObject[]>([]);
     const [searchLink, setSearchLink] = useState<string|null>(null);
 
     useEffect(()=>{
@@ -55,21 +56,21 @@ const SearchModal = (
             setSubmitting(true);
 
             try {
-                const formData = new FormData();
-                Object.entries(values).forEach(([key, value]) => {
-                    formData.append(key, String(value ?? '').trim());
+                const response: AxiosResponse<{data: ProductSearchPromiseObject}> = await axiosClient.get('/search', {
+                    params: {
+                        page: 1,
+                        search: values.search,
+                        'categories[]': values.category_id ? Number(values.category_id) : null,
+                    }
                 });
 
-                // const response = await axiosClient.post('/reset-password', formData);
+                setSearchLink(`/search-results?search=${values.search}&category_id=${values.category_id}`);
+                setSearchItems(response.data.data?.products ?? []);
             } finally {
                 setSubmitting(false);
             }
         }
     });
-
-    useEffect(()=>{
-        console.log(categories);
-    }, [categories]);
 
     return (
         <Offcanvas show={show} onHide={handleClose} placement="end">
@@ -120,6 +121,7 @@ const SearchModal = (
                             <button
                                 type="submit"
                                 className="btn"
+                                disabled={formik.isSubmitting}
                             >
                                 <i className="iccl iccl-search" />
                             </button>
@@ -129,23 +131,27 @@ const SearchModal = (
             </div>
 
             {
-                searchItems.length > 0 &&
-                <div className="offcanvas-body">
-                    {
-                        searchItems.map(item => (
-                            <ProductSearchItem
-                                item={item}
-                                key={item.id}
-                            />
-                        ))
-                    }
-                </div>
+                searchItems.length > 0 ?
+                    <div className="offcanvas-body">
+                        {
+                            searchItems.map(item => (
+                                <ProductSearchItem
+                                    handleClose={handleClose}
+                                    item={item}
+                                    key={item.id}
+                                />
+                            ))
+                        }
+                    </div>
+                    :
+                    <p className="text-center text-muted">{tSearch('not_found')}</p>
             }
 
             {
-                searchLink &&
+                searchLink && searchItems.length > 0 &&
                 <div className="py-4 border-top mx-4">
                     <Link
+                        onNavigate={handleClose}
                         href={searchLink}
                         className="detail_link fs-14 fw-semibold"
                     >

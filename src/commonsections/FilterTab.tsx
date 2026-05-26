@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import {ProductCardObject} from "@interfaces/entities/product";
+import {ProductCardObject, TaxonomiesCollectionObject} from "@interfaces/entities/product";
 import {PriceObject, TaxonomyFiltersObject} from "@interfaces/entities/taxonomy";
 import {attributeObject, attributeTermFunctionalityObject} from "@interfaces/entities/attribute";
 import ProductBlock from "@src/components/Product/ProductBlock";
@@ -16,6 +16,11 @@ type Props = {
     products: ProductCardObject[],
     filters: TaxonomyFiltersObject,
     price: PriceObject,
+    onTaxonomyChange: (
+        type: string,
+        taxonomy: TaxonomiesCollectionObject,
+        checked: boolean,
+    ) => void,
     onFilterChange: (
         attribute: attributeObject,
         term: attributeTermFunctionalityObject,
@@ -23,6 +28,8 @@ type Props = {
     ) => void,
     sortItems: SortObject[],
     sortCurrent: SortObject,
+    categories?: TaxonomiesCollectionObject[],
+    collections?: TaxonomiesCollectionObject[],
     setSorting: (
         item: SortObject,
     ) => void,
@@ -39,6 +46,9 @@ const FilterTab = (
         sortCurrent,
         setSorting,
         onPriceChange,
+        onTaxonomyChange,
+        collections,
+        categories,
     } : Props) => {
     const t = useTranslations('Common');
     const [openFilter, setOpenFilter] = useState<boolean>(true);
@@ -74,6 +84,9 @@ const FilterTab = (
                     open={openFilter}
                     onFilterChange={onFilterChange}
                     onPriceChange={onPriceChange}
+                    categories={categories}
+                    collections={collections}
+                    onTaxonomyChange={onTaxonomyChange}
                 />
 
                 <div className="my-3 my-md-4">

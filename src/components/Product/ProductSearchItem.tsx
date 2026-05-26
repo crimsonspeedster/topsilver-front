@@ -2,23 +2,25 @@ import Link from "next/link";
 import Image from "next/image";
 import { Row } from 'react-bootstrap';
 import FallbackImage from '@assets/images/fallback.png';
-import {ProductSearchObject} from "@interfaces/entities/product";
+import {ProductCardObject} from "@interfaces/entities/product";
 import ProductPrices from "@src/components/Product/Parts/ProductPrices";
 
 
 type Props = {
-    item: ProductSearchObject,
+    item: ProductCardObject,
+    handleClose: () => void;
 }
 
 const ProductSearchItem = (
     {
         item,
+        handleClose,
     }: Props
 ) => {
     return (
         <Row className="mb-3">
             <div className="col-4">
-                <Link href={`/${item.slug}`}>
+                <Link onNavigate={handleClose} href={`/${item.slug}`}>
                     <Image
                         src={item.media?.url ?? FallbackImage}
                         alt={item.title}
@@ -32,6 +34,7 @@ const ProductSearchItem = (
             <div className="col-8">
                 <h6 className="mb-2">
                     <Link
+                        onNavigate={handleClose}
                         href={`/${item.slug}`}
                         className="product-title"
                     >

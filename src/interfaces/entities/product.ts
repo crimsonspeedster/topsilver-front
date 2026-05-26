@@ -1,7 +1,7 @@
-import {MediaObject, VideoObject} from "@interfaces/common";
+import {MediaObject, PaginationObject, VideoObject} from "@interfaces/common";
 import {LabelsObject} from "@interfaces/entities/label";
 import {attributeObject, attributeTermFunctionalityObject, attributeTermObject} from "@interfaces/entities/attribute";
-import {TaxonomyCollectionObject} from "@interfaces/entities/taxonomy";
+import {TaxonomyCollectionObject, TaxonomyFiltersObject} from "@interfaces/entities/taxonomy";
 import {ReviewObject} from "@interfaces/entities/reviews";
 
 
@@ -115,18 +115,6 @@ export type ProductQuickShopObject = Pick<
     slug: string,
 }
 
-export type ProductSearchObject = Pick<
-    ProductObject,
-    | 'id'
-    | 'title'
-    | 'price_formatted'
-    | 'price_on_sale_formatted'
-    | 'media'
-    | 'discount_percent'
-> & {
-    slug: string,
-};
-
 export type ProductQuickViewObject = Pick<
     ProductObject,
     | 'id'
@@ -153,7 +141,6 @@ export type ProductQuickViewObject = Pick<
     slug: string,
 }
 
-
 export type ProductPageEntityObject = {
     type: 'product',
     entity: ProductObject,
@@ -163,4 +150,19 @@ export type ProductPageEntityObject = {
     },
     breadcrumbs: BreadcrumbsObject[],
     reviews: ReviewObject[],
+}
+
+export type TaxonomiesCollectionObject = {
+    id: number;
+    title: string;
+    selected: boolean;
+}
+
+export type ProductSearchPromiseObject = {
+    products: ProductCardObject[];
+    pagination: PaginationObject;
+    filters: TaxonomyFiltersObject;
+    query: string;
+    categories: TaxonomiesCollectionObject[];
+    collections: TaxonomiesCollectionObject[];
 }

@@ -1,6 +1,7 @@
 import {TaxonomyFiltersObject} from "@interfaces/entities/taxonomy";
 import {ReadonlyURLSearchParams} from "next/navigation";
 import {SortObject} from "@interfaces/common";
+import {TaxonomiesCollectionObject} from "@interfaces/entities/product";
 
 
 export const buildTaxonomyQueryParams = (
@@ -11,8 +12,31 @@ export const buildTaxonomyQueryParams = (
         min?: number,
         max?: number,
     },
+    // search?: string,
+    categories?: TaxonomiesCollectionObject[],
+    collections?: TaxonomiesCollectionObject[],
 ) => {
     const params = new URLSearchParams(searchParams.toString());
+
+    if (categories) {
+        params.delete('categories[]');
+
+        categories
+            .filter(taxonomy => taxonomy.selected)
+            .forEach(taxonomy => {
+                params.append('categories[]', taxonomy.id.toString());
+            });
+    }
+
+    if (collections) {
+        params.delete('collections[]');
+
+        collections
+            .filter(taxonomy => taxonomy.selected)
+            .forEach(taxonomy => {
+                params.append('collections[]', taxonomy.id.toString());
+            });
+    }
 
     filters.attributes.forEach(item => {
         const selectedTerms = item.terms

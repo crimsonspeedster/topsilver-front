@@ -3,7 +3,7 @@
 import {useState} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
 import axios from "axios";
-import {ProductCardObject} from "@interfaces/entities/product";
+import {ProductCardObject, TaxonomiesCollectionObject} from "@interfaces/entities/product";
 import {PaginationObject, SortObject} from "@interfaces/common";
 import {PriceObject, TaxonomyFiltersObject} from "@interfaces/entities/taxonomy";
 import {buildTaxonomyPageUrl, buildTaxonomyProductsUrl} from "@services/taxonomy/taxonomy.utils";
@@ -14,20 +14,20 @@ import {useTranslations} from "next-intl";
 
 export const useTaxonomyProducts = (
     {
-        type,
-        filters_entity_id,
         initialProducts,
         initialPagination,
         initialFilters,
         initialPage,
         initialPrice,
         initialSort,
+        urlForRest,
         slug,
+        initialCategories,
+        initialCollections,
     }: TaxonomyProductsTemplateProps) => {
     const t = useTranslations('Sorting');
     const router = useRouter();
     const searchParams = useSearchParams();
-    const baseUrl = buildTaxonomyProductsUrl(type, filters_entity_id);
     const sortItems: SortObject[] = [
         {
             slug: "newest",
@@ -57,16 +57,16 @@ export const useTaxonomyProducts = (
     const [hasMore, setHasMore] = useState<boolean>(initialPagination.has_more_pages);
     const [loading, setLoading] = useState<boolean>(false);
     const [filters, setFilters] = useState<TaxonomyFiltersObject>(initialFilters);
+    const [categories, setCategories] = useState<TaxonomiesCollectionObject[]>(initialCategories ?? []);
+    const [collections, setCollections] = useState<TaxonomiesCollectionObject[]>(initialCollections ?? []);
     const [pagination, setPagination] = useState<PaginationObject>(initialPagination);
     const [sorting, setSorting] = useState<SortObject>(initialSortItem);
     const [price, setPrice] = useState<PriceObject>(initialPrice);
 
     const fetchProducts = async (params?: URLSearchParams) => {
-        const response = await axios.get(baseUrl, {
+        const response = await axios.get(urlForRest, {
             params,
         });
-
-        console.log(response);
 
         return response.data?.data;
     };
@@ -159,6 +159,77 @@ export const useTaxonomyProducts = (
             setLoading(false);
         }
     };
+
+    const handleTaxonomyChange = async (
+        type: string,
+        taxonomy: TaxonomiesCollectionObject,
+        checked: boolean,
+    ) => {
+        if (loading) {
+            return;
+        }
+
+        let taxonomiesUpdated: TaxonomiesCollectionObject[] = [];
+
+        switch (type) {
+            case 'categories':
+                taxonomiesUpdated = categories.map(item => {
+                    if (item.id === taxonomy.id) {
+                        item.selected = checked;
+                    }
+
+                    return item;
+                });
+                setCategories(taxonomiesUpdated);
+                break;
+            case 'collections':
+                taxonomiesUpdated = collections.map(item => {
+                    if (item.id === taxonomy.id) {
+                        item.selected = checked;
+                    }
+
+                    return item;
+                });
+                setCollections(taxonomiesUpdated);
+                break;
+            default:
+                break;
+        }
+
+        try {
+            setLoading(true);
+
+            const params = buildTaxonomyQueryParams(
+                filters,
+                sorting,
+                searchParams,
+                price,
+                categories,
+                collections,
+            );
+
+            router.replace(
+                buildTaxonomyPageUrl(
+                    slug,
+                    1,
+                    params,
+                )
+            );
+
+            const data = await fetchProducts(params);
+
+            if (!data) {
+                return;
+            }
+
+            setProducts(data.products);
+            setPagination(data.pagination);
+            setHasMore(data.pagination.has_more_pages);
+            setPage(1);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     const handleFilterChange = async (
         attribute: attributeObject,
@@ -268,6 +339,7 @@ export const useTaxonomyProducts = (
         price,
 
         handleFilterChange,
+        handleTaxonomyChange,
         handleLoadMore,
         handleSortChange,
         handlePriceFilter,

@@ -1,7 +1,7 @@
 "use client";
 
 import FilterTab from "@src/commonsections/FilterTab";
-import {ProductCardObject} from "@interfaces/entities/product";
+import {ProductCardObject, TaxonomiesCollectionObject} from "@interfaces/entities/product";
 import {PaginationObject} from "@interfaces/common";
 import PaginationComponent from "@src/components/PaginationComponent";
 import {PriceObject, TaxonomyFiltersObject, TaxonomyObject} from "@interfaces/entities/taxonomy";
@@ -11,10 +11,11 @@ import PageBanner from "@src/commonsections/PageBanner";
 
 
 export type TaxonomyProductsTemplateProps = {
-    type: string,
     slug: string,
-    entity: TaxonomyObject,
-    filters_entity_id: number,
+    urlForRest: string,
+    entity?: TaxonomyObject,
+    initialCategories?: TaxonomiesCollectionObject[],
+    initialCollections?: TaxonomiesCollectionObject[],
     initialProducts: ProductCardObject[],
     initialPagination: PaginationObject,
     initialFilters: TaxonomyFiltersObject,
@@ -28,20 +29,26 @@ const TaxonomyProductsTemplate = (props: TaxonomyProductsTemplateProps) => {
 
     return (
         <>
-            <PageBanner
-                title={props.entity.title}
-                description={props.entity.description}
-                media={props.entity.media}
-            />
+            {
+                props.entity &&
+                <PageBanner
+                    title={props.entity.title}
+                    description={props.entity.description}
+                    media={props.entity.media}
+                />
+            }
 
             <FilterTab
                 products={taxonomy.products}
                 filters={taxonomy.filters}
                 price={taxonomy.price}
                 onFilterChange={taxonomy.handleFilterChange}
+                onTaxonomyChange={taxonomy.handleTaxonomyChange}
                 sortItems={taxonomy.sortItems}
                 sortCurrent={taxonomy.sorting}
                 setSorting={taxonomy.handleSortChange}
+                categories={props.initialCategories}
+                collections={props.initialCollections}
                 onPriceChange={taxonomy.handlePriceFilter}
             />
 

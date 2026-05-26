@@ -1,7 +1,11 @@
 import {notFound, permanentRedirect} from "next/navigation";
 import {getPage, getPageSeo} from "@lib/getPage.server";
 import TaxonomyProductsTemplate from "@templates/TaxonomyProductsTemplate";
-import {parseTaxonomySearchParams} from "@services/taxonomy/taxonomy.utils";
+import {
+    buildTaxonomyPageUrl,
+    buildTaxonomyProductsUrl,
+    parseTaxonomySearchParams
+} from "@services/taxonomy/taxonomy.utils";
 import ProductDetailTemplate from "@templates/ProductDetailTemplate";
 import {Metadata} from "next";
 import PageTemplate from "@templates/PageTemplate";
@@ -67,18 +71,18 @@ const Page = async (
             }
             const filters_entity_id: number = data.type === 'filter_page' ? data.category.id : data.entity.id;
             const filter_type: string = data.type === 'filter_page' ? 'category' : data.type;
+            const urlForRest: string = buildTaxonomyProductsUrl(filter_type, filters_entity_id);
 
             return <TaxonomyProductsTemplate
                 entity={data.entity}
+                urlForRest={urlForRest}
                 initialProducts={data.products ?? []}
                 initialPagination={data.pagination}
                 initialFilters={data.filters}
                 initialSort={parsedSearchParams.sort}
                 initialPrice={initialPriceObject}
                 slug={slug}
-                filters_entity_id={filters_entity_id}
                 initialPage={currentPage}
-                type={filter_type}
             />;
         case 'product':
             return <ProductDetailTemplate
