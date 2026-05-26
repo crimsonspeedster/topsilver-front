@@ -14,6 +14,7 @@ export type TaxonomyProductsTemplateProps = {
     type: string,
     slug: string,
     entity: TaxonomyObject,
+    filters_entity_id: number,
     initialProducts: ProductCardObject[],
     initialPagination: PaginationObject,
     initialFilters: TaxonomyFiltersObject,

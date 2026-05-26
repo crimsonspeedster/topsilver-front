@@ -58,12 +58,15 @@ const Page = async (
     }
 
     switch (data.type) {
+        case 'collection':
         case 'category':
         case 'filter_page':
             const initialPriceObject = {
                 min: parsedSearchParams.price?.min ?? data.filters.price.min,
                 max: parsedSearchParams.price?.max ?? data.filters.price.max,
             }
+            const filters_entity_id: number = data.type === 'filter_page' ? data.category.id : data.entity.id;
+            const filter_type: string = data.type === 'filter_page' ? 'category' : data.type;
 
             return <TaxonomyProductsTemplate
                 entity={data.entity}
@@ -73,8 +76,9 @@ const Page = async (
                 initialSort={parsedSearchParams.sort}
                 initialPrice={initialPriceObject}
                 slug={slug}
+                filters_entity_id={filters_entity_id}
                 initialPage={currentPage}
-                type={data.type}
+                type={filter_type}
             />;
         case 'product':
             return <ProductDetailTemplate

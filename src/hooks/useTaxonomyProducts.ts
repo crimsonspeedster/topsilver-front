@@ -15,7 +15,7 @@ import {useTranslations} from "next-intl";
 export const useTaxonomyProducts = (
     {
         type,
-        entity,
+        filters_entity_id,
         initialProducts,
         initialPagination,
         initialFilters,
@@ -27,7 +27,7 @@ export const useTaxonomyProducts = (
     const t = useTranslations('Sorting');
     const router = useRouter();
     const searchParams = useSearchParams();
-    const baseUrl = buildTaxonomyProductsUrl(type, entity.id);
+    const baseUrl = buildTaxonomyProductsUrl(type, filters_entity_id);
     const sortItems: SortObject[] = [
         {
             slug: "newest",
@@ -65,6 +65,8 @@ export const useTaxonomyProducts = (
         const response = await axios.get(baseUrl, {
             params,
         });
+
+        console.log(response);
 
         return response.data?.data;
     };

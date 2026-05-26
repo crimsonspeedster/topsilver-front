@@ -36,9 +36,18 @@ export type PriceObject = {
 }
 
 export type TaxonomyPageEntityObject = {
-    type: 'category' | 'filter_page' | 'collection',
+    type: 'category' | 'collection',
     entity: TaxonomyObject,
     pagination: PaginationObject,
     products: ProductCardObject[],
     filters: TaxonomyFiltersObject,
+}
+
+export type FilterPageEntityObject = {
+    type: 'filter_page',
+    entity: TaxonomyObject,
+    pagination: PaginationObject,
+    products: ProductCardObject[],
+    filters: TaxonomyFiltersObject,
+    category: TaxonomyCollectionObject,
 }
