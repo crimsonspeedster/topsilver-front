@@ -8,6 +8,7 @@ import {PriceObject, TaxonomyFiltersObject, TaxonomyObject} from "@interfaces/en
 import LoadMoreButton from "@src/commonsections/LoadMoreButton";
 import {useTaxonomyProducts} from "@hooks/useTaxonomyProducts";
 import PageBanner from "@src/commonsections/PageBanner";
+import ContentEntityBlocks from "@src/components/Pages/ContentEntityBlocks";
 
 
 export type TaxonomyProductsTemplateProps = {
@@ -35,6 +36,13 @@ const TaxonomyProductsTemplate = (props: TaxonomyProductsTemplateProps) => {
                     title={props.entity.title}
                     description={props.entity.description}
                     media={props.entity.media}
+                />
+            }
+
+            {
+                props.entity && props.entity.content &&
+                <ContentEntityBlocks
+                    content={props.entity.content}
                 />
             }
 

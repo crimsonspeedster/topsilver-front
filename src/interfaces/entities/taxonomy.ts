@@ -1,12 +1,14 @@
 import {MediaObject, PaginationObject} from "@interfaces/common";
 import {SeoBlockObject} from "@interfaces/entities/seo";
 import {ProductCardObject, VariantAttributeFunctionalityObject} from "@interfaces/entities/product";
+import {LayoutObject} from "@interfaces/entities/page";
 
 
 export type TaxonomyObject = {
     id: number,
     title: string,
     description: string|null,
+    content: LayoutObject[],
     media: MediaObject|null,
     seo_block: SeoBlockObject|null,
 }
