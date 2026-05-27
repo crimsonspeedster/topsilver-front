@@ -63,6 +63,7 @@ const Page = async (
 
     switch (data.type) {
         case 'collection':
+        case 'promotion':
         case 'category':
         case 'filter_page':
             const initialPriceObject = {

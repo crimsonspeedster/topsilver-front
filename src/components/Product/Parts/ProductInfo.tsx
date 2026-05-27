@@ -4,14 +4,16 @@ import Link from "next/link";
 
 
 type Props = {
-    collections: TaxonomyCollectionObject[],
-    categories: TaxonomyCollectionObject[],
+    collections?: TaxonomyCollectionObject[],
+    promotions?: TaxonomyCollectionObject[],
+    categories?: TaxonomyCollectionObject[],
     sku: string,
 };
 
 const ProductInfo = (
     {
         collections,
+        promotions,
         categories,
         sku,
     }: Props
@@ -25,7 +27,7 @@ const ProductInfo = (
             </p>
 
             {
-                categories.length > 0 &&
+                categories && categories.length > 0 &&
                 <p className="text-muted mb-1">
                     <span className="text-body">{t('categories')}: </span>
                     {
@@ -49,7 +51,7 @@ const ProductInfo = (
             }
 
             {
-                collections.length > 0 &&
+                collections && collections.length > 0 &&
                 <p className="text-muted mb-1">
                     <span className="text-body">{t('collections')}: </span>
                     {
@@ -62,6 +64,30 @@ const ProductInfo = (
                                 {collection.title}
                                 {
                                     index < collections.length - 1 ?
+                                        ', '
+                                        :
+                                        null
+                                }
+                            </Link>
+                        ))
+                    }
+                </p>
+            }
+
+            {
+                promotions && promotions.length > 0 &&
+                <p className="text-muted mb-1">
+                    <span className="text-body">{t('promotions')}: </span>
+                    {
+                        promotions.map((promotion, index) => (
+                            <Link
+                                key={promotion.id}
+                                href={`/${promotion.slug}`}
+                                className="main_link text-muted"
+                            >
+                                {promotion.title}
+                                {
+                                    index < promotions.length - 1 ?
                                         ', '
                                         :
                                         null

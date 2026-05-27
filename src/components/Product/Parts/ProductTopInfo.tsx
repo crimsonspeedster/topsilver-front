@@ -83,6 +83,7 @@ const ProductTopInfo = (
             <ProductInfo
                 collections={props.collections}
                 categories={props.categories}
+                promotions={props.promotions}
                 sku={props.sku}
             />
         </>

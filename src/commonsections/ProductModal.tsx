@@ -168,6 +168,7 @@ const ProductModal = (
                             <ProductInfo
                                 collections={product.collections}
                                 categories={product.categories}
+                                promotions={product.promotions}
                                 sku={product.sku}
                             />
 

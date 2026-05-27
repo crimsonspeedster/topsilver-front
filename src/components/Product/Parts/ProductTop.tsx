@@ -53,6 +53,7 @@ const ProductTop = (
                             type={props.type}
                             collections={props.collections}
                             categories={props.categories}
+                            promotions={props.promotions}
                             sku={props.sku}
                             stock={props.stock}
                             variants={props.variants}

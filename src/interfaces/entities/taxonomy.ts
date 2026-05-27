@@ -38,7 +38,7 @@ export type PriceObject = {
 }
 
 export type TaxonomyPageEntityObject = {
-    type: 'category' | 'collection',
+    type: 'category' | 'collection' | 'promotion',
     entity: TaxonomyObject,
     pagination: PaginationObject,
     products: ProductCardObject[],

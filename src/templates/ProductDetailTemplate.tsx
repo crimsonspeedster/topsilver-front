@@ -97,6 +97,7 @@ const ProductDetailTemplate = (
                 type={product.type}
                 collections={product.collections}
                 categories={product.categories}
+                promotions={product.promotions}
                 sku={product.sku}
                 variants={product.variants}
                 manage_stock={product.manage_stock}

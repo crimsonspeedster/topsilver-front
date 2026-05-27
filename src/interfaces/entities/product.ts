@@ -74,6 +74,7 @@ export type ProductObject = {
     variants: ProductVariantObject[],
     categories: TaxonomyCollectionObject[],
     collections: TaxonomyCollectionObject[],
+    promotions: TaxonomyCollectionObject[],
     group_products: ProductCardObject[],
     cross_sells: ProductCardObject[],
 }
@@ -133,6 +134,7 @@ export type ProductQuickViewObject = Pick<
     | 'discount_percent'
     | 'categories'
     | 'collections'
+    | 'promotions'
     | 'sku'
     | 'labels'
     | 'rating_avg'
