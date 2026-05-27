@@ -1,23 +1,23 @@
 'use client';
 
 import React, {useEffect, useRef} from 'react';
-import {UserObject} from "@interfaces/entities/user";
-import {useAuthStore} from "@src/store/client-store";
+import {CartObject} from "@interfaces/entities/cart";
+import {useCartStore} from "@src/store/cart-store";
 import axiosClient from "@lib/axiosClient";
 
 
 type Props = {
-    initialUser?: UserObject | null;
+    initialCart?: CartObject;
     children: React.ReactNode;
-};
+}
 
-export default function AuthProvider(
+export default function CartProvider(
     {
-        initialUser,
+        initialCart,
         children,
     }: Props
 ) {
-    const setUser = useAuthStore((state) => state.setUser);
+    const hydrateCart = useCartStore((state) => state.hydrate);
     const hasHydrated = useRef(false);
 
     useEffect(() => {
@@ -26,15 +26,15 @@ export default function AuthProvider(
 
         hasHydrated.current = true;
 
-        if (initialUser !== undefined) {
-            setUser(initialUser);
+        if (initialCart !== undefined) {
+            hydrateCart(initialCart);
             return;
         }
 
-        axiosClient.get('/me')
+        axiosClient.get('/cart')
             .then((res) => {
                 if (res.status === 200) {
-                    setUser(res.data.data);
+                    hydrateCart(res.data.data);
                 }
             });
     }, []);

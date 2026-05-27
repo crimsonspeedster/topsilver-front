@@ -1,6 +1,7 @@
 import ResetPasswordForm from "@src/components/ResetPasswordForm";
 import {redirect} from "next/navigation";
 import {Metadata} from "next";
+import {getUserSSR} from "@lib/auth/getUser.server";
 
 
 type Props = {
@@ -16,6 +17,12 @@ const ResetPassword = async (
 
     if (!token && !email) {
         redirect('/forgot-password');
+    }
+
+    const user = await getUserSSR();
+
+    if (user) {
+        redirect('/');
     }
 
     return (

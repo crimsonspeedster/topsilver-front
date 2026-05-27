@@ -3,10 +3,8 @@
 import PageBanner from "@src/commonsections/PageBanner";
 import {useTranslations} from "next-intl";
 import CartTable from "@src/components/Cart/CartTable";
-import {CartObject} from "@interfaces/entities/cart";
 import CouponSection from "@src/components/Coupon/CouponSection";
 import {useCartStore} from "@src/store/cart-store";
-import {useEffect, useMemo, useState} from "react";
 import Link from "next/link";
 import CertificateSection from "@src/components/Certificates/CertificateSection";
 import BonusesSection from "@src/components/Bonuses/BonusesSection";
@@ -14,24 +12,17 @@ import {BonusesObject} from "@interfaces/entities/bonuses";
 
 
 type Props = {
-    initialCart: CartObject,
     bonuses: BonusesObject|null,
 };
 
 const CartPageSection = (
     {
-        initialCart,
         bonuses,
     }: Props
 ) => {
     const tCart = useTranslations('Cart');
     const tCommon = useTranslations('Common');
     const cart = useCartStore((state) => state.cart);
-    const hydrate = useCartStore((state) => state.hydrate);
-
-    useEffect(() => {
-        hydrate(initialCart);
-    }, [initialCart]);
 
     return (
         <>
