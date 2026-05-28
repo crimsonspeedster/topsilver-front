@@ -21,7 +21,7 @@ import {SocialLinkObject} from "@interfaces/entities/settings";
 type Props = {
     headerMenu?: MenuObject | null;
     mobileMenu?: MenuObject | null;
-    topBanner?: string | null;
+    topBanner?: string;
     logo: string;
     socialLinks?: SocialLinkObject[];
 };

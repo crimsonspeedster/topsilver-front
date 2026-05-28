@@ -29,8 +29,8 @@ const SocialNav = (
                                 <Image
                                     src={link.image ?? ''}
                                     alt="logo"
-                                    width={14}
-                                    height={14}
+                                    width={24}
+                                    height={24}
                                 />
                                 :
                                 <span>{link.title}</span>

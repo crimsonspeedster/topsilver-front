@@ -4,6 +4,7 @@ import {SelectGroup, SelectOption} from "@interfaces/layouts/formField";
 import {CartObject} from "@interfaces/entities/cart";
 import {UserObject} from "@interfaces/entities/user";
 import {ShopsPickupObject} from "@interfaces/entities/shops";
+import {SettingsPromiseObject} from "@interfaces/entities/settings";
 
 export const getWishlist = (): number[] => {
     const wishlist = Cookies .get('wishlist');
@@ -83,3 +84,25 @@ export const getUserFormData = (user: UserObject | null) => ({
     phone: user?.phone ?? '',
     email: user?.email ?? '',
 });
+
+export const searchSettingByKey = (key: string, settings: SettingsPromiseObject[]) => {
+    const settingObject = settings.find(setting => setting.key === key);
+
+    if (!settingObject) {
+        return undefined;
+    }
+
+    switch (settingObject.type) {
+        case 'image':
+            return settingObject.value.image;
+
+        case 'text':
+            return settingObject.value.text;
+
+        case 'social_links':
+            return settingObject.value.data;
+
+        default:
+            return undefined;
+    }
+}

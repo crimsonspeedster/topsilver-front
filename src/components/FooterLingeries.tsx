@@ -61,7 +61,7 @@ const FooterLingeries = (
                                     {
                                         socialLinks && socialLinks.length > 0 &&
                                         <SocialNav
-                                            className="footer-social d-flex align-items-center gap-4 mt-4"
+                                            className="footer-social d-flex align-items-center gap-2 mt-4"
                                             links={socialLinks}
                                         />
                                     }
