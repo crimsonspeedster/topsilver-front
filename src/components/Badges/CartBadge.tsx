@@ -1,21 +1,21 @@
 import {useCartStore} from "@src/store/cart-store";
-import { usePathname } from 'next/navigation';
 import Link from "next/link";
 
 
 type Props = {
+    isLink: boolean,
     handleClick: () => void,
 };
 
 const CartBadge = (
     {
+        isLink,
         handleClick,
     }: Props
 ) => {
     const cart = useCartStore(state => state.cart);
-    const pathname = usePathname();
 
-    if (pathname === '/cart' || pathname === '/checkout') {
+    if (isLink) {
         return (
             <Link
                 className="btn p-0"

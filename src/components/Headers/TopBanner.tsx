@@ -1,65 +1,62 @@
 "use client";
-import Link from 'next/link';
-import Countdown from 'react-countdown';
-import React, { useState, useEffect } from 'react';
 
-const TopBanner = ({topclass}:any) => {
+import {useEffect, useState} from 'react';
+import {useTranslations} from "next-intl";
+import Cookies from 'js-cookie';
 
-    const [isOpen, setIsOpen] = useState(true);
-    const [isClient, setIsClient] = useState(false);
+
+type Props = {
+    description: string;
+}
+
+const TopBanner = (
+    {
+        description,
+    }: Props
+) => {
+    const tCommon = useTranslations('Common');
+    const [isShowing, setIsShowing] = useState<boolean>(false);
 
     useEffect(() => {
-        setIsClient(true);
+        if (!Cookies.get('banner_closed')) {
+            setIsShowing(true);
+        }
     }, []);
 
-    // Define the target date
-    const targetDate = new Date('2027/01/01').getTime();
+    const handleClose = () => {
+        setIsShowing(false);
 
-    // Helper function to pad single digits with a leading zero
-    const padWithZero = (number: number) => {
-        return number < 10 ? `0${number}` : number;
-    };
+        Cookies.set('banner_closed', '1', {
+            expires: 1,
+        });
+    }
 
-    // Renderer for the countdown
-    const renderer = ({ days, hours, minutes, seconds, completed } : any) => {
-        if (completed) {
-            // Render a completed state
-            return <span>Time&apos;s up!</span>;
-        } else {
-            // Calculate weeks from days
-            const weeks = Math.floor(days / 7);
-            const remainingDays = days % 7;
-
-            // Render the countdown with padded values
-            return (
-                <span>
-                    {weeks} weeks {padWithZero(remainingDays)} days {padWithZero(hours)}:{padWithZero(minutes)}:{padWithZero(seconds)}
-                </span>
-            );
-        }
-    };
+    if (!isShowing) {
+        return null;
+    }
 
     return (
-        <React.Fragment>
-            <div className={topclass}>
-                <div className={`t_header fs-13 d-flex align-items-center ${!isOpen ? 'd-none' : ''}`}>
-                    <div className="container-fluid">
-                        <div className="d-flex gap-2">
-                            <div className="col text-center text-white">
-                                Today deal sale off <strong>70% </strong>. End in {' '}
-                                <strong className="js_kl__countdown">
-                                    {isClient && <Countdown date={targetDate} renderer={renderer} />}
-                                </strong>
-                                . <Link href="#!" className="text-white">Hurry Up <i className="las la-arrow-right"></i></Link>
-                            </div>
-                            <div className="col-auto mt-2 mt-md-0">
-                                <Link href="#" className="h_banner_close text-white" onClick={(e) => { e.preventDefault(); setIsOpen(false); }}>close</Link>
-                            </div>
-                        </div>
+        <div className="t_header fs-13 d-flex align-items-center">
+            <div className="container-fluid">
+                <div className="d-flex gap-2">
+                    <div
+                        className="col text-center text-white"
+                        dangerouslySetInnerHTML={{
+                            __html: description
+                        }}
+                    />
+
+                    <div className="col-auto mt-2 mt-md-0">
+                        <button
+                            className="h_banner_close py-0 btn text-white"
+                            onClick={handleClose}
+                        >
+                            {tCommon('close')}
+                        </button>
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </div>
     );
 };
 

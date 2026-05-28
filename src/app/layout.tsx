@@ -3,11 +3,13 @@ import "@assets/scss/app.scss";
 import "@assets/icons/font-icon.css";
 import {NextIntlClientProvider} from "next-intl";
 import {LayoutProps} from "@interfaces/common/layouts";
-import Header from "@src/components/Headers/Header";
 import FooterPage from "@src/components/Footer";
 import {Metadata} from "next";
 import ProductPopups from "@src/components/Product/ProductPopups";
 import {ToastContainer} from "react-toastify";
+import {getMenusSSR} from "@lib/getMenus.server";
+import LayoutHeader4 from "@src/components/Headers/LayoutHeader4";
+import logo from '@assets/images/svg/kalles.svg'
 
 
 export function generateViewport(): Record<string, string | number> {
@@ -26,12 +28,24 @@ export const metadata: Metadata = {
     description: "Магазин TopSilver",
 };
 
-export default function Layout({children}: LayoutProps) {
+export default async function Layout({children}: LayoutProps) {
+    const menus = await getMenusSSR();
+
+    const headerMenu = menus.find(item => item.location.name === 'header');
+    const mobileMenu = menus.find(item => item.location.name === 'mobile');
+    const topBannerText = "test text test";
+    const logoImageLink = logo;
+
     return (
         <html lang="uk">
             <body>
                 <NextIntlClientProvider>
-                    <Header />
+                    <LayoutHeader4
+                        logo={logoImageLink}
+                        topBanner={topBannerText}
+                        headerMenu={headerMenu}
+                        mobileMenu={mobileMenu ?? headerMenu}
+                    />
 
                     <main>
                         {children}

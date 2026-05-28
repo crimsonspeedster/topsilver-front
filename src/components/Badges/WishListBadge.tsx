@@ -7,7 +7,7 @@ const WishListBadge = () => {
 
     return (
         <Link
-            className="d-md-block d-none"
+            className="d-block"
             href="/wishlist"
         >
             <i className="iccl iccl-heart" />

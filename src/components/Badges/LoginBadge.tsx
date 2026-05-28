@@ -19,7 +19,7 @@ const LoginBadge = (
     if (user || pathname.includes('dashboard')) {
         return (
             <Link
-                className="d-md-block d-none"
+                className="d-block"
                 href="/dashboard/profile"
             >
                 <i className="iccl iccl-user" />
@@ -29,7 +29,7 @@ const LoginBadge = (
 
     return (
         <button
-            className="btn p-0 d-md-block d-none"
+            className="btn p-0 d-block"
             onClick={handleClick}
         >
             <i className="iccl iccl-user" />
