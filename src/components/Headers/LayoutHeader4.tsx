@@ -154,10 +154,6 @@ const LayoutHeader4 = (
                 </nav>
             </header>
 
-            <div
-                className="backdrop-shadow d-none"
-            />
-
             <SearchModal
                 show={showSearchModal}
                 handleClose={()=>handleSearchModal(false)}
