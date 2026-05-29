@@ -13,11 +13,11 @@ const PageTemplate = (
     return (
         <article>
             {
-                props.page.media && (
+                props.page.banner && (
                     <PageBanner
                         title={props.page.title}
                         header_tag={'h1'}
-                        media={props.page.media}
+                        media={props.page.banner}
                     />
                 )
             }

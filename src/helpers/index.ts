@@ -99,6 +99,7 @@ export const searchSettingByKey = (key: string, settings: SettingsPromiseObject[
         case 'text':
             return settingObject.value.text;
 
+        case 'contacts':
         case 'social_links':
             return settingObject.value.data;
 

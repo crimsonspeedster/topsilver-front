@@ -13,7 +13,7 @@ const ContactsNav = (
     }: Props
 ) => {
     return (
-        <div>
+        <div className="contacts-nav">
             {
                 contacts.map((item, index) => {
                     if (item.type === 'link') {

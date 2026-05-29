@@ -1,6 +1,7 @@
 export type SettingsPromiseObject =
     | ImageSettingsObject
     | TextSettingsObject
+    | ContactsSettingsObject
     | SocialLinksSettingsObject;
 
 export type SettingBaseObject = {
@@ -28,6 +29,14 @@ export type SocialLinksSettingsObject =
         type: 'social_links';
         value: {
             data: SocialLinkObject[];
+        }
+    };
+
+export type ContactsSettingsObject =
+    SettingBaseObject & {
+        type: 'contacts';
+        value: {
+            data: ContactItemObject[];
         }
     };
 

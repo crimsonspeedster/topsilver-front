@@ -1,6 +1,7 @@
 import {SeoPromiseObject} from "@interfaces/entities/seo";
 import {PageEntityObject} from "@interfaces/common";
 import axiosClient from "@lib/axiosClient";
+import {PageObject} from "@interfaces/entities/page";
 
 
 type GetPageParams = {
@@ -59,6 +60,28 @@ export const getPageSeo = async (slug: string): Promise<SeoPromiseObject | null>
         const res = await axiosClient.get(`slug-resolver/${slug}/seo`);
 
         return res.status === 200 ? res.data.data : null;
+    }
+    catch (error) {
+        return null;
+    }
+};
+
+export const getHomePage = async (): Promise<PageObject | null> => {
+    try {
+        const res = await axiosClient.get('home');
+
+        return res.data.data;
+    }
+    catch (error) {
+        return null;
+    }
+}
+
+export const getHomePageSeo = async (): Promise<SeoPromiseObject | null> => {
+    try {
+        const res = await axiosClient.get('home/seo');
+
+        return res.data.data;
     }
     catch (error) {
         return null;

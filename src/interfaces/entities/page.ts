@@ -16,6 +16,7 @@ export type ContentEntityObject = {
     short_description: string | null;
     seo_block: SeoBlockObject | null;
     media: MediaObject | null;
+    banner: MediaObject | null;
 }
 
 export type PageObject = ContentEntityObject;

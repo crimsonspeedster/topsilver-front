@@ -10,9 +10,7 @@ import {getMenusSSR} from "@lib/getMenus.server";
 import LayoutHeader4 from "@src/components/Headers/LayoutHeader4";
 import LogoPlaceholder from '@assets/images/svg/kalles.svg';
 import FooterLingeries from "@src/components/FooterLingeries";
-import {SocialLinkObject} from "@interfaces/entities/settings";
-import ResponsiveFooter from "@src/components/ResponsiveFooter";
-import React from "react";
+import {ContactItemObject, SocialLinkObject} from "@interfaces/entities/settings";
 import {getSettingsSSR} from "@lib/getSettings.server";
 import {searchSettingByKey} from "@src/helpers";
 
@@ -47,6 +45,7 @@ export default async function Layout({children}: LayoutProps) {
     const topBannerFromSettings = searchSettingByKey('top_banner_text', settingsData);
     const subscribeDescriptionFromSettings = searchSettingByKey('subscribe_text', settingsData);
     const socialLinksFrontSettings = searchSettingByKey('social_links', settingsData);
+    const contactsFrontSettings = searchSettingByKey('contacts', settingsData);
 
     return (
         <html lang="uk">
@@ -67,6 +66,7 @@ export default async function Layout({children}: LayoutProps) {
                     <ProductPopups />
 
                     <FooterLingeries
+                        contacts={contactsFrontSettings as ContactItemObject[]}
                         logo={logoFromSettings ?? LogoPlaceholder}
                         socialLinks={socialLinksFrontSettings ? socialLinksFrontSettings as SocialLinkObject[] : undefined}
                         footerMenuFirst={footerMenuFirst}
