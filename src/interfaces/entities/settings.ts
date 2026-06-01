@@ -1,3 +1,6 @@
+import {SocialLinkItemLayoutObject} from "@interfaces/entities/blocks/social-link-item";
+import {ContactItemLinkLayoutObject, ContactItemTextLayoutObject} from "@interfaces/entities/blocks/contact-item";
+
 export type SettingsPromiseObject =
     | ImageSettingsObject
     | TextSettingsObject
@@ -28,7 +31,7 @@ export type SocialLinksSettingsObject =
     SettingBaseObject & {
         type: 'social_links';
         value: {
-            data: SocialLinkObject[];
+            data: SocialLinkItemLayoutObject[];
         }
     };
 
@@ -36,32 +39,6 @@ export type ContactsSettingsObject =
     SettingBaseObject & {
         type: 'contacts';
         value: {
-            data: ContactItemObject[];
+            data: (ContactItemTextLayoutObject | ContactItemLinkLayoutObject)[];
         }
     };
-
-export type SocialLinkObject = {
-    link: string;
-    image?: string;
-    title?: string;
-    type: 'image' | 'text';
-}
-
-export type ContactItemBaseObject = {
-    title: string;
-    image?: string;
-};
-
-export type ContactItemLinkObject = {
-    type: 'link';
-    link: string;
-};
-
-export type ContactItemTextObject = {
-    type: 'text';
-};
-
-export type ContactItemObject =
-    ContactItemBaseObject & (
-        ContactItemLinkObject | ContactItemTextObject
-    );

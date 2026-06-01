@@ -15,7 +15,7 @@ import {MenuObject} from "@interfaces/entities/menu";
 import HeaderMenu from "@src/components/Headers/HeaderMenu";
 import LogoBlock from "@src/components/Headers/LogoBlock";
 import SocialNav from "@src/components/Headers/SocialNav";
-import {SocialLinkObject} from "@interfaces/entities/settings";
+import {SocialLinkItemLayoutObject} from "@interfaces/entities/blocks/social-link-item";
 
 
 type Props = {
@@ -23,7 +23,7 @@ type Props = {
     mobileMenu?: MenuObject | null;
     topBanner?: string;
     logo: string;
-    socialLinks?: SocialLinkObject[];
+    socialLinks?: SocialLinkItemLayoutObject[];
 };
 
 const LayoutHeader4 = (

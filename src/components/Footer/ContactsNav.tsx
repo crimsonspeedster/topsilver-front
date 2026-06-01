@@ -1,10 +1,10 @@
-import {ContactItemObject} from "@interfaces/entities/settings";
 import Link from "next/link";
 import ContactsNavItem from "@src/components/Footer/ContactsNavItem";
+import {ContactItemLinkLayoutObject, ContactItemTextLayoutObject} from "@interfaces/entities/blocks/contact-item";
 
 
 type Props = {
-    contacts: ContactItemObject[];
+    contacts: (ContactItemTextLayoutObject | ContactItemLinkLayoutObject)[];
 };
 
 const ContactsNav = (
@@ -16,15 +16,16 @@ const ContactsNav = (
         <div className="contacts-nav">
             {
                 contacts.map((item, index) => {
-                    if (item.type === 'link') {
+                    if (item.layout  === 'ContactItemLink') {
                         return (
                             <Link
                                 key={index}
                                 className="d-flex align-items-start text-muted gap-2"
-                                href={item.link}
+                                href={item.attributes.link}
                             >
                                 <ContactsNavItem
-                                    item={item}
+                                   title={item.attributes.title}
+                                   image={item.attributes.image}
                                 />
                             </Link>
                         );
@@ -36,7 +37,8 @@ const ContactsNav = (
                             className="d-flex align-items-start text-muted gap-2"
                         >
                             <ContactsNavItem
-                                item={item}
+                                title={item.attributes.title}
+                                image={item.attributes.image}
                             />
                         </div>
                     );

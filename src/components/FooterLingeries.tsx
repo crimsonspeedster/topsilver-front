@@ -3,11 +3,12 @@
 import {MenuObject} from "@interfaces/entities/menu";
 import ButtonUp from "@src/components/Footer/ButtonUp";
 import LogoBlock from "@src/components/Headers/LogoBlock";
-import {ContactItemObject, SocialLinkObject} from "@interfaces/entities/settings";
 import SocialNav from "@src/components/Headers/SocialNav";
 import ContactsNav from "@src/components/Footer/ContactsNav";
 import Subscribe from "@src/components/Footer/Subscribe";
 import FooterMenu from "@src/components/Footer/FooterMenu";
+import {SocialLinkItemLayoutObject} from "@interfaces/entities/blocks/social-link-item";
+import {ContactItemLinkLayoutObject, ContactItemTextLayoutObject} from "@interfaces/entities/blocks/contact-item";
 
 
 type Props = {
@@ -15,8 +16,8 @@ type Props = {
     footerMenuSecond?: MenuObject;
     footerMenuThird?: MenuObject;
     logo: string;
-    socialLinks?: SocialLinkObject[];
-    contacts?: ContactItemObject[];
+    socialLinks?: SocialLinkItemLayoutObject[];
+    contacts?: (ContactItemTextLayoutObject | ContactItemLinkLayoutObject)[];
     subscribeDescription?: string | null;
 };
 

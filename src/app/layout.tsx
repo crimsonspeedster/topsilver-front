@@ -10,9 +10,10 @@ import {getMenusSSR} from "@lib/getMenus.server";
 import LayoutHeader4 from "@src/components/Headers/LayoutHeader4";
 import LogoPlaceholder from '@assets/images/svg/kalles.svg';
 import FooterLingeries from "@src/components/FooterLingeries";
-import {ContactItemObject, SocialLinkObject} from "@interfaces/entities/settings";
 import {getSettingsSSR} from "@lib/getSettings.server";
 import {searchSettingByKey} from "@src/helpers";
+import {SocialLinkItemLayoutObject} from "@interfaces/entities/blocks/social-link-item";
+import {ContactItemLinkLayoutObject, ContactItemTextLayoutObject} from "@interfaces/entities/blocks/contact-item";
 
 
 export function generateViewport(): Record<string, string | number> {
@@ -56,7 +57,7 @@ export default async function Layout({children}: LayoutProps) {
                         topBanner={topBannerFromSettings ? topBannerFromSettings as string : undefined}
                         headerMenu={headerMenu}
                         mobileMenu={mobileMenu ?? headerMenu}
-                        socialLinks={socialLinksFrontSettings ? socialLinksFrontSettings as SocialLinkObject[] : undefined}
+                        socialLinks={socialLinksFrontSettings ? socialLinksFrontSettings as SocialLinkItemLayoutObject[] : undefined}
                     />
 
                     <main>
@@ -66,9 +67,9 @@ export default async function Layout({children}: LayoutProps) {
                     <ProductPopups />
 
                     <FooterLingeries
-                        contacts={contactsFrontSettings as ContactItemObject[]}
+                        contacts={contactsFrontSettings as (ContactItemTextLayoutObject | ContactItemLinkLayoutObject)[]}
                         logo={logoFromSettings ?? LogoPlaceholder}
-                        socialLinks={socialLinksFrontSettings ? socialLinksFrontSettings as SocialLinkObject[] : undefined}
+                        socialLinks={socialLinksFrontSettings ? socialLinksFrontSettings as SocialLinkItemLayoutObject[] : undefined}
                         footerMenuFirst={footerMenuFirst}
                         footerMenuSecond={footerMenuSecond}
                         footerMenuThird={footerMenuThird}

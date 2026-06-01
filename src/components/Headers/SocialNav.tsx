@@ -1,9 +1,9 @@
 import Image from "next/image";
-import {SocialLinkObject} from "@interfaces/entities/settings";
+import {SocialLinkItemLayoutObject} from "@interfaces/entities/blocks/social-link-item";
 
 
 type Props = {
-    links: SocialLinkObject[];
+    links: SocialLinkItemLayoutObject[]
     className?: string;
 };
 
@@ -21,20 +21,15 @@ const SocialNav = (
                         key={index}
                         target="_blank"
                         rel="noopener noreferrer noindex"
-                        href={link.link}
+                        href={link.attributes.link}
                         className="facebook text-black fs-14 mx-1"
                     >
-                        {
-                            link.type === 'image' ?
-                                <Image
-                                    src={link.image ?? ''}
-                                    alt="logo"
-                                    width={24}
-                                    height={24}
-                                />
-                                :
-                                <span>{link.title}</span>
-                        }
+                        <Image
+                            src={link.attributes.image}
+                            alt="logo"
+                            width={24}
+                            height={24}
+                        />
                     </a>
                 ))
             }

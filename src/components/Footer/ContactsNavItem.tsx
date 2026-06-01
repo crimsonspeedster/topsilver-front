@@ -1,23 +1,24 @@
-import {ContactItemBaseObject} from "@interfaces/entities/settings";
 import Image from "next/image";
 
 
 type Props = {
-    item: ContactItemBaseObject;
+    title: string;
+    image?: string | null;
 };
 
 const ContactsNavItem = (
     {
-        item,
+        title,
+        image,
     }: Props
 ) => {
     return (
         <>
             {
-                item.image &&
+                image &&
                 <div>
                     <Image
-                        src={item.image}
+                        src={image}
                         alt="logo"
                         className="object-fit-cover object-center"
                         width={24}
@@ -28,7 +29,7 @@ const ContactsNavItem = (
 
             <div
                 dangerouslySetInnerHTML={{
-                    __html: item.title
+                    __html: title
                 }}
             />
         </>
