@@ -144,9 +144,6 @@ const CheckoutForm = (
     const handleSubmit = async (values: typeof initialValues, helpers: any) => {
         helpers.setSubmitting(true);
 
-        console.log('values from formik');
-        console.log(values);
-
         const formData = new FormData();
 
         Object.entries(values).forEach(([key, value]) => {

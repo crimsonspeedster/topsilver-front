@@ -30,8 +30,6 @@ const ContentEntityBlocks = (
                 content.map((block, index) => {
                     const Component = contentEntityBlocksMap[block.layout];
 
-                    console.log(block);
-
                     if (!Component)
                         return null;
 

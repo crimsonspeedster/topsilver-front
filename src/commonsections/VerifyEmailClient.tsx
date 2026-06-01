@@ -24,8 +24,6 @@ const VerifyEmailClient = (
     const tCommon = useTranslations('Common');
     const user = useAuthStore((state) => state.user);
 
-    console.log(user);
-
     const resendEmailHandler = async () => {
         const formData = new FormData();
         formData.append('email', email);

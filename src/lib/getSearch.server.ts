@@ -38,8 +38,6 @@ export const getSearchDataSSR = async (
         paramsToSend['collections[]'] = String(props.collections.join(","));
     }
 
-    console.log(paramsToSend);
-
     try {
         const res: AxiosResponse<{data: ProductSearchPromiseObject}> = await axiosClient.get('/search', {
             params: paramsToSend,

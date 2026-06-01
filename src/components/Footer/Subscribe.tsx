@@ -34,8 +34,6 @@ const Subscribe = (
         },
         validationSchema,
         onSubmit: async (values, { setSubmitting, setErrors }) => {
-            console.log(values);
-
             setSubmitting(true);
 
             try {
