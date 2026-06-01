@@ -23,7 +23,7 @@ const PageTemplate = (
             }
 
             <ContentEntityBlocks
-                content={props.page.content}
+                content={props.page.blocks}
             />
         </article>
     );

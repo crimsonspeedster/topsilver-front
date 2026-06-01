@@ -3,7 +3,7 @@ import {Col, Row} from "react-bootstrap";
 import ProductBlock from "@src/components/Product/ProductBlock";
 import React from "react";
 
-const ProductsGrid = (props: ProductsGridLayoutObject) => {
+const ProductsGrid = (props: ProductsGridObject) => {
     return (
         <section>
             <div className="container">
@@ -13,7 +13,7 @@ const ProductsGrid = (props: ProductsGridLayoutObject) => {
                             <div>
                                 <h1 className="position-relative text-capitalize font-playfair fw-medium">
                                     {
-                                        props.attributes.title
+                                        props.title
                                     }
                                 </h1>
 
@@ -25,9 +25,9 @@ const ProductsGrid = (props: ProductsGridLayoutObject) => {
                             </div>
 
                             {
-                                props.attributes.description &&
+                                props.description &&
                                 (
-                                    <p className="fs-14 text-muted mt-2 mb-0">{props.attributes.description}</p>
+                                    <p className="fs-14 text-muted mt-2 mb-0">{props.description}</p>
                                 )
                             }
                         </div>
@@ -36,7 +36,7 @@ const ProductsGrid = (props: ProductsGridLayoutObject) => {
 
                 <Row className="g-lg-4 g-3">
                     {
-                        props.attributes.products.map(product => (
+                        props.products.map(product => (
                             <Col
                                 xs={6}
                                 lg={4}

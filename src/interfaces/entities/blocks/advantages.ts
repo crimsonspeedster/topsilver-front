@@ -1,4 +1,4 @@
-import {LayoutObject} from "@interfaces/entities/page";
+import {LayoutBaseObject} from "@interfaces/entities/page";
 
 export type AdvantagesObject = {
     blocks: AdvantageLayoutObject[];
@@ -16,7 +16,7 @@ export type AdvantagesLayoutObject = {
 };
 
 export type AdvantageLayoutObject =
-    | (LayoutObject & {
+    | (LayoutBaseObject & {
          layout: 'AdvantageItem';
          attributes: AdvantageObject;
     });

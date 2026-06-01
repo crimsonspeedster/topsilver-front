@@ -1,13 +1,13 @@
-import {ContentBlockLayoutObject} from "@interfaces/entities/blocks/content-block";
+import {ContentBlockObject} from "@interfaces/entities/blocks/content-block";
 
 
-const ContentBlock = (props: ContentBlockLayoutObject) => {
+const ContentBlock = (props: ContentBlockObject) => {
     return (
         <section className="py-5">
             <div className="container">
                 <div
                     dangerouslySetInnerHTML={{
-                        __html: props.attributes.description
+                        __html: props.description
                     }}
                 />
             </div>

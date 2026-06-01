@@ -1,4 +1,4 @@
-import {LayoutObject} from "@interfaces/entities/page";
+import {LayoutBaseObject} from "@interfaces/entities/page";
 
 export type BannersObject = {
     banners: BannersItemLayoutObject[];
@@ -12,6 +12,7 @@ export type BannersItemObject = {
     subtitle: string|null;
     title: string;
     link: string;
+    link_type: 'external' | 'internal';
     image: string;
     type: 'bottom' | 'center';
 }
@@ -22,7 +23,7 @@ export type BannersLayoutObject = {
 }
 
 export type BannersItemLayoutObject =
-    | (LayoutObject & {
+    | (LayoutBaseObject & {
         layout: 'BannersItem';
         attributes: BannersItemObject;
     })

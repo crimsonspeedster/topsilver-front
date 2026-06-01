@@ -4,11 +4,11 @@ import {Col, Row, Tab, Nav} from "react-bootstrap";
 import ProductBlock from "@src/components/Product/ProductBlock";
 import React from "react";
 import {
-    ProductGridWithTabsLayoutObject
+    ProductGridWithTabsLayoutObject, ProductGridWithTabsObject
 } from "@interfaces/entities/blocks/products-grid-with-tabs";
 
 
-const ProductsGridWithTabs = (props: ProductGridWithTabsLayoutObject) => {
+const ProductsGridWithTabs = (props: ProductGridWithTabsObject) => {
     return (
         <section>
             <div className="container">
@@ -18,7 +18,7 @@ const ProductsGridWithTabs = (props: ProductGridWithTabsLayoutObject) => {
                             <div>
                                 <h1 className="position-relative text-capitalize font-playfair fw-medium">
                                     {
-                                        props.attributes.title
+                                        props.title
                                     }
                                 </h1>
 
@@ -30,9 +30,9 @@ const ProductsGridWithTabs = (props: ProductGridWithTabsLayoutObject) => {
                             </div>
 
                             {
-                                props.attributes.description &&
+                                props.description &&
                                 (
-                                    <p className="fs-14 text-muted mt-2 mb-0">{props.attributes.description}</p>
+                                    <p className="fs-14 text-muted mt-2 mb-0">{props.description}</p>
                                 )
                             }
                         </div>
@@ -40,14 +40,14 @@ const ProductsGridWithTabs = (props: ProductGridWithTabsLayoutObject) => {
                 </div>
 
                 <Tab.Container
-                    defaultActiveKey={props.attributes.blocks[0].attributes.tab_slug}
+                    defaultActiveKey={props.blocks[0].attributes.tab_slug}
                 >
                     <Nav
                         className="tab_header gap-lg-4 justify-content-center mt-4 mb-0"
                     >
                         <Nav.Item role="presentation">
                             {
-                                props.attributes.blocks.map((item, index) => (
+                                props.blocks.map((item, index) => (
                                     <Nav.Link
                                         key={index}
                                         eventKey={item.attributes.tab_slug}
@@ -62,7 +62,7 @@ const ProductsGridWithTabs = (props: ProductGridWithTabsLayoutObject) => {
 
                     <Tab.Content className='mt-4' id="pills-tabContent">
                         {
-                            props.attributes.blocks.map((item, index) => (
+                            props.blocks.map((item, index) => (
                                 <Tab.Pane
                                     key={index}
                                     eventKey={item.attributes.tab_slug}

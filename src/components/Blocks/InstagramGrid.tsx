@@ -1,16 +1,16 @@
 'use client';
 
-import {InstagramGridLayoutObject} from "@interfaces/entities/blocks/instagram-grid";
+import {InstagramGridLayoutObject, InstagramGridObject} from "@interfaces/entities/blocks/instagram-grid";
 import InstagramGridItem from "@src/components/Blocks/InstagramGridItem";
 import {Swiper, SwiperSlide} from "swiper/react";
 import 'swiper/css';
 
 
-const InstagramGrid = (props: InstagramGridLayoutObject) => {
+const InstagramGrid = (props: InstagramGridObject) => {
     return (
         <section className="py-5">
             <div className="container">
-                <h2 className="font-playfair fw-semibold fs-30 text-uppercase text-center">{props.attributes.title}</h2>
+                <h2 className="font-playfair fw-semibold fs-30 text-uppercase text-center">{props.title}</h2>
 
                 <Swiper
                     className="my-4 py-2"
@@ -26,7 +26,7 @@ const InstagramGrid = (props: InstagramGridLayoutObject) => {
                     }}
                 >
                     {
-                        props.attributes.posts.map((item, index) =>
+                        props.posts.map((item, index) =>
                             <SwiperSlide
                                 key={index}
                             >

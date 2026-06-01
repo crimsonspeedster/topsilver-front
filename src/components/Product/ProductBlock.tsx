@@ -1,3 +1,5 @@
+'use client';
+
 import {ProductCardObject} from "@interfaces/entities/product";
 import Image from 'next/image';
 import Link from 'next/link';

@@ -12,7 +12,7 @@ import {ProductGridWithTabsLayoutObject} from "@interfaces/entities/blocks/produ
 export type ContentEntityObject = {
     id: number;
     title: string;
-    content: LayoutObject[];
+    blocks: LayoutObject[];
     short_description: string | null;
     seo_block: SeoBlockObject | null;
     media: MediaObject | null;

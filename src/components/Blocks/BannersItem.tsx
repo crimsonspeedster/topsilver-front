@@ -22,11 +22,8 @@ const BannersItem = ({item}: {item: BannersItemObject}) => {
             break;
     }
 
-    return (
-        <Link
-            href={item.link}
-            className="position-relative hover-zoom d-block"
-        >
+    const content = (
+        <>
             <Image
                 src={item.image}
                 alt={item.title}
@@ -37,28 +34,47 @@ const BannersItem = ({item}: {item: BannersItemObject}) => {
 
             <div className={layoutClasses}>
                 <div className={layoutSchemeClasses}>
-                    {
-                        item.overhead &&
+                    {item.overhead && (
                         <p className="fs-16 fw-medium mb-1">{item.overhead}</p>
-                    }
+                    )}
 
-                    <h2 className="fs-36 font-playfair fw-semibold mb-4">{item.title}</h2>
+                    <h2 className="fs-36 font-playfair fw-semibold mb-4">
+                        {item.title}
+                    </h2>
 
-                    {
-                        item.subtitle &&
+                    {item.subtitle && (
                         <p className="text-muted mb-0">{item.subtitle}</p>
-                    }
+                    )}
 
-                    {
-                        item.show_button &&
+                    {item.show_button && (
                         <p className="fw-normal btn btn-dark rounded-0 font-futura mb-0 btn_icon_true d-inline-block position-relative fs-14">
-                            {
-                                tCommon('shop_now')
-                            }
+                            {tCommon('shop_now')}
                         </p>
-                    }
+                    )}
                 </div>
             </div>
+        </>
+    );
+
+    if (item.link_type === 'external') {
+        return (
+            <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="position-relative hover-zoom d-block"
+            >
+                {content}
+            </a>
+        );
+    }
+
+    return (
+        <Link
+            href={item.link}
+            className="position-relative hover-zoom d-block"
+        >
+            {content}
         </Link>
     );
 }
