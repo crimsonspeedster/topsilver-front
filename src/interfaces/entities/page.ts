@@ -7,6 +7,7 @@ import {BannersLayoutObject} from "@interfaces/entities/blocks/banners";
 import {ContentBlockLayoutObject} from "@interfaces/entities/blocks/content-block";
 import {InstagramGridLayoutObject} from "@interfaces/entities/blocks/instagram-grid";
 import {ProductGridWithTabsLayoutObject} from "@interfaces/entities/blocks/products-grid-with-tabs";
+import {BannersSliderLayoutObject} from "@interfaces/entities/blocks/banners-slider";
 
 
 export type ContentEntityObject = {
@@ -29,6 +30,7 @@ export type LayoutObject =
     | (LayoutBaseObject & CategoriesGridLayoutObject)
     | (LayoutBaseObject & ProductsGridLayoutObject)
     | (LayoutBaseObject & AdvantagesLayoutObject)
+    | (LayoutBaseObject & BannersSliderLayoutObject)
     | (LayoutBaseObject & BannersLayoutObject)
     | (LayoutBaseObject & ContentBlockLayoutObject)
     | (LayoutBaseObject & InstagramGridLayoutObject)

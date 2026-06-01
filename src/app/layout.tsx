@@ -45,8 +45,8 @@ export default async function Layout({children}: LayoutProps) {
     const logoFromSettings = searchSettingByKey('logo', settingsData);
     const topBannerFromSettings = searchSettingByKey('top_banner_text', settingsData);
     const subscribeDescriptionFromSettings = searchSettingByKey('subscribe_text', settingsData);
-    const socialLinksFrontSettings = searchSettingByKey('social_links', settingsData);
-    const contactsFrontSettings = searchSettingByKey('contacts', settingsData);
+    const socialLinksFromSettings = searchSettingByKey('social_links', settingsData);
+    const contactsFromSettings = searchSettingByKey('contacts', settingsData);
 
     return (
         <html lang="uk">
@@ -57,7 +57,7 @@ export default async function Layout({children}: LayoutProps) {
                         topBanner={topBannerFromSettings ? topBannerFromSettings as string : undefined}
                         headerMenu={headerMenu}
                         mobileMenu={mobileMenu ?? headerMenu}
-                        socialLinks={socialLinksFrontSettings ? socialLinksFrontSettings as SocialLinkItemLayoutObject[] : undefined}
+                        socialLinks={socialLinksFromSettings ? socialLinksFromSettings as SocialLinkItemLayoutObject[] : undefined}
                     />
 
                     <main>
@@ -67,9 +67,9 @@ export default async function Layout({children}: LayoutProps) {
                     <ProductPopups />
 
                     <FooterLingeries
-                        contacts={contactsFrontSettings as (ContactItemTextLayoutObject | ContactItemLinkLayoutObject)[]}
+                        contacts={contactsFromSettings as (ContactItemTextLayoutObject | ContactItemLinkLayoutObject)[]}
                         logo={logoFromSettings ?? LogoPlaceholder}
-                        socialLinks={socialLinksFrontSettings ? socialLinksFrontSettings as SocialLinkItemLayoutObject[] : undefined}
+                        socialLinks={socialLinksFromSettings ? socialLinksFromSettings as SocialLinkItemLayoutObject[] : undefined}
                         footerMenuFirst={footerMenuFirst}
                         footerMenuSecond={footerMenuSecond}
                         footerMenuThird={footerMenuThird}

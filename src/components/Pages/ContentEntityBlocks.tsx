@@ -17,6 +17,7 @@ const contentEntityBlocksMap: Record<BlockLayout, ComponentType<any>> = {
     InstagramGrid: dynamic(() => import('@src/components/Blocks/InstagramGrid')),
     ProductsGrid: dynamic(() => import('@src/components/Blocks/ProductsGrid')),
     ProductsGridWithTabs: dynamic(() => import('@src/components/Blocks/ProductsGridWithTabs')),
+    BannersSlider: dynamic(() => import('@src/components/BannersSlider/BannersSlider')),
 };
 
 const ContentEntityBlocks = (

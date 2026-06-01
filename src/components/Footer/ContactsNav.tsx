@@ -18,16 +18,18 @@ const ContactsNav = (
                 contacts.map((item, index) => {
                     if (item.layout  === 'ContactItemLink') {
                         return (
-                            <Link
+                            <a
                                 key={index}
                                 className="d-flex align-items-start text-muted gap-2"
                                 href={item.attributes.link}
+                                target="_blank"
+                                rel="noopener noreferrer noindex"
                             >
                                 <ContactsNavItem
                                    title={item.attributes.title}
                                    image={item.attributes.image}
                                 />
-                            </Link>
+                            </a>
                         );
                     }
 

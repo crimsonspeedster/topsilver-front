@@ -61,7 +61,7 @@ const BannersItem = ({item}: {item: BannersItemObject}) => {
             <a
                 href={item.link}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer noindex"
                 className="position-relative hover-zoom d-block"
             >
                 {content}
