@@ -21,8 +21,8 @@
                 width: 100%;
                 padding: 12px 14px;
                 border-radius: 0 !important;
-                color: #d1d5db !important;
-                background: #1f2937;
+                color: #fff !important;
+                background: $main_corporate_color;
                 text-decoration: none;
                 font-size: 15px;
                 font-weight: 500;
@@ -36,13 +36,11 @@
                 }
 
                 &:hover {
-                    color: #fff !important;
-                    background: #2563eb;
+                    background: darken($main_corporate_color, 15%);
                 }
 
                 &.active {
-                    background: #2563eb;
-                    color: #fff !important;
+                    background: darken($main_corporate_color, 15%);
                 }
             }
         }

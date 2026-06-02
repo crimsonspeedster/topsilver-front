@@ -63,7 +63,7 @@ const WishListButton = (
 
     return (
         <div
-            className={parentClasses}
+            className={parentClasses + `${isInWishlist ? ' is-active' : ''}`}
             onClick={handleClick}
         >
             <i

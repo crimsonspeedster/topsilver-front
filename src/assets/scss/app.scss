@@ -11,6 +11,7 @@ File: Main Css File
 @import "./node_modules/bootstrap/scss/variables";
 @import "variables";
 @import "variables-dark";
+@import "rewrite";
 @import "./node_modules/bootstrap/scss/mixins";
 @import "custom/components/mixin";
 

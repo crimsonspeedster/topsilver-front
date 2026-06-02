@@ -303,11 +303,15 @@ a {
     transition: all 0.25s;
     cursor: pointer;
 
+    &.is-active {
+        border-color: $main_corporate_color !important;
+    }
+
     &:hover {
-        border-color: $teal !important;
+        border-color: $main_corporate_color !important;
 
         a {
-            color: $teal !important;
+            color: $main_corporate_color !important;
         }
     }
 
@@ -732,4 +736,9 @@ a {
         max-width: 340px;
         margin: auto;
     }
+}
+
+.wishlistadd .facl-heart-o,
+.facl-heart {
+    color: $main_corporate_color !important;
 }

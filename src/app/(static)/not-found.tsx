@@ -1,4 +1,5 @@
 import {getTranslations} from "next-intl/server";
+import Link from "next/link";
 
 export const metadata = {
     title: 'Сторінку не знайдено',
@@ -14,6 +15,13 @@ export default async function NotFound() {
                 <h1>404</h1>
 
                 <p>{tCommon('not_found')}</p>
+
+                <div className="d-flex justify-content-center mt-4">
+                    <Link
+                        className="rounded-pill text-white px-4 fw-semibold btn btn-primary"
+                        href="/"
+                    >{tCommon('return_to_home')}</Link>
+                </div>
             </div>
         </section>
     );

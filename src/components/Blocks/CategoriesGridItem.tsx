@@ -19,7 +19,7 @@ const CategoriesGridItem = ({ item }: { item: CategoriesGridItemLayoutObject }) 
                 />
             </div>
 
-            <div className="cat-grid-button text-white bg-dark">
+            <div className="cat-grid-button btn btn-primary">
                 <div className="cat_grid_item__title">
                     {item.attributes.category.title}
                 </div>

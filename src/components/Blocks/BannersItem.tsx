@@ -35,19 +35,19 @@ const BannersItem = ({item}: {item: BannersItemObject}) => {
             <div className={layoutClasses}>
                 <div className={layoutSchemeClasses}>
                     {item.overhead && (
-                        <p className="fs-16 fw-medium mb-1">{item.overhead}</p>
+                        <p className="fs-16 fw-medium mb-2">{item.overhead}</p>
                     )}
 
-                    <h2 className="fs-36 font-playfair fw-semibold mb-4">
+                    <h2 className="fs-36 font-playfair fw-semibold mb-2">
                         {item.title}
                     </h2>
 
                     {item.subtitle && (
-                        <p className="text-muted mb-0">{item.subtitle}</p>
+                        <p className="mb-2">{item.subtitle}</p>
                     )}
 
                     {item.show_button && (
-                        <p className="fw-normal btn btn-dark rounded-0 font-futura mb-0 btn_icon_true d-inline-block position-relative fs-14">
+                        <p className="fw-normal btn btn-primary rounded-0 font-futura mb-0 btn_icon_true d-inline-block position-relative fs-14">
                             {tCommon('shop_now')}
                         </p>
                     )}

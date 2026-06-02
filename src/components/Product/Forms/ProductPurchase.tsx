@@ -150,7 +150,7 @@ const ProductPurchase = (
                         />
 
                         <button
-                            className="text-uppercase rounded-pill min-w-150"
+                            className="text-uppercase btn btn-primary rounded-pill min-w-150"
                             disabled={isSubmitting}
                             onClick={handleBuy}
                         >

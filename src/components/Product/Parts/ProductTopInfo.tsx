@@ -1,3 +1,5 @@
+'use client';
+
 import Variations from "@src/components/Product/Parts/Variations";
 import WishListButton from "@src/components/Product/Parts/WishListButton";
 import ButtonWithPopup from "@src/components/Product/Parts/ButtonWithPopup";
@@ -11,6 +13,7 @@ import {ProductTopInfoProps} from "@interfaces/layouts/product";
 import {Button} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import NotifyMe from "@src/components/Product/NotifyMe";
+import {toast} from "react-toastify";
 
 
 const ProductTopInfo = (
@@ -27,6 +30,15 @@ const ProductTopInfo = (
         setFormatedOnSalePrice(price_on_sale);
         setDiscountPercentage(discount_percent);
     }
+
+    const handleHintClick = async () => {
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            toast.success(tProduct('link_copied'));
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
     return (
         <>
@@ -58,6 +70,11 @@ const ProductTopInfo = (
                         product_id={props.id}
                     />
             }
+
+            <button
+                onClick={handleHintClick}
+                className="btn btn-teal mt-2"
+            >{tProduct('hint_to_a_loved_one')}</button>
 
             {
                 (props.size_guide || props.delivery_and_return) &&

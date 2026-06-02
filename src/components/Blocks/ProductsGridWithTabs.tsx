@@ -16,15 +16,17 @@ const ProductsGridWithTabs = (props: ProductGridWithTabsObject) => {
                     <div className="col-lg-8">
                         <div className="text-center mb-5">
                             <div>
-                                <h1 className="position-relative text-capitalize font-playfair fw-medium">
+                                <h2 className="position-relative text-capitalize font-playfair fw-medium">
                                     {
                                         props.title
                                     }
-                                </h1>
+                                </h2>
 
                                 <span className="dn tt_divider">
                                     <span />
+
                                     <i className="la la-close fs-14 text-muted" />
+
                                     <span />
                                 </span>
                             </div>

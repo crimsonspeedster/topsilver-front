@@ -32,7 +32,7 @@ const UnSubscribePage = async (
 
                 <div className="d-flex mt-4 justify-content-center">
                     <Link
-                        className="btn btn-teal rounded-pill text-white px-4 fw-semibold btn btn-primary"
+                        className="rounded-pill text-white px-4 fw-semibold btn btn-primary"
                         href="/"
                     >
                         {tCommon('return_to_home')}

@@ -1,0 +1,43 @@
+$main_corporate_color: #49C5B1;
+
+:root {
+    --main-color: #49C5B1;
+    --swiper-theme-color: #49C5B1 !important;
+}
+
+.btn-primary {
+    --bs-btn-color: #fff;
+
+    --bs-btn-bg: var(--main-color);
+    --bs-btn-border-color: var(--main-color);
+
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: color-mix(in srgb, var(--main-color) 85%, black);
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--main-color) 80%, black);
+
+    --bs-btn-focus-shadow-rgb: 78, 151, 253;
+
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: color-mix(in srgb, var(--main-color) 80%, black);
+    --bs-btn-active-border-color: color-mix(in srgb, var(--main-color) 75%, black);
+
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var(--main-color);
+    --bs-btn-disabled-border-color: var(--main-color);
+}
+
+.button--banners {
+    background-color: $main_corporate_color;
+    color: #fff !important;
+
+    &:hover {
+        background-color: darken($main_corporate_color, 15%);
+        color: #fff !important;
+    }
+}
+
+.banners__slide {
+    min-height: 90svh;
+}

@@ -1,6 +1,7 @@
 import {BannersSliderItemObject} from "@interfaces/entities/blocks/banners-slider";
 import Image from "next/image";
 import Link from "next/link";
+import BannersButton from "@src/components/BannersSlider/BannersButton";
 
 
 type Props = {
@@ -15,7 +16,7 @@ const BannersSlide = (
     const TitleTag = item.title_tag;
 
     return (
-        <div className="position-relative min-vh-100 d-flex align-items-center">
+        <div className="position-relative banners__slide d-flex align-items-center">
             <Image
                 src={item.image}
                 alt={item.title}
@@ -43,24 +44,9 @@ const BannersSlide = (
                                 {item.title}
                             </TitleTag>
 
-                            {
-                                item.button.length > 0 && item.button[0].attributes.link_type === 'internal' ?
-                                    <Link
-                                        className="btn btn-dark rounded-0 min-w-150 min-h-45 d-inline-flex align-items-center justify-content-center fw-semibold px-4"
-                                        href={item.button[0].attributes.link}
-                                    >
-                                        {item.button[0].attributes.title}
-                                    </Link>
-                                    :
-                                    <a
-                                        rel="noopener noreferrer noindex"
-                                        target="_blank"
-                                        className="btn btn-dark rounded-0 min-w-150 min-h-45 d-inline-flex align-items-center justify-content-center fw-semibold px-4"
-                                        href={item.button[0].attributes.link}
-                                    >
-                                        {item.button[0].attributes.title}
-                                    </a>
-                            }
+                            <BannersButton
+                                button={item.button?.[0]?.attributes}
+                            />
                         </div>
                     </div>
                 </div>

@@ -44,7 +44,7 @@ const CartPageSection = (
 
                             <div className="d-flex justify-content-center mt-4">
                                 <Link
-                                    className="btn btn-teal rounded-pill text-white px-4 fw-semibold btn btn-primary"
+                                    className="rounded-pill text-white px-4 fw-semibold btn btn-primary"
                                     href="/"
                                 >{tCommon('return_to_home')}</Link>
                             </div>

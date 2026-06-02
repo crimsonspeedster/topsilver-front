@@ -91,7 +91,7 @@ const Subscribe = (
 
                         <button
                             type="submit"
-                            className="btn btn-dark position-absolute rounded-0"
+                            className="btn btn-primary position-absolute rounded-0"
                             disabled={formik.isSubmitting}
                         >
                             {tForm('buttons.subscribe')}
