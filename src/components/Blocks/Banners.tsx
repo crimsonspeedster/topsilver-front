@@ -12,8 +12,8 @@ const Banners = (props: BannersObject) => {
                         props.banners.map((item, index) => (
                             <Col
                                 key={index}
-                                md={props.layout_type === '3x3' ? 4 : 'auto'}
-                                lg={props.layout_type === '2x2' ? 2 : 'auto'}
+                                md={props.layout_type === '3x3' ? 4 : undefined}
+                                lg={props.layout_type === '2x2' ? 6 : undefined}
                             >
                                 <BannersItem
                                     item={item.attributes}

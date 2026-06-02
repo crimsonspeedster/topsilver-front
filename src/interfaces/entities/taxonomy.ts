@@ -16,6 +16,7 @@ export type TaxonomyObject = {
 export type TaxonomyCollectionObject = {
     id: number,
     title: string,
+    description: string|null,
     slug: string,
     media: MediaObject|null,
 }

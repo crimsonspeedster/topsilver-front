@@ -26,7 +26,7 @@ export type BannersSliderItemObject = {
             layout: 'Button';
             attributes: ButtonObject;
         }
-    );
+    )[];
 }
 
 export type ButtonObject = {

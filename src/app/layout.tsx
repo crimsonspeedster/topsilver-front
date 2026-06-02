@@ -5,6 +5,7 @@ import {NextIntlClientProvider} from "next-intl";
 import {LayoutProps} from "@interfaces/common/layouts";
 import {Metadata} from "next";
 import ProductPopups from "@src/components/Product/ProductPopups";
+import ButtonUp from "@src/components/Footer/ButtonUp";
 import {ToastContainer} from "react-toastify";
 import {getMenusSSR} from "@lib/getMenus.server";
 import LayoutHeader4 from "@src/components/Headers/LayoutHeader4";
@@ -75,6 +76,8 @@ export default async function Layout({children}: LayoutProps) {
                         footerMenuThird={footerMenuThird}
                         subscribeDescription={subscribeDescriptionFromSettings ? subscribeDescriptionFromSettings as string : undefined}
                     />
+
+                    <ButtonUp />
 
                     <ToastContainer
                         autoClose={3000}

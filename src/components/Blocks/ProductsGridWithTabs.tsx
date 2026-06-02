@@ -45,19 +45,20 @@ const ProductsGridWithTabs = (props: ProductGridWithTabsObject) => {
                     <Nav
                         className="tab_header gap-lg-4 justify-content-center mt-4 mb-0"
                     >
-                        <Nav.Item role="presentation">
-                            {
-                                props.blocks.map((item, index) => (
+                        {
+                            props.blocks.map((item, index) => (
+                                <Nav.Item
+                                    key={index}
+                                >
                                     <Nav.Link
-                                        key={index}
                                         eventKey={item.attributes.tab_slug}
                                         className="rounded-pill"
                                     >
                                         {item.attributes.tab_name}
                                     </Nav.Link>
-                                ))
-                            }
-                        </Nav.Item>
+                                </Nav.Item>
+                            ))
+                        }
                     </Nav>
 
                     <Tab.Content className='mt-4' id="pills-tabContent">

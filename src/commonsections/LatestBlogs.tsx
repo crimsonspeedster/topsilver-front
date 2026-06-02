@@ -42,7 +42,7 @@ const LatestBlogs = () => {
                         {blogData.map((item, index) => (
                             <div key={index} className="col-md-4 px-2 slideshow__slide"  >
                                 <div
-                                    // href="/blog-left-sidebar" 
+                                    // href="/blog-left-sidebar"
                                     className="blog-card d-block blog-wrap">
                                     <div className="blog_grid overflow-hidden">
                                         <div className="blog_grid_img w-100 position-relative" style={{ background: `url(${item.pic.src}) center no-repeat`, backgroundSize: "cover", height: "254px" }}>

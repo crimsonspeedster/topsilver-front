@@ -44,21 +44,21 @@ const BannersSlide = (
                             </TitleTag>
 
                             {
-                                item.button.attributes.link_type === 'internal' ?
+                                item.button.length > 0 && item.button[0].attributes.link_type === 'internal' ?
                                     <Link
                                         className="btn btn-dark rounded-0 min-w-150 min-h-45 d-inline-flex align-items-center justify-content-center fw-semibold px-4"
-                                        href={item.button.attributes.link}
+                                        href={item.button[0].attributes.link}
                                     >
-                                        {item.button.attributes.title}
+                                        {item.button[0].attributes.title}
                                     </Link>
                                     :
                                     <a
                                         rel="noopener noreferrer noindex"
                                         target="_blank"
                                         className="btn btn-dark rounded-0 min-w-150 min-h-45 d-inline-flex align-items-center justify-content-center fw-semibold px-4"
-                                        href={item.button.attributes.link}
+                                        href={item.button[0].attributes.link}
                                     >
-                                        {item.button.attributes.title}
+                                        {item.button[0].attributes.title}
                                     </a>
                             }
                         </div>

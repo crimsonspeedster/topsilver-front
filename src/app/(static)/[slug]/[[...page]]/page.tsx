@@ -2,7 +2,6 @@ import {notFound, permanentRedirect} from "next/navigation";
 import {getPage, getPageSeo} from "@lib/getPage.server";
 import TaxonomyProductsTemplate from "@templates/TaxonomyProductsTemplate";
 import {
-    buildTaxonomyPageUrl,
     buildTaxonomyProductsUrl,
     parseTaxonomySearchParams
 } from "@services/taxonomy/taxonomy.utils";
@@ -52,6 +51,10 @@ const Page = async (
 
     if (!data) {
         notFound();
+    }
+
+    if (data.type === 'page' && data.entity.is_home_page) {
+        permanentRedirect('/');
     }
 
     const isTaxonomyPage =

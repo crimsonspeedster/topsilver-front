@@ -7,7 +7,7 @@ const CategoriesGridItem = ({ item }: { item: CategoriesGridItemLayoutObject }) 
     return (
         <Link
             href={`/${item.attributes.category.slug}`}
-            className="d-block position-relative cat_grid_item overflow-hidden shops-img"
+            className="d-block position-relative cat_grid_item categories__grid-item overflow-hidden"
         >
             <div className="h-100 w-100">
                 <Image

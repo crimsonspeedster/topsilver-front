@@ -8,6 +8,7 @@ import {ContentBlockLayoutObject} from "@interfaces/entities/blocks/content-bloc
 import {InstagramGridLayoutObject} from "@interfaces/entities/blocks/instagram-grid";
 import {ProductGridWithTabsLayoutObject} from "@interfaces/entities/blocks/products-grid-with-tabs";
 import {BannersSliderLayoutObject} from "@interfaces/entities/blocks/banners-slider";
+import {LatestPromotionsLayoutObject} from "@interfaces/entities/blocks/latest-promotions";
 
 
 export type ContentEntityObject = {
@@ -18,6 +19,7 @@ export type ContentEntityObject = {
     seo_block: SeoBlockObject | null;
     media: MediaObject | null;
     banner: MediaObject | null;
+    is_home_page: boolean;
 }
 
 export type PageObject = ContentEntityObject;
@@ -34,7 +36,8 @@ export type LayoutObject =
     | (LayoutBaseObject & BannersLayoutObject)
     | (LayoutBaseObject & ContentBlockLayoutObject)
     | (LayoutBaseObject & InstagramGridLayoutObject)
-    | (LayoutBaseObject & ProductGridWithTabsLayoutObject);
+    | (LayoutBaseObject & ProductGridWithTabsLayoutObject)
+    | (LayoutBaseObject & LatestPromotionsLayoutObject);
 
 export type PagePageEntityObject = {
     type: 'page';
