@@ -3,6 +3,8 @@ import AuthProvider from "@src/providers/AuthProvider";
 import {getUserSSR} from "@lib/auth/getUser.server";
 import {getCartSSR} from "@lib/getCart.server";
 import CartProvider from "@src/providers/CartProvider";
+import {getWishlistSSR} from "@lib/getWishlistSSR.server";
+import WishlistProvider from "@src/providers/WishlistProvider";
 
 
 export default async function Layout (
@@ -12,6 +14,7 @@ export default async function Layout (
 ) {
     const user = await getUserSSR();
     const cartData = await getCartSSR();
+    const wishlistData = await getWishlistSSR();
 
     return (
         <AuthProvider
@@ -20,7 +23,11 @@ export default async function Layout (
             <CartProvider
                 initialCart={cartData}
             >
-                {children}
+                <WishlistProvider
+                    initialWishlist={wishlistData}
+                >
+                    {children}
+                </WishlistProvider>
             </CartProvider>
         </AuthProvider>
     );

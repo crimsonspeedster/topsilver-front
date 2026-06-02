@@ -3,7 +3,7 @@ import {useWishlistStore} from "@src/store/wishlist-store";
 
 
 const WishListBadge = () => {
-    const wishList = useWishlistStore(state => state.wishlist);
+    const wishList = useWishlistStore((state) => state.wishlist);
 
     return (
         <Link
@@ -13,7 +13,7 @@ const WishListBadge = () => {
             <i className="iccl iccl-heart" />
 
             <span className="tcount bg-dark text-white rounded-circle d-flex align-items-center justify-content-center">
-                {wishList.length}
+                {wishList.items_count}
             </span>
         </Link>
     );

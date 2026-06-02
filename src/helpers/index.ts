@@ -5,6 +5,7 @@ import {CartObject} from "@interfaces/entities/cart";
 import {UserObject} from "@interfaces/entities/user";
 import {ShopsPickupObject} from "@interfaces/entities/shops";
 import {SettingsPromiseObject} from "@interfaces/entities/settings";
+import {WishlistObject} from "@interfaces/entities/wishlist";
 
 export const getWishlist = (): number[] => {
     const wishlist = Cookies .get('wishlist');
@@ -75,7 +76,12 @@ export const emptyCartObject: CartObject = {
     certificates: [],
     items_count: 0,
     total_qty: 0,
-}
+};
+
+export const emptyWishlistObject: WishlistObject = {
+    items: [],
+    items_count: 0,
+};
 
 export const getUserFormData = (user: UserObject | null) => ({
     first_name: user?.profile?.name ?? '',

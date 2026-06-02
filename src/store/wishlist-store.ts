@@ -1,33 +1,33 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import {WishlistObject} from "@interfaces/entities/wishlist";
+import {emptyWishlistObject} from "@src/helpers";
+
 
 type WishlistStore = {
-    wishlist: number[];
-    toggleWishlist: (id: number) => void;
-    isInWishlist: (id: number) => boolean;
+    wishlist: WishlistObject;
+    isHydrated: boolean;
+
+    setWishlist: (wishlist: WishlistObject) => void;
+    hydrate: (wishlist: WishlistObject) => void;
+
+    reset: () => void;
 };
 
-export const useWishlistStore = create<WishlistStore>()(
-    persist(
-        (set, get) => ({
-            wishlist: [],
+export const useWishlistStore = create<WishlistStore>((set) => ({
+    wishlist: emptyWishlistObject,
+    isHydrated: false,
 
-            toggleWishlist: (id: number) => {
-                const wishlist = get().wishlist;
+    setWishlist: (wishlist) => set({ wishlist }),
 
-                set({
-                    wishlist: wishlist.includes(id)
-                        ? wishlist.filter(itemId => itemId !== id)
-                        : [...wishlist, id],
-                });
-            },
-
-            isInWishlist: (id: number) => {
-                return get().wishlist.includes(id);
-            },
+    hydrate: (wishlist) =>
+        set({
+            wishlist,
+            isHydrated: true,
         }),
-        {
-            name: 'wishlist',
-        }
-    ),
-);
+
+    reset: () =>
+        set({
+            wishlist: emptyWishlistObject,
+            isHydrated: false,
+        }),
+}));

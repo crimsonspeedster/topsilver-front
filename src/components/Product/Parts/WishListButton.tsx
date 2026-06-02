@@ -1,9 +1,8 @@
 'use client';
 
-import {getWishlist} from "@src/helpers";
-import Cookies from "js-cookie";
-import {useEffect, useState} from "react";
 import {useWishlistStore} from "@src/store/wishlist-store";
+import axiosClient from "@lib/axiosClient";
+import {useEffect, useState} from "react";
 
 
 type Props = {
@@ -19,15 +18,53 @@ const WishListButton = (
         childClasses,
     }: Props
 ) => {
-    const isInWishlist = useWishlistStore(state => state.wishlist.includes(id));
-    const toggleWishlist = useWishlistStore(state => state.toggleWishlist);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const isInWishlist = useWishlistStore(state => state.wishlist.items.some(item => item.product.id === id));
+    const setWishlist = useWishlistStore((state) => state.setWishlist);
+
+    const handleClick = async () => {
+        if (isLoading) {
+            return;
+        }
+
+        setIsLoading(true);
+
+        if (isInWishlist) {
+            try {
+                const res = await axiosClient.delete(`wishlist/items/${id}`);
+
+                setWishlist(res.data.data);
+            }
+            catch (error) {
+
+            }
+            finally {
+                setIsLoading(false);
+            }
+        }
+        else {
+            const formData = new FormData();
+            formData.append("product_id", id.toString());
+
+            try {
+                const res = await axiosClient.post('wishlist/items', formData);
+
+                setWishlist(res.data.data);
+            }
+            catch (error) {
+
+            }
+            finally {
+                setIsLoading(false);
+            }
+        }
+    }
 
     return (
         <div
             className={parentClasses}
-            onClick={
-                ()=>toggleWishlist(id)
-            }
+            onClick={handleClick}
         >
             <i
                 className={childClasses + ` facl ${isInWishlist ? 'facl-heart' : 'facl-heart-o'}`}
