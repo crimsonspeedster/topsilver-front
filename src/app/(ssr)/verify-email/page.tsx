@@ -5,11 +5,11 @@ import {verifyEmail} from "@lib/verifyEmail.server";
 
 
 type Props = {
-    searchParams: {
+    searchParams: Promise<{
         id?: string,
         hash?: string,
         email?: string,
-    };
+    }>;
 };
 
 const VerifyEmail = async (
@@ -17,7 +17,7 @@ const VerifyEmail = async (
         searchParams,
     }: Props
 ) => {
-    const {id, hash, email } = searchParams;
+    const {id, hash, email } = await searchParams;
 
     if (!id || !hash || !email) {
         redirect('/');

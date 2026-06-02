@@ -6,9 +6,9 @@ import Link from "next/link";
 
 
 type Props = {
-    searchParams: {
+    searchParams: Promise<{
         token?: string;
-    }
+    }>;
 }
 
 const UnSubscribePage = async (

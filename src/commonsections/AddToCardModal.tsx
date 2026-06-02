@@ -1,13 +1,12 @@
 "use client";
 
 import React, {useState} from "react";
-import { Modal, Button, Row } from "react-bootstrap";
+import { Modal, Row } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
 import {ProductQuickShopObject} from "@interfaces/entities/product";
 import FallbackImage from '@assets/images/fallback.png';
 import {useTranslations} from "next-intl";
-import Variations from "@src/components/Product/Parts/Variations";
 import ProductPrices from "@src/components/Product/Parts/ProductPrices";
 import ProductPurchase from "@src/components/Product/Forms/ProductPurchase";
 

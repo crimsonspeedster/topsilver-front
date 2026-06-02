@@ -4,7 +4,6 @@ import {useTranslations} from "next-intl";
 import {useCartStore} from "@src/store/cart-store";
 import {useMemo} from "react";
 import * as Yup from "yup";
-import {useAuthStore} from "@src/store/client-store";
 import axiosClient from "@lib/axiosClient";
 import {BonusesObject} from "@interfaces/entities/bonuses";
 import {useFormik} from "formik";

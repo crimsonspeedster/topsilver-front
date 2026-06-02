@@ -1,13 +1,10 @@
 "use client";
 
-import Header from "@src/components/Headers/Header";
 import BreadCrumb from "@src/commonsections/BreadCrumb";
 import React, {useEffect, useState} from "react";
-import FooterPage from "@src/components/Footer";
 import {BreadcrumbsObject, ProductCardObject, ProductObject} from "@interfaces/entities/product";
 import ViewedProductsSection from "@src/components/Product/Parts/ViewedProductsSection";
 import {useTranslations} from "next-intl";
-import ProductPopups from "@src/components/Product/ProductPopups";
 import {useRecentlyViewedStore} from "@src/store/recently-viewed-store";
 import axios from "axios";
 import ProductTabs from "@src/components/Product/Parts/ProductTabs";

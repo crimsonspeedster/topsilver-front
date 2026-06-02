@@ -1,4 +1,4 @@
-import {BannersLayoutObject, BannersObject} from "@interfaces/entities/blocks/banners";
+import { BannersObject} from "@interfaces/entities/blocks/banners";
 import { Col, Row } from 'react-bootstrap'
 import BannersItem from "@src/components/Blocks/BannersItem";
 

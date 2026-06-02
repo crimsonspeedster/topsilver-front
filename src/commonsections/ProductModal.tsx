@@ -1,7 +1,7 @@
 "use client";
 
 import React, {useState} from "react";
-import { Modal, Button, Row,  Col } from 'react-bootstrap';
+import { Modal, Row,  Col } from 'react-bootstrap';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Image from "next/image";
@@ -9,8 +9,6 @@ import Link from "next/link";
 import {ProductQuickViewObject} from "@interfaces/entities/product";
 import {useTranslations} from "next-intl";
 import FallbackImage from '@assets/images/fallback.png';
-import WishListButton from "@src/components/Product/Parts/WishListButton";
-import Variations from "@src/components/Product/Parts/Variations";
 import Rating from "@src/components/Product/Parts/Rating";
 import ProductInfo from "@src/components/Product/Parts/ProductInfo";
 import ProductPurchase from "@src/components/Product/Forms/ProductPurchase";

@@ -1,13 +1,4 @@
-import {Button, Col, Row} from "react-bootstrap";
-import {Swiper, SwiperSlide} from "swiper/react";
-import {FreeMode, Navigation, Pagination, Thumbs} from "swiper/modules";
-import Image from "next/image";
-import thumb1 from "@assets/images/single-product/full-width/thumb-01.jpg";
-import thumb2 from "@assets/images/single-product/full-width/thumb-02.jpg";
-import thumb3 from "@assets/images/single-product/full-width/thumb-03.jpg";
-import Link from "next/link";
-import trust from "@assets/images/single-product/trust_img2.png";
-import {DeliveryAndReturnModal, Question, SizeGuideModal} from "@src/components/ProductModal/ProductModals";
+import {Col, Row} from "react-bootstrap";
 import React from "react";
 import ProductTopGallery from "@src/components/Product/Parts/ProductTopGallery";
 import ProductTopImage from "@src/components/Product/Parts/ProductTopImage";

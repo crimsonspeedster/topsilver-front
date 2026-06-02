@@ -20,7 +20,9 @@ const ShopSingleTemplate = (props: Props) => {
                 )
             }
 
-            <ContentEntityBlocks />
+            <ContentEntityBlocks
+                content={props.shop.blocks}
+            />
         </article>
     );
 }

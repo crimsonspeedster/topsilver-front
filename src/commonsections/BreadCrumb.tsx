@@ -1,8 +1,10 @@
 "use client";
+
 import React from "react";
 import Link from "next/link";
 import { Container } from "react-bootstrap";
 import {BreadcrumbsObject, ProductCardObject} from "@interfaces/entities/product";
+
 
 type Props = {
     breadcrumbs: BreadcrumbsObject[],

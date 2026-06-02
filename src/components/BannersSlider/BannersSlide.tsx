@@ -1,6 +1,5 @@
 import {BannersSliderItemObject} from "@interfaces/entities/blocks/banners-slider";
 import Image from "next/image";
-import Link from "next/link";
 import BannersButton from "@src/components/BannersSlider/BannersButton";
 
 

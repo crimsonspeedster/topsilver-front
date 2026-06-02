@@ -1,7 +1,6 @@
 "use client";
 
-import { Offcanvas, Button, Form } from 'react-bootstrap';
-import Image from 'next/image';
+import { Offcanvas } from 'react-bootstrap';
 import Link from 'next/link';
 import {useCartStore} from "@src/store/cart-store";
 import {useTranslations} from "next-intl";

@@ -1,8 +1,6 @@
 "use client";
 
 import {Col, Row} from "react-bootstrap";
-import Image from "next/image";
-import FallbackImage from '@assets/images/fallback.png';
 import {CartItemBundleObject} from "@interfaces/entities/cart";
 
 

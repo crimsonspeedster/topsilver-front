@@ -5,10 +5,10 @@ import {getUserSSR} from "@lib/auth/getUser.server";
 
 
 type Props = {
-    searchParams: {
+    searchParams: Promise<{
         token?: string;
         email?: string;
-    };
+    }>;
 };
 
 const ResetPassword = async (
