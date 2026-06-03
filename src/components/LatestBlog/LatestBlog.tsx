@@ -3,9 +3,8 @@
 import {LatestPromotionsObject} from "@interfaces/entities/blocks/latest-promotions";
 import LatestBlogItem from "@src/components/LatestBlog/LatestBlogItem";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Navigation} from "swiper/modules";
+import {Autoplay} from "swiper/modules";
 import 'swiper/css';
-import 'swiper/css/navigation';
 
 
 const LatestBlog = (props: LatestPromotionsObject) => {
@@ -33,9 +32,12 @@ const LatestBlog = (props: LatestPromotionsObject) => {
                     className="mt-3"
                     spaceBetween={0}
                     slidesPerView={1}
-                    navigation={true}
                     loop={true}
-                    modules={[Navigation]}
+                    autoplay={{
+                        delay: 5000,
+                        disableOnInteraction: true,
+                    }}
+                    modules={[Autoplay]}
                     breakpoints={{
                         576: {
                             slidesPerView: 2,

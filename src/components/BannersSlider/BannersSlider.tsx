@@ -6,6 +6,7 @@ import BannersSlide from "@src/components/BannersSlider/BannersSlide";
 import {Autoplay, Navigation, Pagination} from "swiper/modules";
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 
 const BannersSlider = (props: BannersSliderObject) => {
@@ -18,7 +19,7 @@ const BannersSlider = (props: BannersSliderObject) => {
                 navigation={true}
                 loop={true}
                 autoplay={{
-                    delay: 3000,
+                    delay: 7000,
                     disableOnInteraction: true,
                 }}
                 modules={[Pagination, Navigation, Autoplay]}
