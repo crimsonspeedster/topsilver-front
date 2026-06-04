@@ -7,17 +7,16 @@ import * as Yup from "yup";
 import {useFormik} from "formik";
 import {toast} from "react-toastify";
 import FormField from "@src/components/Form/FormField";
+import axiosClient from "@lib/axiosClient";
 
 
 type Props = {
     product_id: number,
-    variant_id?: number,
 };
 
 const NotifyMe = (
     {
         product_id,
-        variant_id,
     }: Props
 ) => {
     const tProduct = useTranslations('Product');
@@ -38,14 +37,15 @@ const NotifyMe = (
         onSubmit: async (values, {setSubmitting, setErrors, resetForm}) => {
             setSubmitting(true);
 
-            try {
-                const formData = new FormData();
-                formData.append('product_id', product_id.toString());
-                formData.append('email', values.email);
+            const formData = new FormData();
+            formData.append('email', values.email);
 
-                if (variant_id) {
-                    formData.append('variant_id', variant_id.toString());
-                }
+            try {
+                const res = await axiosClient.post(`/products/${product_id}/notifications`, formData);
+
+                toast.success(res.data.message);
+
+                resetForm();
             }
             catch (error:any) {
                 if (error.response && error.response.status === 422) {

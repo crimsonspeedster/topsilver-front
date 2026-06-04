@@ -149,7 +149,6 @@ const ProductPurchase = (
                 stockStatus === 'out_of_stock' ?
                     <NotifyMe
                         product_id={props.id}
-                        variant_id={variation?.id}
                     />
                     :
                     <div className="d-flex flex-wrap align-items-center gap-2">
