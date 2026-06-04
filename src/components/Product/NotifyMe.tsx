@@ -62,12 +62,10 @@ const NotifyMe = (
 
     return (
         <>
-            <div className="fw-medium border-2 fw-semibold rounded-pill">
-                {tProduct('out_of_stock')}
-            </div>
+            <p className="fw-medium border-2 text-danger fw-semibold">{tProduct('out_of_stock')}</p>
 
             <div className="mb-3">
-                <h6 className="border-top fs-16 py-3 mt-4">{tProduct('notify_me')}:</h6>
+                <p className="border-top fs-16 py-3 mt-4 fw-bold">{tProduct('notify_me')}:</p>
 
                 <Form
                     onSubmit={formik.handleSubmit}
@@ -82,7 +80,7 @@ const NotifyMe = (
 
                     <Button
                         type="submit"
-                        className="btn btn-info rounded-pill"
+                        className="btn btn-info"
                         disabled={formik.isSubmitting}
                     >
                         {tForm('buttons.notify_button')}

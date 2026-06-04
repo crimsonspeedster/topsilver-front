@@ -223,7 +223,7 @@ const RegisterForm = (
 
             <Button
                 type="submit"
-                className="btn btn-info rounded-pill"
+                className="btn btn-info"
                 disabled={formik.isSubmitting}
             >
                 {tForm('buttons.register')}

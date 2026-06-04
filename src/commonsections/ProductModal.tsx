@@ -129,11 +129,14 @@ const ProductModal = (
                             </h6>
 
                             <div className="d-flex flex-wrap align-items-center gap-2 mb-4">
-                                <ProductPrices
-                                    price_formatted={formatedPrice}
-                                    price_on_sale_formatted={formatedOnSalePrice}
-                                    discount_percent={discountPercentage}
-                                />
+                                {
+                                    product.stock_status === 'in_stock' &&
+                                    <ProductPrices
+                                        price_formatted={formatedPrice}
+                                        price_on_sale_formatted={formatedOnSalePrice}
+                                        discount_percent={discountPercentage}
+                                    />
+                                }
 
                                 <Rating
                                     rating={product.rating_avg}
@@ -147,20 +150,22 @@ const ProductModal = (
                             }
 
                             {
-                                product.stock_status === 'in_stock' &&
-                                <ProductPurchase
-                                    id={product.id}
-                                    manage_stock={product.manage_stock}
-                                    stock={product.stock}
-                                    type={product.type}
-                                    stock_status={product.stock_status}
-                                    variants={product.variants}
-                                    variant_attributes={product.variant_attributes}
-                                    priceHandle={priceHandle}
-                                    price_formatted={product.price_formatted}
-                                    price_on_sale_formatted={product.price_on_sale_formatted}
-                                    discount_percent={product.discount_percent}
-                                />
+                                product.stock_status === 'in_stock' ?
+                                    <ProductPurchase
+                                        id={product.id}
+                                        manage_stock={product.manage_stock}
+                                        stock={product.stock}
+                                        type={product.type}
+                                        stock_status={product.stock_status}
+                                        variants={product.variants}
+                                        variant_attributes={product.variant_attributes}
+                                        priceHandle={priceHandle}
+                                        price_formatted={product.price_formatted}
+                                        price_on_sale_formatted={product.price_on_sale_formatted}
+                                        discount_percent={product.discount_percent}
+                                    />
+                                    :
+                                    <p className="text-danger">{t('out_of_stock')}</p>
                             }
 
                             <ProductInfo

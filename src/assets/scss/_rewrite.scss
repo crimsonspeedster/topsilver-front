@@ -28,6 +28,14 @@ $main_corporate_color: #49C5B1;
     --bs-btn-disabled-border-color: var(--main-color);
 }
 
+a.btn-primary {
+    color: var(--bs-btn-color) !important;
+
+    &:hover {
+        color: var(--bs-btn-hover-color) !important;
+    }
+}
+
 .button--banners {
     background-color: $main_corporate_color;
     color: #fff !important;

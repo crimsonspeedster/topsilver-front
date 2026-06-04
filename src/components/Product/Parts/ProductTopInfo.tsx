@@ -48,33 +48,37 @@ const ProductTopInfo = (
                 price_on_sale_formatted={formatedOnSalePrice}
                 discount_percent={discountPercentage}
                 short_description={props.short_description}
+                stock_status={props.stock_status}
+                stock={props.stock}
             />
 
             {
                 props.stock_status === 'in_stock' ?
-                    <ProductPurchase
-                        id={props.id}
-                        manage_stock={props.manage_stock}
-                        stock={props.stock}
-                        type={props.type}
-                        stock_status={props.stock_status}
-                        variants={props.variants}
-                        variant_attributes={props.variant_attributes}
-                        priceHandle={priceHandle}
-                        price_formatted={props.price_formatted}
-                        price_on_sale_formatted={props.price_on_sale_formatted}
-                        discount_percent={props.discount_percent}
-                    />
+                    <>
+                        <ProductPurchase
+                            id={props.id}
+                            manage_stock={props.manage_stock}
+                            stock={props.stock}
+                            type={props.type}
+                            stock_status={props.stock_status}
+                            variants={props.variants}
+                            variant_attributes={props.variant_attributes}
+                            priceHandle={priceHandle}
+                            price_formatted={props.price_formatted}
+                            price_on_sale_formatted={props.price_on_sale_formatted}
+                            discount_percent={props.discount_percent}
+                        />
+
+                        <button
+                            onClick={handleHintClick}
+                            className="btn btn-teal mt-2"
+                        >{tProduct('hint_to_a_loved_one')}</button>
+                    </>
                     :
                     <NotifyMe
                         product_id={props.id}
                     />
             }
-
-            <button
-                onClick={handleHintClick}
-                className="btn btn-teal mt-2"
-            >{tProduct('hint_to_a_loved_one')}</button>
 
             {
                 (props.size_guide || props.delivery_and_return) &&

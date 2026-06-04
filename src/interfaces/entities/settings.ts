@@ -1,10 +1,14 @@
 import {SocialLinkItemLayoutObject} from "@interfaces/entities/blocks/social-link-item";
 import {ContactItemLinkLayoutObject, ContactItemTextLayoutObject} from "@interfaces/entities/blocks/contact-item";
+import {AdvantagesLayoutObject} from "@interfaces/entities/blocks/advantages";
+import {LayoutBaseObject} from "@interfaces/entities/page";
+
 
 export type SettingsPromiseObject =
     | ImageSettingsObject
     | TextSettingsObject
     | ContactsSettingsObject
+    | ProductAdvantagesSettingsObject
     | SocialLinksSettingsObject;
 
 export type SettingBaseObject = {
@@ -15,7 +19,7 @@ export type ImageSettingsObject =
     SettingBaseObject & {
         type: 'image';
         value: {
-            image: string;
+            data: string;
         }
     };
 
@@ -23,7 +27,15 @@ export type TextSettingsObject =
     SettingBaseObject & {
         type: 'text';
         value: {
-            text: string;
+            data: string;
+        }
+    };
+
+export type ProductAdvantagesSettingsObject =
+    SettingBaseObject & {
+        type: 'product_advantages';
+        value: {
+            data: (LayoutBaseObject & AdvantagesLayoutObject);
         }
     };
 

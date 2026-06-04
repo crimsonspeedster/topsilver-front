@@ -10,6 +10,9 @@ import {Metadata} from "next";
 import PageTemplate from "@templates/PageTemplate";
 import {getBaseUrl} from "@helpers/functions.server";
 import ShopSingleTemplate from "@templates/ShopSingleTemplate";
+import {getSettingSSR, getSettingsSSR} from "@lib/getSettings.server";
+import {searchSettingByKey} from "@src/helpers";
+import {ProductAdvantagesSettingsObject} from "@interfaces/entities/settings";
 
 
 type Props = {
@@ -89,11 +92,14 @@ const Page = async (
                 initialPage={currentPage}
             />;
         case 'product':
+            const productAdvantagesFromSettings = await getSettingSSR('product_advantages');
+
             return <ProductDetailTemplate
                 prev_next={data.prev_next}
                 product={data.entity}
                 breadcrumbs={data.breadcrumbs}
                 reviews={data.reviews}
+                advantages={productAdvantagesFromSettings ? productAdvantagesFromSettings as ProductAdvantagesSettingsObject : undefined}
             />;
         case 'shop':
             return (

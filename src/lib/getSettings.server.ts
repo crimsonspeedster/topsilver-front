@@ -12,3 +12,14 @@ export const getSettingsSSR = async (): Promise<SettingsPromiseObject[]> => {
         return [];
     }
 }
+
+export const getSettingSSR = async (key: string): Promise<SettingsPromiseObject|undefined> => {
+    try {
+        const res = await axiosClient.get(`settings/${key}`);
+
+        return res.data.data;
+    }
+    catch (error) {
+        return undefined;
+    }
+}

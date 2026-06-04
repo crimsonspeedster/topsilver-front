@@ -9,10 +9,14 @@ type Props = Pick<
     | 'price_on_sale_formatted'
     | 'discount_percent'
     | 'short_description'
+    | 'stock_status'
+    | 'stock'
 >;
 
 const ProductTopHeader = (
     {
+        stock_status,
+        stock,
         title,
         price_formatted,
         price_on_sale_formatted,
@@ -24,13 +28,16 @@ const ProductTopHeader = (
         <>
             <h1 className="mb-3">{title}</h1>
 
-            <div className="d-flex flex-wrap justify-content-between w-max">
-                <ProductPrices
-                    price_formatted={price_formatted}
-                    price_on_sale_formatted={price_on_sale_formatted}
-                    discount_percent={discount_percent}
-                />
-            </div>
+            {
+                stock_status === 'in_stock' &&
+                <div className="d-flex flex-wrap justify-content-between w-max">
+                    <ProductPrices
+                        price_formatted={price_formatted}
+                        price_on_sale_formatted={price_on_sale_formatted}
+                        discount_percent={discount_percent}
+                    />
+                </div>
+            }
 
             {
                 short_description &&

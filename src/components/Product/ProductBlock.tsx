@@ -8,6 +8,8 @@ import FallbackImage from '@assets/images/fallback.png';
 import WishListButton from "@src/components/Product/Parts/WishListButton";
 import axios from "axios";
 import {useProductPopupStore} from "@src/store/product-popup-store";
+import ProductPrices from "@src/components/Product/Parts/ProductPrices";
+import React from "react";
 
 
 type Props = {
@@ -113,19 +115,22 @@ const ProductBlock = (
                         <i className="iccl iccl-eye"></i>
                     </button>
 
-                    <button
-                        type="button"
-                        className="btn rounded-pill fs-14"
-                        data-bs-toggle="modal"
-                        onClick={() => handleQuickModal(
-                            product.id,
-                            'quick_shop',
-                        )}
-                    >
-                        <span>{t('quick_shop')}</span>
+                    {
+                        product.stock_status === 'in_stock' &&
+                        <button
+                            type="button"
+                            className="btn rounded-pill fs-14"
+                            data-bs-toggle="modal"
+                            onClick={() => handleQuickModal(
+                                product.id,
+                                'quick_shop',
+                            )}
+                        >
+                            <span>{t('quick_shop')}</span>
 
-                        <i className="iccl iccl-cart"></i>
-                    </button>
+                            <i className="iccl iccl-cart"></i>
+                        </button>
+                    }
                 </div>
 
                 <div className="position-absolute d-lg-none bottom-0 end-0 d-flex flex-column bg-white rounded-pill m-2" style={{ zIndex: 1 }}>
@@ -140,17 +145,20 @@ const ProductBlock = (
                         <i className="iccl iccl-eye fw-semibold"></i>
                     </button>
 
-                    <button
-                        type="button"
-                        className="btn responsive-cart rounded-pill fs-14 p-2"
-                        style={{ width: 36, height: 36 }}
-                        onClick={() => handleQuickModal(
-                            product.id,
-                            'quick_shop',
-                        )}
-                    >
-                        <i className="iccl iccl-cart fw-semibold"></i>
-                    </button>
+                    {
+                        product.stock_status === 'in_stock' &&
+                        <button
+                            type="button"
+                            className="btn responsive-cart rounded-pill fs-14 p-2"
+                            style={{ width: 36, height: 36 }}
+                            onClick={() => handleQuickModal(
+                                product.id,
+                                'quick_shop',
+                            )}
+                        >
+                            <i className="iccl iccl-cart fw-semibold"></i>
+                        </button>
+                    }
                 </div>
             </div>
 
@@ -159,21 +167,26 @@ const ProductBlock = (
                     <Link href={`/${product.slug}`} className="main_link_acid_green">{product.title}</Link>
                 </h6>
 
-                <p className="mb-0 fs-14 text-muted">
-                    {
-                        product.price_on_sale_formatted ?
-                            (
-                                <>
-                                    <del>{product.price_formatted}</del>&nbsp;
-                                    <span className="text-danger">{product.price_on_sale_formatted}</span>
-                                </>
-                            )
-                            :
-                            (
-                                <span>{product.price_formatted}</span>
-                            )
-                    }
-                </p>
+                {
+                    product.stock_status === 'out_of_stock' ?
+                        <p className="text-danger">{t('out_of_stock')}</p>
+                        :
+                        <p className="mb-0 fs-14 text-muted">
+                            {
+                                product.price_on_sale_formatted ?
+                                    (
+                                        <>
+                                            <del>{product.price_formatted}</del>&nbsp;
+                                            <span className="text-danger">{product.price_on_sale_formatted}</span>
+                                        </>
+                                    )
+                                    :
+                                    (
+                                        <span>{product.price_formatted}</span>
+                                    )
+                            }
+                        </p>
+                }
             </div>
         </div>
     );

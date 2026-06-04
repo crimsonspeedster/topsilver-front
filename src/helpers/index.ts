@@ -98,18 +98,5 @@ export const searchSettingByKey = (key: string, settings: SettingsPromiseObject[
         return undefined;
     }
 
-    switch (settingObject.type) {
-        case 'image':
-            return settingObject.value.image;
-
-        case 'text':
-            return settingObject.value.text;
-
-        case 'contacts':
-        case 'social_links':
-            return settingObject.value.data;
-
-        default:
-            return undefined;
-    }
+    return settingObject.value.data;
 }

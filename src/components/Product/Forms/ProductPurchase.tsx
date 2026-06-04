@@ -12,6 +12,7 @@ import Variations from "@src/components/Product/Parts/Variations";
 import {ProductVariantObject} from "@interfaces/entities/product";
 import NotifyMe from "@src/components/Product/NotifyMe";
 import {useCartStore} from "@src/store/cart-store";
+import Link from "next/link";
 
 
 const ProductPurchase = (
@@ -111,7 +112,16 @@ const ProductPurchase = (
                 data: CartObject,
             }>('/cart/items', formData);
 
-            toast.success(tProduct('added_to_cart'));
+            toast.success(
+                <div>
+                    {tProduct('added_to_cart')} {' '}
+
+                    <Link
+                        className="btn btn-primary"
+                        href="/cart"
+                    >{tProduct('go_to_cart')}</Link>
+                </div>
+            );
             hydrateCart(response.data.data);
         } catch (error: any) {
             if (error.response && error.response.status === 422) {
@@ -150,7 +160,7 @@ const ProductPurchase = (
                         />
 
                         <button
-                            className="text-uppercase btn btn-primary rounded-pill min-w-150"
+                            className="text-uppercase btn btn-primary"
                             disabled={isSubmitting}
                             onClick={handleBuy}
                         >

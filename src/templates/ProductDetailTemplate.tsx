@@ -10,12 +10,15 @@ import axios from "axios";
 import ProductTabs from "@src/components/Product/Parts/ProductTabs";
 import {ReviewObject} from "@interfaces/entities/reviews";
 import ProductTop from "@src/components/Product/Parts/ProductTop";
+import {ProductAdvantagesSettingsObject} from "@interfaces/entities/settings";
+import Advantages from "@src/components/Blocks/Advantages";
 
 
 type Props = {
     product: ProductObject,
     breadcrumbs: BreadcrumbsObject[],
     reviews: ReviewObject[],
+    advantages?: ProductAdvantagesSettingsObject,
     prev_next: {
         prev: ProductCardObject|null,
         next: ProductCardObject|null,
@@ -28,6 +31,7 @@ const ProductDetailTemplate = (
         breadcrumbs,
         prev_next,
         reviews,
+        advantages,
     }: Props
 ) => {
     const t = useTranslations('Common');
@@ -125,6 +129,13 @@ const ProductDetailTemplate = (
                 title={t('recently_viewed')}
                 products={recentlyViewedProducts}
             />
+
+            {
+                advantages &&
+                <Advantages
+                    blocks={advantages.value.data.attributes.blocks}
+                />
+            }
         </>
     );
 };

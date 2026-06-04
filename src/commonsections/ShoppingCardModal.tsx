@@ -81,7 +81,7 @@ const ShoppingCardModal = (
                         <Link
                             href="/cart"
                             onNavigate={handleShoppingClose}
-                            className="w-100 btn btn-light rounded-pill text-uppercase fw-semibold"
+                            className="w-100 btn btn-light text-uppercase fw-semibold"
                             style={{ fontSize: '11px' }}
                         >
                             {tCart('view_cart')}
@@ -89,7 +89,7 @@ const ShoppingCardModal = (
 
                         <Link
                             href="/checkout"
-                            className="w-100 rounded-pill text-uppercase fw-semibold btn-info btn"
+                            className="w-100 btn btn-primary text-uppercase fw-semibold"
                             style={{ fontSize: '11px' }}
                             onNavigate={handleShoppingClose}
                         >

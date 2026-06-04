@@ -72,7 +72,7 @@ const CartTable = (
 
                     <Link
                         href="/checkout"
-                        className="btn btn-teal text-white px-5 py-2 rounded-pill mb-3"
+                        className="btn btn-primary text-white px-5 py-2 mb-3"
                     >
                         {tCart('checkout')}
                     </Link>
