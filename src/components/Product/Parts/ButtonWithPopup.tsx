@@ -24,7 +24,7 @@ const ButtonWithPopup = (
     return (
           <>
               <button
-                  className="text-black fw-semibold"
+                  className="text-black fw-semibold btn-link btn p-0"
                   onClick={() => setShow(true)}
               >{title}</button>
 

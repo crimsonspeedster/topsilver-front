@@ -10,9 +10,10 @@ import {Metadata} from "next";
 import PageTemplate from "@templates/PageTemplate";
 import {getBaseUrl} from "@helpers/functions.server";
 import ShopSingleTemplate from "@templates/ShopSingleTemplate";
-import {getSettingSSR, getSettingsSSR} from "@lib/getSettings.server";
+import {getSettingsSSR} from "@lib/getSettings.server";
 import {searchSettingByKey} from "@src/helpers";
-import {ProductAdvantagesSettingsObject} from "@interfaces/entities/settings";
+import {LayoutBaseObject} from "@interfaces/entities/page";
+import {AdvantagesLayoutObject} from "@interfaces/entities/blocks/advantages";
 
 
 type Props = {
@@ -51,6 +52,8 @@ const Page = async (
         sort: parsedSearchParams.sort,
         price: parsedSearchParams.price,
     });
+
+    const settingsData = await getSettingsSSR();
 
     if (!data) {
         notFound();
@@ -92,14 +95,18 @@ const Page = async (
                 initialPage={currentPage}
             />;
         case 'product':
-            const productAdvantagesFromSettings = await getSettingSSR('product_advantages');
+            const productAdvantagesFromSettings = searchSettingByKey('product_advantages', settingsData);
+            const DeliveryAndReturnFromSettings = searchSettingByKey('delivery_and_return', settingsData);
+            const SizeGuideFromSettings = searchSettingByKey('size_guide', settingsData);
 
             return <ProductDetailTemplate
                 prev_next={data.prev_next}
                 product={data.entity}
                 breadcrumbs={data.breadcrumbs}
                 reviews={data.reviews}
-                advantages={productAdvantagesFromSettings ? productAdvantagesFromSettings as ProductAdvantagesSettingsObject : undefined}
+                advantages={productAdvantagesFromSettings ? productAdvantagesFromSettings as (LayoutBaseObject & AdvantagesLayoutObject) : undefined}
+                size_guide={DeliveryAndReturnFromSettings ? DeliveryAndReturnFromSettings as string : null}
+                delivery_and_return={SizeGuideFromSettings ? SizeGuideFromSettings as string : null}
             />;
         case 'shop':
             return (

@@ -10,19 +10,22 @@ import axios from "axios";
 import ProductTabs from "@src/components/Product/Parts/ProductTabs";
 import {ReviewObject} from "@interfaces/entities/reviews";
 import ProductTop from "@src/components/Product/Parts/ProductTop";
-import {ProductAdvantagesSettingsObject} from "@interfaces/entities/settings";
 import Advantages from "@src/components/Blocks/Advantages";
+import {LayoutBaseObject} from "@interfaces/entities/page";
+import {AdvantagesLayoutObject} from "@interfaces/entities/blocks/advantages";
 
 
 type Props = {
     product: ProductObject,
     breadcrumbs: BreadcrumbsObject[],
     reviews: ReviewObject[],
-    advantages?: ProductAdvantagesSettingsObject,
+    advantages?: (LayoutBaseObject & AdvantagesLayoutObject),
     prev_next: {
         prev: ProductCardObject|null,
         next: ProductCardObject|null,
     }
+    size_guide: string|null,
+    delivery_and_return: string|null,
 }
 
 const ProductDetailTemplate = (
@@ -32,6 +35,8 @@ const ProductDetailTemplate = (
         prev_next,
         reviews,
         advantages,
+        size_guide,
+        delivery_and_return,
     }: Props
 ) => {
     const t = useTranslations('Common');
@@ -83,8 +88,8 @@ const ProductDetailTemplate = (
             />
 
             <ProductTop
-                size_guide={null}
-                delivery_and_return={null}
+                size_guide={size_guide}
+                delivery_and_return={delivery_and_return}
                 id={product.id}
                 title={product.title}
                 gallery={product.gallery}
@@ -133,7 +138,7 @@ const ProductDetailTemplate = (
             {
                 advantages &&
                 <Advantages
-                    blocks={advantages.value.data.attributes.blocks}
+                    blocks={advantages.attributes.blocks}
                 />
             }
         </>

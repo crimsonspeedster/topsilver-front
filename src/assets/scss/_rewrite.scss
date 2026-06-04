@@ -36,6 +36,13 @@ a.btn-primary {
     }
 }
 
+.btn-link,
+.main_link {
+    &:hover {
+        color: $main_corporate_color !important;
+    }
+}
+
 .button--banners {
     background-color: $main_corporate_color;
     color: #fff !important;
