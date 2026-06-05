@@ -109,6 +109,7 @@ const ProductDetailTemplate = (
                 manage_stock={product.manage_stock}
                 stock={product.stock}
                 stock_status={product.stock_status}
+                bundles={product.bundles}
             />
 
             <ProductTabs

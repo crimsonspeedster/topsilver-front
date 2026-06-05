@@ -4,6 +4,7 @@ import ProductTopGallery from "@src/components/Product/Parts/ProductTopGallery";
 import ProductTopImage from "@src/components/Product/Parts/ProductTopImage";
 import ProductTopInfo from "@src/components/Product/Parts/ProductTopInfo";
 import {ProductTopProps} from "@interfaces/layouts/product";
+import Bundle from "@src/components/Product/Parts/Bundle";
 
 const ProductTop = (
     props: ProductTopProps
@@ -56,6 +57,21 @@ const ProductTop = (
                         />
                     </Col>
                 </Row>
+
+                {
+                    props.bundles.length > 0 &&
+                    <div className="bundles__row d-flex flex-column gap-3">
+                        {
+                            props.bundles.map(bundle => (
+                                <Bundle
+                                    key={bundle.id}
+                                    currentProductId={props.id}
+                                    bundle={bundle}
+                                />
+                            ))
+                        }
+                    </div>
+                }
             </div>
         </section>
     );

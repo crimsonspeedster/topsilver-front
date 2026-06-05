@@ -22,6 +22,7 @@ export type ProductTopProps = Pick<
     | 'stock'
     | 'stock_status'
     | 'sku'
+    | 'bundles'
 >  & {
     size_guide: string|null,
     delivery_and_return: string|null,

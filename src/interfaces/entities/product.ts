@@ -77,6 +77,7 @@ export type ProductObject = {
     promotions: TaxonomyCollectionObject[],
     group_products: ProductCardObject[],
     cross_sells: ProductCardObject[],
+    bundles: BundleObject[],
 }
 
 export type ProductCardObject = Pick<
@@ -94,6 +95,8 @@ export type ProductCardObject = Pick<
     | 'stock'
     | 'manage_stock'
     | 'discount_percent'
+    | 'variants'
+    | 'variant_attributes'
 > & {
     slug: string,
 }

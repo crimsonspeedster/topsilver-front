@@ -13,9 +13,9 @@ const CheckoutItem = (
 ) => {
     return (
         <div className="d-flex justify-content-between fw-medium border-bottom mb-0 p-2">
-            <h6 className="mb-0 lh-lg">
+            <p className="mb-0 lh-lg">
                 <span className="fw-normal">{title}</span> x {qty}
-            </h6>
+            </p>
 
             <p className="mb-0 lh-lg">{price}</p>
         </div>
