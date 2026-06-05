@@ -119,6 +119,8 @@ const ProductDetailTemplate = (
                 reviews={reviews}
                 rating_count={product.rating_count}
                 rating_avg={product.rating_avg}
+                product_id={product.id}
+                rating_distribution={product.rating_distribution}
             />
 
             <ViewedProductsSection

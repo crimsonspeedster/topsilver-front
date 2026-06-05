@@ -68,6 +68,7 @@ export type ProductObject = {
     sku: string,
     rating_avg: string,
     rating_count: number,
+    rating_distribution: number[],
     type: string,
     labels: LabelsObject[],
     variant_attributes: VariantAttributeObject[],

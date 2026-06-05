@@ -1,12 +1,8 @@
 "use client";
 
 import React, {useState} from "react";
-import {Card, CardBody, Col, Dropdown, Modal, Nav, Row, Tab} from "react-bootstrap";
+import {Col, Nav, Row, Tab} from "react-bootstrap";
 import PDPTabDescription from "@src/components/Product/Tabs/PDPTabDescription";
-import Link from "next/link";
-import Image from "next/image";
-import thumbsticky from "@assets/images/single-product/layout-02/thumb-sticky.jpg";
-import {TabProps} from "@interfaces/common/layouts";
 import {ReviewObject} from "@interfaces/entities/reviews";
 import {useTranslations} from "next-intl";
 import PDPTabComments from "@src/components/Product/Tabs/PDPTabComments";
@@ -19,6 +15,8 @@ type Props = {
     reviews: ReviewObject[],
     rating_avg: string,
     rating_count: number,
+    product_id: number,
+    rating_distribution: number[];
 };
 
 const ProductTabs = (
@@ -28,7 +26,9 @@ const ProductTabs = (
         guarantee,
         reviews,
         rating_count,
+        product_id,
         rating_avg,
+        rating_distribution,
     }: Props
 ) => {
     const t = useTranslations('Common');
@@ -82,9 +82,11 @@ const ProductTabs = (
             'slug': 'reviews',
             'content': (
                 <PDPTabComments
+                    product_id={product_id}
                     reviews={reviews}
                     rating_count={rating_count}
                     rating_avg={rating_avg}
+                    rating_distribution={rating_distribution}
                 />
             )
         }
