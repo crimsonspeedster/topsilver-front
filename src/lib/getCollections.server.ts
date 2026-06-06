@@ -3,7 +3,7 @@ import axiosClient from "@lib/axiosClient";
 
 export const getTaxonomiesSSR = async (page: number, type: string): Promise<TaxonomyCollectionPromiseObject|null> => {
     try {
-        const res = await axiosClient.get(`taxonomies/${type}/collections`, {
+        const res = await axiosClient.get(`/taxonomies/${type}/collections`, {
             params: {
                 page,
             }

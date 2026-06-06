@@ -40,7 +40,7 @@ const Review = (
             setLoading(true);
             setShowedReplies(true);
 
-            const { data } = await axiosClient.get(`reviews/${review.id}`, {
+            const { data } = await axiosClient.get(`/reviews/${review.id}`, {
                 params: {
                     page,
                 }

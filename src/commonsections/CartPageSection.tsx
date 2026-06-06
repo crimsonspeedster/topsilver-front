@@ -9,6 +9,11 @@ import Link from "next/link";
 import CertificateSection from "@src/components/Certificates/CertificateSection";
 import BonusesSection from "@src/components/Bonuses/BonusesSection";
 import {BonusesObject} from "@interfaces/entities/bonuses";
+import React, {useEffect, useState} from "react";
+import {ProductCardObject} from "@interfaces/entities/product";
+import {useRecentlyViewedStore} from "@src/store/recently-viewed-store";
+import axiosClient from "@lib/axiosClient";
+import ViewedProductsSection from "@src/components/Product/Parts/ViewedProductsSection";
 
 
 type Props = {
@@ -23,6 +28,41 @@ const CartPageSection = (
     const tCart = useTranslations('Cart');
     const tCommon = useTranslations('Common');
     const cart = useCartStore((state) => state.cart);
+
+    const [recentlyViewedProducts, setRecentlyViewedProducts] = useState<ProductCardObject[]>([]);
+
+    const ids = useRecentlyViewedStore(
+        state => state.ids
+    );
+    const addProduct = useRecentlyViewedStore(
+        state => state.addProduct
+    );
+
+    useEffect(() => {
+        fetchRecentlyViewed();
+    }, [ids]);
+
+    const fetchRecentlyViewed = async () => {
+        if (!ids.length) {
+            setRecentlyViewedProducts([]);
+            return;
+        }
+
+        try {
+            const response = await axiosClient.get(
+                '/products/batch',
+                {
+                    params: {
+                        ids: ids.join(','),
+                    },
+                }
+            );
+
+            setRecentlyViewedProducts(response.data?.data ?? []);
+        } catch (e) {
+
+        }
+    };
 
     return (
         <>
@@ -66,6 +106,11 @@ const CartPageSection = (
                     </div>
                 </section>
             }
+
+            <ViewedProductsSection
+                title={tCommon('recently_viewed')}
+                products={recentlyViewedProducts}
+            />
         </>
     );
 }

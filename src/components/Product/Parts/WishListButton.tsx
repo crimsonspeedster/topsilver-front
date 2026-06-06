@@ -32,7 +32,7 @@ const WishListButton = (
 
         if (isInWishlist) {
             try {
-                const res = await axiosClient.delete(`wishlist/items/${id}`);
+                const res = await axiosClient.delete(`/wishlist/items/${id}`);
 
                 setWishlist(res.data.data);
             }
@@ -48,7 +48,7 @@ const WishListButton = (
             formData.append("product_id", id.toString());
 
             try {
-                const res = await axiosClient.post('wishlist/items', formData);
+                const res = await axiosClient.post('/wishlist/items', formData);
 
                 setWishlist(res.data.data);
             }

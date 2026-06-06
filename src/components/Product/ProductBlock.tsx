@@ -6,10 +6,9 @@ import Link from 'next/link';
 import {useTranslations} from "next-intl";
 import FallbackImage from '@assets/images/fallback.png';
 import WishListButton from "@src/components/Product/Parts/WishListButton";
-import axios from "axios";
 import {useProductPopupStore} from "@src/store/product-popup-store";
-import ProductPrices from "@src/components/Product/Parts/ProductPrices";
 import React from "react";
+import axiosClient from "@lib/axiosClient";
 
 
 type Props = {
@@ -31,8 +30,8 @@ const ProductBlock = (
         id: number,
         type: string,
     ) => {
-        const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_ENV_API_V1_LINK}/products/${id}`,
+        const response = await axiosClient.get(
+            `/products/${id}`,
             {
                 params: {
                     type

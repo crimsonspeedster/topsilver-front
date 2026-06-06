@@ -6,7 +6,7 @@ export const verifyEmail = async (id: string, hash: string): Promise<{success: b
         formData.append("id", id);
         formData.append("hash", hash);
 
-        const res = await axiosClient.post('email/verify', formData);
+        const res = await axiosClient.post('/email/verify', formData);
 
         return {
             success: true,

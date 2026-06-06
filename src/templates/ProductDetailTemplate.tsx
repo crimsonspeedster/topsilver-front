@@ -6,13 +6,13 @@ import {BreadcrumbsObject, ProductCardObject, ProductObject} from "@interfaces/e
 import ViewedProductsSection from "@src/components/Product/Parts/ViewedProductsSection";
 import {useTranslations} from "next-intl";
 import {useRecentlyViewedStore} from "@src/store/recently-viewed-store";
-import axios from "axios";
 import ProductTabs from "@src/components/Product/Parts/ProductTabs";
 import {ReviewObject} from "@interfaces/entities/reviews";
 import ProductTop from "@src/components/Product/Parts/ProductTop";
 import Advantages from "@src/components/Blocks/Advantages";
 import {LayoutBaseObject} from "@interfaces/entities/page";
 import {AdvantagesLayoutObject} from "@interfaces/entities/blocks/advantages";
+import axiosClient from "@lib/axiosClient";
 
 
 type Props = {
@@ -57,8 +57,8 @@ const ProductDetailTemplate = (
         }
 
         try {
-            const response = await axios.get(
-                `${process.env.NEXT_PUBLIC_ENV_API_V1_LINK}/products/batch`,
+            const response = await axiosClient.get(
+                '/products/batch',
                 {
                     params: {
                         ids: ids.join(','),

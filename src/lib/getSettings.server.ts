@@ -4,7 +4,7 @@ import {SettingsPromiseObject} from "@interfaces/entities/settings";
 
 export const getSettingsSSR = async (): Promise<SettingsPromiseObject[]> => {
     try {
-        const res = await axiosClient.get('settings');
+        const res = await axiosClient.get('/settings');
 
         return res.data.data;
     }
@@ -15,7 +15,7 @@ export const getSettingsSSR = async (): Promise<SettingsPromiseObject[]> => {
 
 export const getSettingSSR = async (key: string): Promise<SettingsPromiseObject|undefined> => {
     try {
-        const res = await axiosClient.get(`settings/${key}`);
+        const res = await axiosClient.get(`/settings/${key}`);
 
         return res.data.data;
     }

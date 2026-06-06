@@ -57,7 +57,7 @@ export const getPage = async (
 
 export const getPageSeo = async (slug: string): Promise<SeoPromiseObject | null> => {
     try {
-        const res = await axiosClient.get(`slug-resolver/${slug}/seo`);
+        const res = await axiosClient.get(`/slug-resolver/${slug}/seo`);
 
         return res.status === 200 ? res.data.data : null;
     }
@@ -68,7 +68,7 @@ export const getPageSeo = async (slug: string): Promise<SeoPromiseObject | null>
 
 export const getHomePage = async (): Promise<PageObject | null> => {
     try {
-        const res = await axiosClient.get('home');
+        const res = await axiosClient.get('/home');
 
         return res.data.data;
     }
@@ -79,7 +79,7 @@ export const getHomePage = async (): Promise<PageObject | null> => {
 
 export const getHomePageSeo = async (): Promise<SeoPromiseObject | null> => {
     try {
-        const res = await axiosClient.get('home/seo');
+        const res = await axiosClient.get('/home/seo');
 
         return res.data.data;
     }

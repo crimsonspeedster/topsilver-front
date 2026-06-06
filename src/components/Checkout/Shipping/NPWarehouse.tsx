@@ -22,7 +22,7 @@ const NPWarehouse = () => {
     const [areas, setAreas] = useState<SelectOption[]>([]);
 
     useEffect(() => {
-        axiosClient.get('nova-poshta/areas')
+        axiosClient.get('/nova-poshta/areas')
             .then((res: AxiosResponse<{data: NPAreaObject[]}>) => {
                 setAreas(res.data.data.map(item => ({
                     label: item.name,
@@ -78,7 +78,7 @@ const NPWarehouse = () => {
                     }
 
                     const res:AxiosResponse<{data: {cities: NPCityObject[], pagination: PaginationObject}}> = await axiosClient.get(
-                        `nova-poshta/areas/${selectedArea}/cities`,
+                        `/nova-poshta/areas/${selectedArea}/cities`,
                         {
                             params: {
                                 search,
@@ -126,7 +126,7 @@ const NPWarehouse = () => {
                     }
 
                     const res:AxiosResponse<{data: {warehouses: NPWarehouseObject[], pagination: PaginationObject}}> = await axiosClient.get(
-                        `nova-poshta/cities/${selectedCity.value}/warehouses`,
+                        `/nova-poshta/cities/${selectedCity.value}/warehouses`,
                         {
                             params: {
                                 search,

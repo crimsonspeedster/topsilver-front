@@ -44,7 +44,7 @@ const NPCourier = () => {
                 ) => {
                     try {
                         const res = await axiosClient.get(
-                            'nova-poshta/locality',
+                            '/nova-poshta/locality',
                             {
                                 params: {
                                     search,
@@ -101,7 +101,7 @@ const NPCourier = () => {
                     }
 
                     try {
-                        const res = await axiosClient.get(`nova-poshta/locality/${selectedLocality.value}/streets`, {
+                        const res = await axiosClient.get(`/nova-poshta/locality/${selectedLocality.value}/streets`, {
                             params: {
                                 search,
                             }

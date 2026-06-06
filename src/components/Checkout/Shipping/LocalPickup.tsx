@@ -16,7 +16,7 @@ const LocalPickup = () => {
     const [groupedShops, setGroupedShops] = useState<SelectGroup[]>([]);
 
     useEffect(() => {
-        axiosClient.get('reference/shops-pickup/')
+        axiosClient.get('/reference/shops-pickup')
             .then(function (res: AxiosResponse<{data: ShopsPickupObject[]}>) {
                 setGroupedShops(groupShopsByRegion(res.data.data));
             })

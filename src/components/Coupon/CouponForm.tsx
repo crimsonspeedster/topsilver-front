@@ -34,7 +34,7 @@ const CouponForm = () => {
                 formData.append('code', values.code);
 
                 const response = await axiosClient.post(
-                    '/cart/coupon/',
+                    '/cart/coupon',
                     formData,
                 );
 

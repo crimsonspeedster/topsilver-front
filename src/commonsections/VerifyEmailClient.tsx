@@ -29,7 +29,7 @@ const VerifyEmailClient = (
         formData.append('email', email);
 
         try {
-            const res = await axiosClient.post('email/resend', formData);
+            const res = await axiosClient.post('/email/resend', formData);
 
             toast.success(res.data.message);
         }

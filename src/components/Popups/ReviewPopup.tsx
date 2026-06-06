@@ -71,7 +71,7 @@ const ReviewPopup = (
             }
 
             try {
-                const response = await axiosClient.post(`products/${product_id}/reviews`, formData);
+                const response = await axiosClient.post(`/products/${product_id}/reviews`, formData);
 
                 toast.success(tReviews('review_sent'));
 
