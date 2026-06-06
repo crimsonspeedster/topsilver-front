@@ -157,7 +157,29 @@ const CheckoutForm = (
         });
 
         if (values.shipping_method) {
+            console.log(values);
+
             formData.append('shipping_method_id', values.shipping_method.id.toString())
+
+            switch (values.shipping_method.type) {
+                case 'local_pickup':
+                    break;
+
+                case 'nova_poshta_warehouse':
+                    formData.append('np_warehouse_ref', values.np_warehouse?.value?.toString() ?? '');
+                    formData.append('np_city_ref', values.np_city?.value?.toString() ?? '');
+                    break;
+
+                case 'nova_poshta_courier':
+                    formData.append('np_street_ref', values.np_street?.value?.toString() ?? '');
+                    formData.append('np_street_name', values.np_street?.label?.toString() ?? '');
+                    formData.append('np_locality_ref', values.np_locality?.label?.toString() ?? '');
+                    formData.append('np_locality_name', values.np_locality?.label?.toString() ?? '');
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         if (values.payment_method) {

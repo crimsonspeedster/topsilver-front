@@ -14,7 +14,7 @@ const NPCourierData = (
         <div className="text-muted">
             <p className="mb-2">{item.shipping_method_name}</p>
 
-            <p>{item.np_city} {item.np_street} {item.np_house_number} {item.np_apartment_number}</p>
+            <p className="mb-0">{item.np_locality_name} {item.np_street_name} {item.np_house_number} {item.np_apartment_number}</p>
         </div>
     );
 }

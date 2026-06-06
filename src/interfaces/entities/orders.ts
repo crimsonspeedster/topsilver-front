@@ -93,8 +93,10 @@ export type ShippingNovaPoshtaWarehouseObject = (
 export type ShippingNovaPoshtaCourierObject = (
     ShippingBaseObject & {
         shipping_method_type: 'nova_poshta_courier';
-        np_city: string;
-        np_street: string;
+        np_street_ref: string;
+        np_street_name: string;
+        np_locality_ref: string;
+        np_locality_name: string;
         np_house_number: string;
         np_apartment_number: string;
     }

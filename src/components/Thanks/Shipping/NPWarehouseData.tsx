@@ -17,10 +17,10 @@ const NPWarehouseData = (
 
                 {
                     item.np_city &&
-                    <p>{item.np_city}</p>
+                    <p className="mb-2">{item.np_city}</p>
                 }
 
-                <p>{item.np_warehouse} ({item.np_warehouse_address})</p>
+                <p className="mb-0">{item.np_warehouse}</p>
             </div>
         </>
     );
