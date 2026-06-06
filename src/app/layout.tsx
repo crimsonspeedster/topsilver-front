@@ -31,6 +31,9 @@ export const metadata: Metadata = {
         template: "%s | TopSilver",
     },
     description: "Магазин TopSilver",
+    icons: {
+        icon: '/favicon.ico',
+    }
 };
 
 export default async function Layout({children}: LayoutProps) {
