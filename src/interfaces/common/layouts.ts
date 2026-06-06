@@ -10,3 +10,9 @@ export type TabProps = {
     slug: string,
     content: ReactNode,
 }
+
+export type LiqPayProps = {
+    data: string;
+    signature: string;
+    url: string;
+}

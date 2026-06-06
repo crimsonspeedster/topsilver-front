@@ -7,6 +7,7 @@ export type OrderCollectionObject = {
 
 export type OrderObject = {
     id: number;
+    public_token: string;
     status: string;
     total_formatted: string;
     subtotal_formatted: string;
@@ -24,12 +25,82 @@ export type OrderObject = {
     shipping_type: string;
     shipping_data: ShippingDataObject;
     created_at: string;
+    items: OrderItemObject[];
 }
 
+export type OrderItemObject =
+    | OrderItemProductObject
+    | OrderItemBundleObject;
+
+export type OrderItemProductObject = {
+    entity_name: string;
+    entity_type: 'product';
+    entity_image: string | null;
+    entity_price: string;
+    entity_price_formatted: string;
+    product_variant: OrderItemProductVariantObject[];
+    quantity: number;
+    total: string;
+    total_formatted: string;
+};
+
+export type OrderItemBundleObject = {
+    entity_name: string;
+    entity_type: 'bundle';
+    entity_price: string;
+    entity_price_formatted: string;
+    product_variant: OrderItemProductVariantObject[];
+    quantity: number;
+    total: string;
+    total_formatted: string;
+};
+
+export type OrderItemProductVariantObject = {
+    attribute_name: string;
+    attribute_value: string;
+};
+
 export type PaymentDataObject = {
-
+    payment_method_id: number;
+    payment_method_name: string;
 };
 
-export type ShippingDataObject = {
+export type ShippingBaseObject = {
+    shipping_method_id: number;
+    shipping_method_name: string;
+}
 
-};
+export type ShippingLocalPickupObject = (
+    ShippingBaseObject & {
+        shipping_method_type: 'local_pickup';
+        shop_address: string;
+        shop_phone: string;
+        shop_link: string;
+    }
+);
+
+export type ShippingNovaPoshtaWarehouseObject = (
+    ShippingBaseObject & {
+        shipping_method_type: 'nova_poshta_warehouse';
+        np_area: string | null;
+        np_city: string | null;
+        np_warehouse: string;
+        np_warehouse_address: string;
+        np_warehouse_type: string;
+    }
+);
+
+export type ShippingNovaPoshtaCourierObject = (
+    ShippingBaseObject & {
+        shipping_method_type: 'nova_poshta_courier';
+        np_city: string;
+        np_street: string;
+        np_house_number: string;
+        np_apartment_number: string;
+    }
+);
+
+export type ShippingDataObject =
+    | ShippingLocalPickupObject
+    | ShippingNovaPoshtaWarehouseObject
+    | ShippingNovaPoshtaCourierObject;

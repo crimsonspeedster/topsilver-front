@@ -1,12 +1,11 @@
 'use client';
 
 import {useTranslations} from "next-intl";
-import {useMemo} from "react";
+import {useMemo, useState} from "react";
 import PersonalInfo from "@src/components/Checkout/PersonalInfo";
 import * as Yup from "yup";
 import {Formik} from "formik";
 import axiosClient from "@lib/axiosClient";
-import {toast} from "react-toastify";
 import { Form } from 'react-bootstrap';
 import OrderInfo from "@src/components/Checkout/OrderInfo";
 import ShippingInfo from "@src/components/Checkout/ShippingInfo";
@@ -19,7 +18,10 @@ import {UserObject} from "@interfaces/entities/user";
 import {getUserFormData} from "@src/helpers";
 import CheckoutUserSync from "@src/components/Checkout/CheckoutUserSync";
 import {CheckoutFormValues} from "@interfaces/layouts/checkoutForm";
-import {SelectOption} from "@interfaces/layouts/formField";
+import {useCartStore} from "@src/store/cart-store";
+import {useRouter} from "next/navigation";
+import LiqPayForm from "@src/components/LiqPayForm";
+import {LiqPayProps} from "@interfaces/common/layouts";
 
 
 type Props = {
@@ -33,6 +35,10 @@ const CheckoutForm = (
     props: Props
 ) => {
     const tForm = useTranslations('Form');
+    const resetCart = useCartStore((state) => state.reset);
+    const router = useRouter();
+
+    const [liqPayData, setLiqPayData] = useState<null | LiqPayProps>(null);
 
     const validationSchema = useMemo(() => Yup.object({
         first_name: Yup.string()
@@ -161,10 +167,30 @@ const CheckoutForm = (
         try {
             const response = await axiosClient.post('/checkout', formData);
 
-            console.log('response', response);
+            switch (response.data.data.payment_type) {
+                case 'cod':
+                    router.replace(`/order/success/${response.data.data.public_token}`);
+                    return;
+
+                case 'plata_by_mono':
+                    router.replace(response.data.payment.data.pageUrl);
+                    return;
+
+                case 'liqpay':
+                    setLiqPayData({
+                        data: response.data.payment.data.data,
+                        signature: response.data.payment.data.signature,
+                        url: response.data.payment.data.url,
+                    });
+                    return;
+
+                default:
+                    return;
+            }
         } catch (error: any) {
             console.error(error);
         } finally {
+            resetCart();
             helpers.setSubmitting(false);
         }
     };
@@ -204,6 +230,15 @@ const CheckoutForm = (
                     )}
                 </Formik>
             </div>
+
+            {
+                liqPayData &&
+                <LiqPayForm
+                    data={liqPayData.data}
+                    signature={liqPayData.signature}
+                    url={liqPayData.url}
+                />
+            }
         </section>
     );
 }

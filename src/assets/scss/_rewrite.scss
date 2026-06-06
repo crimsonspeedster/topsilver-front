@@ -5,6 +5,10 @@ $main_corporate_color: #49C5B1;
     --swiper-theme-color: #49C5B1 !important;
 }
 
+.bg-primary {
+    background-color: $main_corporate_color !important;
+}
+
 .btn-primary {
     --bs-btn-color: #fff;
 
@@ -28,6 +32,7 @@ $main_corporate_color: #49C5B1;
     --bs-btn-disabled-border-color: var(--main-color);
 }
 
+a.btn-teal,
 a.btn-primary {
     color: var(--bs-btn-color) !important;
 
