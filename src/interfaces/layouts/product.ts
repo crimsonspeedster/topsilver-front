@@ -65,4 +65,5 @@ export type ProductPurchaseProps = Pick<
     | 'discount_percent'
 > & {
     priceHandle: (price: string, price_on_sale: string|null, discount_percent: number|null) => void;
+    showBuyInOnClick?: boolean;
 }

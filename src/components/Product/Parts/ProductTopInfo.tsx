@@ -1,17 +1,12 @@
 'use client';
 
-import Variations from "@src/components/Product/Parts/Variations";
-import WishListButton from "@src/components/Product/Parts/WishListButton";
 import ButtonWithPopup from "@src/components/Product/Parts/ButtonWithPopup";
 import ProductInfo from "@src/components/Product/Parts/ProductInfo";
-import {ProductObject} from "@interfaces/entities/product";
-import ProductPrices from "@src/components/Product/Parts/ProductPrices";
 import {useTranslations} from "next-intl";
 import ProductTopHeader from "@src/components/Product/Parts/ProductTopHeader";
 import ProductPurchase from "@src/components/Product/Forms/ProductPurchase";
 import {ProductTopInfoProps} from "@interfaces/layouts/product";
-import {Button} from "react-bootstrap";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import NotifyMe from "@src/components/Product/NotifyMe";
 import {toast} from "react-toastify";
 
@@ -67,6 +62,7 @@ const ProductTopInfo = (
                             price_formatted={props.price_formatted}
                             price_on_sale_formatted={props.price_on_sale_formatted}
                             discount_percent={props.discount_percent}
+                            showBuyInOnClick={true}
                         />
 
                         <button

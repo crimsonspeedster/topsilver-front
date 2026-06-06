@@ -13,6 +13,7 @@ import {ProductVariantObject} from "@interfaces/entities/product";
 import NotifyMe from "@src/components/Product/NotifyMe";
 import {useCartStore} from "@src/store/cart-store";
 import Link from "next/link";
+import BuyInOneClickPopup from "@src/components/Popups/BuyInOneClickPopup";
 
 
 const ProductPurchase = (
@@ -22,6 +23,7 @@ const ProductPurchase = (
 
     const hydrateCart = useCartStore((state) => state.hydrate);
 
+    const [showBuyInClickPopup, setShowBuyInClickPopup] = useState<boolean>(false);
     const [quantity, setQuantity] = useState<number>(1);
     const [isSubmitting, setIsSubmitting] = useState(props.type === 'variable');
     const [variation, setVariation] = useState<ProductVariantObject|null>(null);
@@ -36,6 +38,12 @@ const ProductPurchase = (
             :
             99
     );
+
+    const handleClosePopup = () => {
+        setIsSubmitting(false);
+
+        setShowBuyInClickPopup(false);
+    }
 
     useEffect(() => {
         const selectedVariant = props.variants.find((variant) => {
@@ -90,6 +98,12 @@ const ProductPurchase = (
 
             return acc;
         }, {});
+    };
+
+    const handleBuyInOneClick = async () => {
+        setIsSubmitting(true);
+
+        setShowBuyInClickPopup(true);
     };
 
     const handleBuy = async () => {
@@ -166,12 +180,31 @@ const ProductPurchase = (
                             {tProduct('add_to_cart')}
                         </button>
 
+                        {
+                            props.showBuyInOnClick &&
+                            <button
+                                className="text-uppercase btn btn-teal"
+                                disabled={isSubmitting}
+                                onClick={handleBuyInOneClick}
+                            >
+                                {tProduct('buy_in_one_click')}
+                            </button>
+
+                        }
+
                         <WishListButton
                             id={props.id}
                             parentClasses="product_wishlist square-40 rounded-circle border border-dark bg-transparent text-center leading-40"
                         />
                     </div>
             }
+
+            <BuyInOneClickPopup
+                productId={props.id}
+                variationId={variation?.id ?? null}
+                show={showBuyInClickPopup}
+                handleClose={handleClosePopup}
+            />
         </div>
     );
 }

@@ -58,8 +58,6 @@ const ReviewPopup = (
         onSubmit: async (values, { setSubmitting, setErrors, resetForm }) => {
             setSubmitting(true);
 
-            console.log(values);
-
             const formData = new FormData();
             formData.append("comment", values.comment);
 
