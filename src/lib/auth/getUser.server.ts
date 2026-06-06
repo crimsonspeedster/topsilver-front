@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import {UserObject} from "@interfaces/entities/user";
 import axiosClient from "@lib/axiosClient";
-import {OrderCollectionObject} from "@interfaces/entities/orders";
+import {OrderCollectionObject, OrderObject} from "@interfaces/entities/orders";
 import {BonusesObject} from "@interfaces/entities/bonuses";
 
 
@@ -60,6 +60,23 @@ export const getUserOrdersSSR = async (
 
         return res.status === 200 ? res.data.data : null;
     } catch (err) {
+        return null;
+    }
+};
+
+export const getUserOrderByIDSSR = async (id: number): Promise<OrderObject | null> => {
+    const cookieStore = await cookies();
+
+    try {
+        const res = await axiosClient.get(`/me/orders/${id}`, {
+            headers: {
+                Cookie: cookieStore.toString(),
+            },
+        });
+
+        return res.data.data;
+    }
+    catch (error) {
         return null;
     }
 };

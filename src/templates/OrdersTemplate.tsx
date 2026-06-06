@@ -28,7 +28,7 @@ const OrdersTemplate = (
     return (
         <section className="py-5">
             <div className="container">
-                <h1 className="text-center">{tDashboard('orders')}</h1>
+                <h1 className="text-center mb-4">{tDashboard('orders')}</h1>
 
                 {
                     orders.length > 0 ?

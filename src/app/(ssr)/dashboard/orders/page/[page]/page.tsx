@@ -27,7 +27,7 @@ export default async function OrdersPage (
     }
 
     if (!orders) {
-        redirect('/');
+        notFound();
     }
 
     if (orders.pagination && currentPage > orders.pagination.total_pages) {

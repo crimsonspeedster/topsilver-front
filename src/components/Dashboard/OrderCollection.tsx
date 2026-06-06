@@ -1,214 +1,141 @@
+'use client';
+
 import dayjs from "dayjs";
+import {
+    Badge,
+    Card,
+    Col,
+    Image,
+    Row,
+    Stack,
+} from 'react-bootstrap';
 import {OrderObject} from "@interfaces/entities/orders";
+import Link from "next/link";
+import ShippingMethodData from "@src/components/Thanks/Shipping/ShippingMethodData";
+import {useTranslations} from "next-intl";
 
 
 type Props = {
     order: OrderObject;
 }
 
-const OrderCollection = (
-    {
-        order,
-    }: Props
-) => {
-    const fullName: string = `${order.last_name} ${order.first_name}${
-
-        order.middle_name ? ` ${order.middle_name}` : ""
-
-    }`;
+const OrderCollection = ({ order }: Props) => {
+    const tOrderDetails = useTranslations('OrderDetails');
 
     const statusMap: Record<string, string> = {
-        pending_payment: "bg-warning text-dark",
-        created: "bg-secondary",
-        processing: "bg-primary",
-        shipped: "bg-info text-dark",
-        delivered: "bg-success",
-        completed: "bg-success",
-        cancelled: "bg-danger",
+        pending_payment: 'warning',
+        created: 'secondary',
+        processing: 'primary',
+        shipped: 'info',
+        delivered: 'success',
+        completed: 'success',
+        cancelled: 'danger',
     };
 
-    const paymentMap: Record<string, string> = {
-        cod: "bg-dark",
-        liqpay: "bg-primary",
-        plata_by_mono: "bg-success",
-    };
-
-    const shippingMap: Record<string, string> = {
-        ukr_poshta: "bg-secondary",
-        nova_poshta_courier: "bg-primary",
-        nova_poshta_warehouse: "bg-info text-dark",
-        local_pickup: "bg-dark",
-    };
-
-    const formatDate = (date?: string | null): string|null =>
-        date ? dayjs(date).format("DD.MM.YYYY HH:mm") : null;
-
-    const statusBadgeClass = () => {
-
-        switch (order.status) {
-            case "paid":
-                return "bg-success";
-            case "pending":
-                return "bg-warning text-dark";
-            case "cancelled":
-                return "bg-danger";
-            default:
-                return "bg-secondary";
-        }
-    };
+    const formatDate = (date: string) => dayjs(date).format('DD.MM.YYYY HH:mm');
 
     return (
-        <div className="card shadow-sm mb-3">
+        <Card className="shadow-sm mb-3">
+            <Card.Body>
+                <Row className="g-3 align-items-start">
+                    <Col lg={2}>
+                        <h5 className="fw-semibold mb-3">{tOrderDetails('order_title')} #{order.id}</h5>
 
-            <div className="card-header d-flex justify-content-between align-items-center">
+                        <p className="text-muted small"> {formatDate(order.created_at)}</p>
 
-                <div>
-
-                    <strong>Order #{order.id}</strong>
-
-                    <div className="text-muted small">
-
-                        {dayjs(order.created_at).format("DD.MM.YYYY HH:mm")}
-
-                    </div>
-
-                </div>
-
-                <span className={`badge ${statusMap[order.status] || "bg-secondary"}`}>
-
-                    {order.status}
-
-                </span>
-
-            </div>
-
-            <div className="card-body">
-
-                <div className="row g-3">
-
-                    {/* Customer */}
-
-                    <div className="col-md-6">
-
-                        <h6 className="text-muted">Customer</h6>
-
-                        <div>{fullName}</div>
-
-                        <div className="small text-muted">{order.email}</div>
-
-                        <div className="small text-muted">{order.phone}</div>
-
-                    </div>
-
-                    {/* Payment */}
-
-                    <div className="col-md-6">
-
-                        <h6 className="text-muted">Payment</h6>
-
-                        <span
-
-                            className={`badge ${
-
-                                paymentMap[order.payment_type] || "bg-secondary"
-
-                            }`}
-
+                        <Badge
+                            bg={statusMap[order.status] ?? 'secondary'}
+                            className="mt-2"
                         >
+                            {order.status}
+                        </Badge>
+                    </Col>
 
-                            {order.payment_type}
+                    <Col lg={4}>
+                        <h5 className="fw-semibold mb-3">
+                            {tOrderDetails('products')}
+                        </h5>
 
-                        </span>
+                        <Stack gap={2}>
+                            {order.items.map((item, index) => (
+                                <div
+                                    key={index}
+                                    className="d-flex gap-2"
+                                >
+                                    {'entity_image' in item && item.entity_image && (
+                                        <Image
+                                            src={item.entity_image}
+                                            width={48}
+                                            height={48}
+                                            rounded
+                                        />
+                                    )}
 
-                        {order.payment_type !== "cod" && (
+                                    <div>
+                                        <h6>
+                                            {item.entity_name}
+                                        </h6>
 
-                            <div className="mt-2 small">
+                                        <div className="small text-muted">
+                                            {item.quantity} ×{' '}
+                                            {item.entity_price_formatted}
+                                        </div>
 
-                                Paid:{" "}
+                                        {item.product_variant.length > 0 && (
+                                            <div className="small text-muted">
+                                                {item.product_variant
+                                                    .map(
+                                                        variant =>
+                                                            `${variant.attribute_name}: ${variant.attribute_value}`,
+                                                    )
+                                                    .join(', ')}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </Stack>
+                    </Col>
 
-                                {order.paid_at
+                    <Col lg={2}>
+                        <h5 className="fw-semibold mb-3">
+                            {tOrderDetails('shipping')}
+                        </h5>
 
-                                    ? formatDate(order.paid_at)
+                        <ShippingMethodData
+                            item={order.shipping_data}
+                        />
+                    </Col>
 
-                                    : "Not paid"}
+                    <Col lg={2}>
+                        <h5 className="mb-3 fw-semibold">{tOrderDetails('payment')}</h5>
 
+                        <p className="mb-0 text-muted">
+                            {order.payment_data.payment_method_name}
+                        </p>
+                    </Col>
+
+                    <Col lg={2}>
+                        <div className="text-end">
+                            <h5 className="mb-3 fw-semibold">
+                                {tOrderDetails('total')}
+                            </h5>
+
+                            <div className="fs-5 fw-bold">
+                                {order.total_formatted}
                             </div>
 
-                        )}
-
-                        {order.coupon_code && (
-
-                            <div className="small text-muted mt-1">
-
-                                Coupon: {order.coupon_code} (-{order.discount_amount})
-
-                            </div>
-
-                        )}
-
-                    </div>
-
-                    {/* Shipping */}
-
-                    <div className="col-md-6">
-
-                        <h6 className="text-muted">Shipping</h6>
-
-                        <span
-
-                            className={`badge ${
-
-                                shippingMap[order.shipping_type] || "bg-secondary"
-
-                            }`}
-
-                        >
-
-                            {order.shipping_type}
-
-                        </span>
-
-                    </div>
-
-                    {/* Totals */}
-
-                    <div className="col-md-6">
-
-                        <h6 className="text-muted">Totals</h6>
-
-                        <div>Subtotal: {order.subtotal_formatted}</div>
-
-                        <div className="fw-bold">
-
-                            Total: {order.total_formatted}
-
+                            <Link
+                                href={`/dashboard/orders/${order.id}`}
+                                className="mt-2 btn-primary btn"
+                            >
+                                {tOrderDetails('order_details')}
+                            </Link>
                         </div>
-
-                    </div>
-
-                    {/* Notes */}
-
-                    {order.notes && (
-
-                        <div className="col-12">
-
-                            <h6 className="text-muted">Notes</h6>
-
-                            <div className="border rounded p-2 bg-light">
-
-                                {order.notes}
-
-                            </div>
-
-                        </div>
-
-                    )}
-
-                </div>
-
-            </div>
-
-        </div>
+                    </Col>
+                </Row>
+            </Card.Body>
+        </Card>
     );
 };
 

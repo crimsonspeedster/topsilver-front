@@ -116,7 +116,8 @@
     "total": "Всього",
     "customer": "Замовник",
     "shipping": "Доставка",
-    "payment": "Оплата"
+    "payment": "Оплата",
+    "products": "Товари"
   },
   "Liqpay": {
     "redirect": "Перенаправлення на оплату"

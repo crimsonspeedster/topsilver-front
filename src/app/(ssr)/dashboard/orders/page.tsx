@@ -1,7 +1,7 @@
 import {getUserOrdersSSR} from "@lib/auth/getUser.server";
-import {redirect} from "next/navigation";
 import OrdersTemplate from "@templates/OrdersTemplate";
 import {Metadata} from "next";
+import {notFound} from "next/navigation";
 
 
 export default async function Orders () {
@@ -10,7 +10,7 @@ export default async function Orders () {
     });
 
     if (!orders) {
-        redirect('/');
+        notFound();
     }
 
     return (

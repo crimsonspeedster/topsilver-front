@@ -1,7 +1,9 @@
 import {getTranslations} from "next-intl/server";
 import Link from "next/link";
+import {Metadata} from "next";
 
-export const metadata = {
+
+export const metadata: Metadata = {
     title: 'Сторінку не знайдено',
     description: 'Запитувана сторінка не існує',
 };
