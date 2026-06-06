@@ -44,10 +44,10 @@ const OrderCollection = ({ order }: Props) => {
                         <p className="text-muted small"> {formatDate(order.created_at)}</p>
 
                         <Badge
-                            bg={statusMap[order.status] ?? 'secondary'}
+                            bg={statusMap[order.status_value] ?? 'secondary'}
                             className="mt-2"
                         >
-                            {order.status}
+                            {order.status_label}
                         </Badge>
                     </Col>
 

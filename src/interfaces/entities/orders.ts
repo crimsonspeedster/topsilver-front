@@ -8,7 +8,8 @@ export type OrderCollectionObject = {
 export type OrderObject = {
     id: number;
     public_token: string;
-    status: string;
+    status_label: string;
+    status_value: string;
     total_formatted: string;
     subtotal_formatted: string;
     paid_at: string|null;

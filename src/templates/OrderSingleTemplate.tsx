@@ -34,7 +34,7 @@ const OrderSingleTemplate = (
                         </Col>
 
                         <Col sm={6} className="text-end">
-                            <Badge bg="primary" className="fs-12">{order.status}</Badge>
+                            <Badge bg="primary" className="fs-12">{order.status_label}</Badge>
                         </Col>
                     </Row>
 
