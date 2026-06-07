@@ -14,7 +14,7 @@ const nextConfig = {
       },
       {
         protocol: 'http',
-        hostname: process.env.NEXT_PUBLIC_IMAGE_HOST,
+        hostname: 'top-silver.ua',
         pathname: '/storage/**',
       }
     ],
