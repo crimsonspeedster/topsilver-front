@@ -8,10 +8,15 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: process.env.NEXT_PUBLIC_IMAGE_HOST,
-        port: process.env.NEXT_PUBLIC_IMAGE_PORT,
+        hostname: 'localhost',
+        port: '8080',
         pathname: '/storage/**',
       },
+      {
+        protocol: 'http',
+        hostname: process.env.NEXT_PUBLIC_IMAGE_HOST,
+        pathname: '/storage/**',
+      }
     ],
   },
 }
