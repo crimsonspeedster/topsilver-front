@@ -3,6 +3,7 @@ import {notFound, permanentRedirect} from "next/navigation";
 import ShopsArchiveTemplate from "@templates/ShopsArchiveTemplate";
 import {Metadata} from "next";
 import {getBaseUrl} from "@helpers/functions.server";
+import {Suspense} from "react";
 
 
 type Props = {
@@ -29,11 +30,13 @@ export default async function ShopsPaginatePage(
     }
 
     return (
-        <ShopsArchiveTemplate
-            shops={data.shops}
-            currentPage={currentPage}
-            pagination={data.pagination}
-        />
+        <Suspense>
+            <ShopsArchiveTemplate
+                shops={data.shops}
+                currentPage={currentPage}
+                pagination={data.pagination}
+            />
+        </Suspense>
     );
 }
 

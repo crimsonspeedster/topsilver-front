@@ -3,6 +3,7 @@ import {notFound, permanentRedirect} from "next/navigation";
 import TaxonomiesTemplate from "@templates/TaxonomiesTemplate";
 import {Metadata} from "next";
 import {getBaseUrl} from "@helpers/functions.server";
+import {Suspense} from "react";
 
 
 type Props = {
@@ -29,13 +30,15 @@ export default async function CollectionsPaginatePage(
     }
 
     return (
-        <TaxonomiesTemplate
-            title="Акції"
-            taxonomies={promotionsData.taxonomies}
-            pagination={promotionsData.pagination}
-            slug="promotions"
-            currentPage={currentPage}
-        />
+        <Suspense>
+            <TaxonomiesTemplate
+                title="Акції"
+                taxonomies={promotionsData.taxonomies}
+                pagination={promotionsData.pagination}
+                slug="promotions"
+                currentPage={currentPage}
+            />
+        </Suspense>
     );
 }
 

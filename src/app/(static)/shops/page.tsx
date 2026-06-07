@@ -2,6 +2,7 @@ import {Metadata} from "next";
 import {getShopsSSR} from "@lib/getShops.server";
 import {notFound} from "next/navigation";
 import ShopsArchiveTemplate from "@templates/ShopsArchiveTemplate";
+import {Suspense} from "react";
 
 export default async function ShopsPage() {
     const currentPage = 1;
@@ -12,11 +13,13 @@ export default async function ShopsPage() {
     }
 
     return (
-        <ShopsArchiveTemplate
-            shops={data.shops}
-            currentPage={currentPage}
-            pagination={data.pagination}
-        />
+        <Suspense>
+            <ShopsArchiveTemplate
+                shops={data.shops}
+                currentPage={currentPage}
+                pagination={data.pagination}
+            />
+        </Suspense>
     );
 }
 

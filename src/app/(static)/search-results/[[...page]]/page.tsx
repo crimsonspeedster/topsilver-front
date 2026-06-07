@@ -3,6 +3,7 @@ import {Metadata} from "next";
 import {parseTaxonomySearchParams} from "@services/taxonomy/taxonomy.utils";
 import {getSearchDataSSR} from "@lib/getSearch.server";
 import TaxonomyProductsTemplate from "@templates/TaxonomyProductsTemplate";
+import {Suspense} from "react";
 
 
 type Props = {
@@ -63,18 +64,22 @@ const SearchResultsPage = async (
         max: parsedSearchParams.price?.max ?? searchData.filters.price.max,
     }
 
-    return <TaxonomyProductsTemplate
-        urlForRest={urlForRest}
-        initialProducts={searchData.products}
-        initialPagination={searchData.pagination}
-        initialFilters={searchData.filters}
-        initialSort={parsedSearchParams.sort}
-        initialPrice={initialPriceObject}
-        slug="search-results"
-        initialPage={currentPage}
-        initialCollections={searchData.collections}
-        initialCategories={searchData.categories}
-    />;
+    return (
+        <Suspense>
+            <TaxonomyProductsTemplate
+                urlForRest={urlForRest}
+                initialProducts={searchData.products}
+                initialPagination={searchData.pagination}
+                initialFilters={searchData.filters}
+                initialSort={parsedSearchParams.sort}
+                initialPrice={initialPriceObject}
+                slug="search-results"
+                initialPage={currentPage}
+                initialCollections={searchData.collections}
+                initialCategories={searchData.categories}
+            />
+        </Suspense>
+    );
 }
 
 export default SearchResultsPage;

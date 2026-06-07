@@ -2,6 +2,7 @@ import {Metadata} from "next";
 import {getTaxonomiesSSR} from "@lib/getCollections.server";
 import {notFound} from "next/navigation";
 import TaxonomiesTemplate from "@templates/TaxonomiesTemplate";
+import {Suspense} from "react";
 
 export default async function CollectionsPage () {
     const currentPage = 1;
@@ -12,13 +13,15 @@ export default async function CollectionsPage () {
     }
 
     return (
-        <TaxonomiesTemplate
-            title="Акції"
-            taxonomies={promotionsData.taxonomies}
-            pagination={promotionsData.pagination}
-            slug="promotions"
-            currentPage={currentPage}
-        />
+        <Suspense>
+            <TaxonomiesTemplate
+                title="Акції"
+                taxonomies={promotionsData.taxonomies}
+                pagination={promotionsData.pagination}
+                slug="promotions"
+                currentPage={currentPage}
+            />
+        </Suspense>
     );
 }
 
