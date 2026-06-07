@@ -4,15 +4,18 @@ import Link from "next/link";
 import {CartObject} from "@interfaces/entities/cart";
 import CheckoutItem from "@src/components/Checkout/CheckoutItem";
 import {CheckoutFormValues} from "@interfaces/layouts/checkoutForm";
+import {RelationPageSettingsObject} from "@interfaces/entities/settings";
 
 
 type Props = {
     cart: CartObject;
+    rulesPage?: RelationPageSettingsObject | null;
 }
 
 const OrderInfo = (
     {
         cart,
+        rulesPage,
     }: Props
 ) => {
     const tCheckout = useTranslations('Checkout');
@@ -79,15 +82,21 @@ const OrderInfo = (
                 >
                     {
                         tCheckout.rich('read_rules', {
-                            link: (chunks) => (
-                                <Link
-                                    href="/rules"
-                                    className="underline"
-                                    target="_blank"
-                                >
-                                    {chunks}
-                                </Link>
-                            )
+                            link: (chunks) => {
+                                if (rulesPage) {
+                                    return (
+                                        <Link
+                                            href={`/${rulesPage.value.data.model_slug}`}
+                                            className="underline"
+                                            target="_blank"
+                                        >
+                                            {chunks}
+                                        </Link>
+                                    );
+                                }
+
+                                return (chunks);
+                            }
                         })
                     }
 

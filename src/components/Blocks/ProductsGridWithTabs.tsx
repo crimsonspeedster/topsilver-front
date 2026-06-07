@@ -2,11 +2,19 @@
 
 import {Col, Row, Tab, Nav} from "react-bootstrap";
 import ProductBlock from "@src/components/Product/ProductBlock";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { ProductGridWithTabsObject } from "@interfaces/entities/blocks/products-grid-with-tabs";
 
 
 const ProductsGridWithTabs = (props: ProductGridWithTabsObject) => {
+    const [mounted, setMounted] = useState<boolean>(false);
+
+    useEffect(()=>{
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
+
     return (
         <section>
             <div className="container">

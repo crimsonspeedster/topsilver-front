@@ -9,6 +9,7 @@ export type SettingsPromiseObject =
     | TextSettingsObject
     | ContactsSettingsObject
     | ProductAdvantagesSettingsObject
+    | RelationPageSettingsObject
     | SocialLinksSettingsObject;
 
 export type SettingBaseObject = {
@@ -46,6 +47,17 @@ export type SocialLinksSettingsObject =
             data: SocialLinkItemLayoutObject[];
         }
     };
+
+export type RelationPageSettingsObject =
+    SettingBaseObject & {
+        type: 'relation_page';
+        value: {
+            data: {
+                model_id: number;
+                model_slug: string;
+            }
+        }
+    }
 
 export type ContactsSettingsObject =
     SettingBaseObject & {
