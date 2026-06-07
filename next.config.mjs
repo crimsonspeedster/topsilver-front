@@ -14,7 +14,7 @@ const nextConfig = {
       },
       {
         protocol: 'http',
-        hostname: 'top-silver.ua',
+        hostname: 'api.top-silver.ua',
         pathname: '/storage/**',
       }
     ],
