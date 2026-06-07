@@ -6,17 +6,21 @@ import {useCartStore} from "@src/store/cart-store";
 import {useTranslations} from "next-intl";
 import MiniCartItemProduct from "@src/components/MiniCart/MiniCartItemProduct";
 import MiniCartItemBundle from "@src/components/MiniCart/MiniCartItemBundle";
+import FreeShippingProgress from "@src/components/Cart/FreeShippingProgress";
+import React from "react";
 
 
 type Props = {
     shoppingShow: boolean,
     handleShoppingClose: ()=>void,
+    free_shipping: number | null,
 }
 
 const ShoppingCardModal = (
     {
         shoppingShow,
         handleShoppingClose,
+        free_shipping,
     }: Props
 ) => {
     const tCart = useTranslations('Cart');
@@ -64,39 +68,45 @@ const ShoppingCardModal = (
 
             {
                 cart.total_qty > 0 &&
-                <div className="p-3 border-top">
-                    <div className="d-flex align-items-center mb-3">
-                        <h6 className="mb-0 flex-grow-1 fs-16">{tCart('subtotal')}:</h6>
+                <>
+                    <FreeShippingProgress
+                        free_shipping={free_shipping}
+                    />
 
-                        <p className="cart_tot_price fs-18 text-reset mb-0">{cart.subtotal_formatted}</p>
+                    <div className="p-3 border-top">
+                        <div className="d-flex align-items-center mb-3">
+                            <h6 className="mb-0 flex-grow-1 fs-16">{tCart('subtotal')}:</h6>
+
+                            <p className="cart_tot_price fs-18 text-reset mb-0">{cart.subtotal_formatted}</p>
+                        </div>
+
+                        <div className="d-flex align-items-center mb-3">
+                            <h6 className="mb-0 flex-grow-1 fs-22">{tCart('total')}:</h6>
+
+                            <p className="cart_tot_price fs-22 text-reset mb-0">{cart.total_formatted}</p>
+                        </div>
+
+                        <div className="mt-3 vstack gap-3">
+                            <Link
+                                href="/cart"
+                                onNavigate={handleShoppingClose}
+                                className="w-100 btn btn-light text-uppercase fw-semibold"
+                                style={{ fontSize: '11px' }}
+                            >
+                                {tCart('view_cart')}
+                            </Link>
+
+                            <Link
+                                href="/checkout"
+                                className="w-100 btn btn-primary text-uppercase fw-semibold"
+                                style={{ fontSize: '11px' }}
+                                onNavigate={handleShoppingClose}
+                            >
+                                {tCart('checkout')}
+                            </Link>
+                        </div>
                     </div>
-
-                    <div className="d-flex align-items-center mb-3">
-                        <h6 className="mb-0 flex-grow-1 fs-22">{tCart('total')}:</h6>
-
-                        <p className="cart_tot_price fs-22 text-reset mb-0">{cart.total_formatted}</p>
-                    </div>
-
-                    <div className="mt-3 vstack gap-3">
-                        <Link
-                            href="/cart"
-                            onNavigate={handleShoppingClose}
-                            className="w-100 btn btn-light text-uppercase fw-semibold"
-                            style={{ fontSize: '11px' }}
-                        >
-                            {tCart('view_cart')}
-                        </Link>
-
-                        <Link
-                            href="/checkout"
-                            className="w-100 btn btn-primary text-uppercase fw-semibold"
-                            style={{ fontSize: '11px' }}
-                            onNavigate={handleShoppingClose}
-                        >
-                            {tCart('checkout')}
-                        </Link>
-                    </div>
-                </div>
+                </>
             }
         </Offcanvas>
     )

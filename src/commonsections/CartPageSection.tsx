@@ -14,15 +14,21 @@ import {ProductCardObject} from "@interfaces/entities/product";
 import {useRecentlyViewedStore} from "@src/store/recently-viewed-store";
 import axiosClient from "@lib/axiosClient";
 import ViewedProductsSection from "@src/components/Product/Parts/ViewedProductsSection";
+import {MediaObject} from "@interfaces/common";
+import FreeShippingProgress from "@src/components/Cart/FreeShippingProgress";
 
 
 type Props = {
     bonuses: BonusesObject|null,
+    banner?: MediaObject | null,
+    free_shipping: number | null,
 };
 
 const CartPageSection = (
     {
         bonuses,
+        banner,
+        free_shipping,
     }: Props
 ) => {
     const tCart = useTranslations('Cart');
@@ -68,15 +74,22 @@ const CartPageSection = (
         <>
             <PageBanner
                 title={tCart('cart')}
+                media={banner}
             />
 
             {
                 cart.total_qty > 0 ?
-                    <CartTable
-                        subtotal={cart.subtotal_formatted}
-                        items={cart.items}
-                        total={cart.total_formatted}
-                    />
+                    <>
+                        <FreeShippingProgress
+                            free_shipping={free_shipping}
+                        />
+
+                        <CartTable
+                            subtotal={cart.subtotal_formatted}
+                            items={cart.items}
+                            total={cart.total_formatted}
+                        />
+                    </>
                     :
                     <section className="py-5">
                         <div className="container">

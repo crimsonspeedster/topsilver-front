@@ -101,6 +101,7 @@ const PDPTabComments = (
                                         <RatingItem
                                             key={rating}
                                             rating={rating}
+                                            total_reviews={rating_count}
                                             reviews_count={rating_distribution?.[rating-1] ?? 0}
                                         />
                                     ))}

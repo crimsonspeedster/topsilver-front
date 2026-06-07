@@ -51,6 +51,7 @@ export default async function Layout({children}: LayoutProps) {
     const subscribeDescriptionFromSettings = searchSettingByKey('subscribe_text', settingsData);
     const socialLinksFromSettings = searchSettingByKey('social_links', settingsData);
     const contactsFromSettings = searchSettingByKey('contacts', settingsData);
+    const freeShippingFromSettings = searchSettingByKey('free_shipping', settingsData);
 
     return (
         <html lang="uk">
@@ -62,6 +63,7 @@ export default async function Layout({children}: LayoutProps) {
                         headerMenu={headerMenu}
                         mobileMenu={mobileMenu ?? headerMenu}
                         socialLinks={socialLinksFromSettings ? socialLinksFromSettings as SocialLinkItemLayoutObject[] : undefined}
+                        free_shipping={freeShippingFromSettings ? freeShippingFromSettings as number : null}
                     />
 
                     <main>

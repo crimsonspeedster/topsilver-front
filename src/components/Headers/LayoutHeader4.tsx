@@ -23,6 +23,7 @@ type Props = {
     mobileMenu?: MenuObject | null;
     topBanner?: string;
     logo: string;
+    free_shipping: number | null;
     socialLinks?: SocialLinkItemLayoutObject[];
 };
 
@@ -33,6 +34,7 @@ const LayoutHeader4 = (
         topBanner,
         logo,
         socialLinks,
+        free_shipping,
     }: Props
 ) => {
     const pathname = usePathname();
@@ -166,6 +168,7 @@ const LayoutHeader4 = (
 
             <ShoppingCardModal
                 shoppingShow={showCartModal}
+                free_shipping={free_shipping}
                 handleShoppingClose={()=>handleShowCartModal(false)}
             />
 

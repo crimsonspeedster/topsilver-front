@@ -22,7 +22,7 @@ import {useCartStore} from "@src/store/cart-store";
 import {useRouter} from "next/navigation";
 import LiqPayForm from "@src/components/LiqPayForm";
 import {LiqPayProps} from "@interfaces/common/layouts";
-import {RelationPageSettingsObject} from "@interfaces/entities/settings";
+import {RelationPageObject} from "@interfaces/entities/settings";
 
 
 type Props = {
@@ -30,7 +30,7 @@ type Props = {
     paymentMethods: PaymentMethodObject[],
     shippingMethods: ShippingMethodObject[],
     initUserData: UserObject|null,
-    rulesPage?: RelationPageSettingsObject | null,
+    rulesPage?: RelationPageObject | null,
 };
 
 const CheckoutForm = (

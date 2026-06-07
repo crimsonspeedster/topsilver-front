@@ -4,12 +4,12 @@ import Link from "next/link";
 import {CartObject} from "@interfaces/entities/cart";
 import CheckoutItem from "@src/components/Checkout/CheckoutItem";
 import {CheckoutFormValues} from "@interfaces/layouts/checkoutForm";
-import {RelationPageSettingsObject} from "@interfaces/entities/settings";
+import {RelationPageObject} from "@interfaces/entities/settings";
 
 
 type Props = {
     cart: CartObject;
-    rulesPage?: RelationPageSettingsObject | null;
+    rulesPage?: RelationPageObject | null;
 }
 
 const OrderInfo = (
@@ -86,7 +86,7 @@ const OrderInfo = (
                                 if (rulesPage) {
                                     return (
                                         <Link
-                                            href={`/${rulesPage.value.data.model_slug}`}
+                                            href={`/${rulesPage.model_slug}`}
                                             className="underline"
                                             target="_blank"
                                         >

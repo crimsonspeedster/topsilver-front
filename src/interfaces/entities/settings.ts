@@ -10,6 +10,7 @@ export type SettingsPromiseObject =
     | ContactsSettingsObject
     | ProductAdvantagesSettingsObject
     | RelationPageSettingsObject
+    | NumberSettingsObject
     | SocialLinksSettingsObject;
 
 export type SettingBaseObject = {
@@ -21,6 +22,14 @@ export type ImageSettingsObject =
         type: 'image';
         value: {
             data: string;
+        }
+    };
+
+export type NumberSettingsObject =
+    SettingBaseObject & {
+        type: 'number';
+        value: {
+            data: number;
         }
     };
 
@@ -52,10 +61,7 @@ export type RelationPageSettingsObject =
     SettingBaseObject & {
         type: 'relation_page';
         value: {
-            data: {
-                model_id: number;
-                model_slug: string;
-            }
+            data: RelationPageObject;
         }
     }
 
@@ -66,3 +72,8 @@ export type ContactsSettingsObject =
             data: (ContactItemTextLayoutObject | ContactItemLinkLayoutObject)[];
         }
     };
+
+export type RelationPageObject = {
+    model_id: number;
+    model_slug: string;
+}

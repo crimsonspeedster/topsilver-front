@@ -155,6 +155,9 @@
   },
   "Cart": {
     "cart": "Кошик",
+    "free_shipping_available": "Безкоштовна доставка доступна!",
+    "free_shipping_from": "Безкоштовна доставка від",
+    "add_more_products": "Додайте товарів ще на <strong></strong> щоб отримати безкоштовну доставку",
     "view_cart": "Переглянути кошик",
     "table_name_product": "Продукт",
     "table_name_price": "Ціна",

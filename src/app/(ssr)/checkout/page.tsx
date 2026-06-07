@@ -7,8 +7,9 @@ import CheckoutForm from "@src/components/Checkout/CheckoutForm";
 import {getPaymentMethods} from "@lib/getPaymentMethods.server";
 import {getShippingMethods} from "@lib/getShippingMethods.server";
 import {getUserSSR} from "@lib/auth/getUser.server";
-import {getSettingSSR} from "@lib/getSettings.server";
-import {RelationPageSettingsObject} from "@interfaces/entities/settings";
+import {getSettingsSSR} from "@lib/getSettings.server";
+import {RelationPageObject} from "@interfaces/entities/settings";
+import {searchSettingByKey} from "@src/helpers";
 
 
 const CheckoutPage = async () => {
@@ -22,17 +23,24 @@ const CheckoutPage = async () => {
     const paymentMethods = await getPaymentMethods();
     const shippingMethods = await getShippingMethods();
     const userData = await getUserSSR();
-    const rulesPageFromSettings = await getSettingSSR('rules_page');
+    const settingsData = await getSettingsSSR();
+
+    const rulesPageFromSettings = searchSettingByKey('rules_page', settingsData);
+    const bannerFromSettings = searchSettingByKey('checkout_banner', settingsData);
 
     return (
         <>
             <PageBanner
                 title={tCheckout('checkout')}
                 header_tag={"h1"}
+                media={bannerFromSettings ? {
+                    id: 1,
+                    url: bannerFromSettings as string,
+                } : null}
             />
 
             <CheckoutForm
-                rulesPage={rulesPageFromSettings ? rulesPageFromSettings as RelationPageSettingsObject : null }
+                rulesPage={rulesPageFromSettings ? rulesPageFromSettings as RelationPageObject : null }
                 cart={cartData}
                 paymentMethods={paymentMethods}
                 shippingMethods={shippingMethods}
