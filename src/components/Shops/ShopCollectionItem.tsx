@@ -28,6 +28,7 @@ const ShopCollectionItem = (
                         alt={shop.title}
                         width={600}
                         height={400}
+                        className="object-fit-cover object-center"
                     />
                 </Link>
             </div>

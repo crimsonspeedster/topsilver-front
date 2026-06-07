@@ -1,4 +1,5 @@
 import {MediaObject} from "@interfaces/common";
+import {LayoutObject} from "@interfaces/entities/page";
 
 export type SeoPromiseObject = {
     seo: SeoObject | null,
@@ -16,7 +17,5 @@ export type SeoObject = {
 }
 
 export type SeoBlockObject = {
-    title: string,
-    excerpt: string|null,
-    content: string|null,
+    content: LayoutObject[],
 }

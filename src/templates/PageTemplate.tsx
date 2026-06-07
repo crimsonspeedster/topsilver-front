@@ -1,3 +1,5 @@
+'use client';
+
 import {PageObject} from "@interfaces/entities/page";
 import PageBanner from "@src/commonsections/PageBanner";
 import ContentEntityBlocks from "@src/components/Pages/ContentEntityBlocks";
@@ -13,7 +15,7 @@ const PageTemplate = (
     return (
         <article>
             {
-                props.page.banner && (
+               !props.page.is_home_page && props.page.banner && (
                     <PageBanner
                         title={props.page.title}
                         header_tag={'h1'}
@@ -25,6 +27,13 @@ const PageTemplate = (
             <ContentEntityBlocks
                 content={props.page.blocks}
             />
+
+            {
+                props.page.seo_block &&
+                <ContentEntityBlocks
+                    content={props.page.seo_block.content}
+                />
+            }
         </article>
     );
 }

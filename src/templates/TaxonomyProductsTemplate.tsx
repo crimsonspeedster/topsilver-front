@@ -35,7 +35,7 @@ const TaxonomyProductsTemplate = (props: TaxonomyProductsTemplateProps) => {
                 <PageBanner
                     title={props.entity.title}
                     description={props.entity.description}
-                    media={props.entity.media}
+                    media={props.entity.banner}
                 />
             }
 
@@ -71,6 +71,13 @@ const TaxonomyProductsTemplate = (props: TaxonomyProductsTemplateProps) => {
                 slug={props.slug}
                 current_page={props.initialPage}
             />
+
+            {
+                props.entity?.seo_block &&
+                <ContentEntityBlocks
+                    content={props.entity.seo_block.content}
+                />
+            }
         </>
     );
 };

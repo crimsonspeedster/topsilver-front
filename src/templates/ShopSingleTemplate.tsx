@@ -11,11 +11,11 @@ const ShopSingleTemplate = (props: Props) => {
     return (
         <article>
             {
-                props.shop.media && (
+                props.shop.banner && (
                     <PageBanner
                         title={props.shop.title}
                         header_tag={'h1'}
-                        media={props.shop.media}
+                        media={props.shop.banner}
                     />
                 )
             }
@@ -23,6 +23,13 @@ const ShopSingleTemplate = (props: Props) => {
             <ContentEntityBlocks
                 content={props.shop.blocks}
             />
+
+            {
+                props.shop.seo_block &&
+                <ContentEntityBlocks
+                    content={props.shop.seo_block.content}
+                />
+            }
         </article>
     );
 }

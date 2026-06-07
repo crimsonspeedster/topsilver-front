@@ -1,4 +1,3 @@
-import {SeoBlockObject} from "@interfaces/entities/seo";
 import {MediaObject} from "@interfaces/common";
 import {CategoriesGridLayoutObject} from "@interfaces/entities/blocks/categories-grid";
 import {ProductsGridLayoutObject} from "@interfaces/entities/blocks/products-grid";
@@ -9,6 +8,8 @@ import {InstagramGridLayoutObject} from "@interfaces/entities/blocks/instagram-g
 import {ProductGridWithTabsLayoutObject} from "@interfaces/entities/blocks/products-grid-with-tabs";
 import {BannersSliderLayoutObject} from "@interfaces/entities/blocks/banners-slider";
 import {LatestPromotionsLayoutObject} from "@interfaces/entities/blocks/latest-promotions";
+import {FaqLayoutObject} from "@interfaces/entities/blocks/faq";
+import {SeoBlockObject} from "@interfaces/entities/seo";
 
 
 export type ContentEntityObject = {
@@ -37,6 +38,7 @@ export type LayoutObject =
     | (LayoutBaseObject & ContentBlockLayoutObject)
     | (LayoutBaseObject & InstagramGridLayoutObject)
     | (LayoutBaseObject & ProductGridWithTabsLayoutObject)
+    | (LayoutBaseObject & FaqLayoutObject)
     | (LayoutBaseObject & LatestPromotionsLayoutObject);
 
 export type PagePageEntityObject = {

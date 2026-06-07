@@ -29,7 +29,7 @@ const BannersItem = ({item}: {item: BannersItemObject}) => {
                 alt={item.title}
                 width={600}
                 height={300}
-                className="img-fluid hover-zoom-img w-100"
+                className="hover-zoom-img object-fit-cover object-center"
             />
 
             <div className={layoutClasses}>

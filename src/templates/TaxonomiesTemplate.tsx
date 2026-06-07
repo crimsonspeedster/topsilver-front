@@ -12,7 +12,7 @@ type Props = {
     taxonomies: TaxonomyCollectionObject[];
     pagination: PaginationObject;
     slug: string;
-    media?: MediaObject | null;
+    banner?: MediaObject | null;
     currentPage: number;
 };
 
@@ -22,11 +22,11 @@ const TaxonomiesTemplate = (props: Props) => {
     return (
         <article>
             {
-                props.media && (
+                props.banner && (
                     <PageBanner
                         title={props.title}
                         header_tag={'h1'}
-                        media={props.media}
+                        media={props.banner}
                     />
                 )
             }
