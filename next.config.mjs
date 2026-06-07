@@ -8,12 +8,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: 'localhost',
+        hostname: process.env.NEXT_PUBLIC_IMAGE_HOST,
+        port: process.env.NEXT_PUBLIC_IMAGE_PORT,
         pathname: '/storage/**',
       },
     ],
   },
-};
+}
 
 const withNextIntl = createNextIntlPlugin();
 
