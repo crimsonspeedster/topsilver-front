@@ -15,19 +15,17 @@ import axiosClient from "@lib/axiosClient";
 import ViewedProductsSection from "@src/components/Product/Parts/ViewedProductsSection";
 import {MediaObject} from "@interfaces/common";
 import FreeShippingProgress from "@src/components/Cart/FreeShippingProgress";
-import {CartObject} from "@interfaces/entities/cart";
+import {useCartStore} from "@src/store/cart-store";
 
 
 type Props = {
     bonuses: BonusesObject|null,
     banner?: MediaObject | null,
     free_shipping: number | null,
-    cart: CartObject;
 };
 
 const CartPageSection = (
     {
-        cart,
         bonuses,
         banner,
         free_shipping,
@@ -35,6 +33,7 @@ const CartPageSection = (
 ) => {
     const tCart = useTranslations('Cart');
     const tCommon = useTranslations('Common');
+    const cart = useCartStore(state => state.cart);
 
     const [recentlyViewedProducts, setRecentlyViewedProducts] = useState<ProductCardObject[]>([]);
 
