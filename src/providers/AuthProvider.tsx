@@ -1,36 +1,22 @@
 'use client';
 
-import React, {useEffect, useRef} from 'react';
-import {UserObject} from "@interfaces/entities/user";
+import React, {useEffect} from 'react';
 import {useAuthStore} from "@src/store/client-store";
 import axiosClient from "@lib/axiosClient";
 
 
 type Props = {
-    initialUser?: UserObject | null;
     children: React.ReactNode;
 };
 
 export default function AuthProvider(
     {
-        initialUser,
         children,
     }: Props
 ) {
     const setUser = useAuthStore((state) => state.setUser);
-    const hasHydrated = useRef(false);
 
     useEffect(() => {
-        if (hasHydrated.current)
-            return;
-
-        hasHydrated.current = true;
-
-        if (initialUser !== undefined) {
-            setUser(initialUser);
-            return;
-        }
-
         axiosClient.get('/me')
             .then((res) => {
                 if (res.status === 200) {

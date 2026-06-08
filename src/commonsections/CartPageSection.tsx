@@ -4,7 +4,6 @@ import PageBanner from "@src/commonsections/PageBanner";
 import {useTranslations} from "next-intl";
 import CartTable from "@src/components/Cart/CartTable";
 import CouponSection from "@src/components/Coupon/CouponSection";
-import {useCartStore} from "@src/store/cart-store";
 import Link from "next/link";
 import CertificateSection from "@src/components/Certificates/CertificateSection";
 import BonusesSection from "@src/components/Bonuses/BonusesSection";
@@ -16,16 +15,19 @@ import axiosClient from "@lib/axiosClient";
 import ViewedProductsSection from "@src/components/Product/Parts/ViewedProductsSection";
 import {MediaObject} from "@interfaces/common";
 import FreeShippingProgress from "@src/components/Cart/FreeShippingProgress";
+import {CartObject} from "@interfaces/entities/cart";
 
 
 type Props = {
     bonuses: BonusesObject|null,
     banner?: MediaObject | null,
     free_shipping: number | null,
+    cart: CartObject;
 };
 
 const CartPageSection = (
     {
+        cart,
         bonuses,
         banner,
         free_shipping,
@@ -33,7 +35,6 @@ const CartPageSection = (
 ) => {
     const tCart = useTranslations('Cart');
     const tCommon = useTranslations('Common');
-    const cart = useCartStore((state) => state.cart);
 
     const [recentlyViewedProducts, setRecentlyViewedProducts] = useState<ProductCardObject[]>([]);
 

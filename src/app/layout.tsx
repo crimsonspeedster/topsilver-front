@@ -15,6 +15,9 @@ import {getSettingsSSR} from "@lib/getSettings.server";
 import {searchSettingByKey} from "@src/helpers";
 import {SocialLinkItemLayoutObject} from "@interfaces/entities/blocks/social-link-item";
 import {ContactItemLinkLayoutObject, ContactItemTextLayoutObject} from "@interfaces/entities/blocks/contact-item";
+import AuthProvider from "@src/providers/AuthProvider";
+import CartProvider from "@src/providers/CartProvider";
+import WishlistProvider from "@src/providers/WishlistProvider";
 
 
 export function generateViewport(): Record<string, string | number> {
@@ -57,45 +60,51 @@ export default async function Layout({children}: LayoutProps) {
         <html lang="uk">
             <body>
                 <NextIntlClientProvider>
-                    <LayoutHeader4
-                        logo={logoFromSettings ?? LogoPlaceholder}
-                        topBanner={topBannerFromSettings ? topBannerFromSettings as string : undefined}
-                        headerMenu={headerMenu}
-                        mobileMenu={mobileMenu ?? headerMenu}
-                        socialLinks={socialLinksFromSettings ? socialLinksFromSettings as SocialLinkItemLayoutObject[] : undefined}
-                        free_shipping={freeShippingFromSettings ? freeShippingFromSettings as number : null}
-                    />
+                    <AuthProvider>
+                        <CartProvider>
+                            <WishlistProvider>
+                                <LayoutHeader4
+                                    logo={logoFromSettings ?? LogoPlaceholder}
+                                    topBanner={topBannerFromSettings ? topBannerFromSettings as string : undefined}
+                                    headerMenu={headerMenu}
+                                    mobileMenu={mobileMenu ?? headerMenu}
+                                    socialLinks={socialLinksFromSettings ? socialLinksFromSettings as SocialLinkItemLayoutObject[] : undefined}
+                                    free_shipping={freeShippingFromSettings ? freeShippingFromSettings as number : null}
+                                />
 
-                    <main>
-                        {children}
-                    </main>
+                                <main>
+                                    {children}
+                                </main>
 
-                    <ProductPopups />
+                                <ProductPopups />
 
-                    <FooterLingeries
-                        contacts={contactsFromSettings as (ContactItemTextLayoutObject | ContactItemLinkLayoutObject)[]}
-                        logo={logoFromSettings ?? LogoPlaceholder}
-                        socialLinks={socialLinksFromSettings ? socialLinksFromSettings as SocialLinkItemLayoutObject[] : undefined}
-                        footerMenuFirst={footerMenuFirst}
-                        footerMenuSecond={footerMenuSecond}
-                        footerMenuThird={footerMenuThird}
-                        subscribeDescription={subscribeDescriptionFromSettings ? subscribeDescriptionFromSettings as string : undefined}
-                    />
+                                <FooterLingeries
+                                    contacts={contactsFromSettings as (ContactItemTextLayoutObject | ContactItemLinkLayoutObject)[]}
+                                    logo={logoFromSettings ?? LogoPlaceholder}
+                                    socialLinks={socialLinksFromSettings ? socialLinksFromSettings as SocialLinkItemLayoutObject[] : undefined}
+                                    footerMenuFirst={footerMenuFirst}
+                                    footerMenuSecond={footerMenuSecond}
+                                    footerMenuThird={footerMenuThird}
+                                    subscribeDescription={subscribeDescriptionFromSettings ? subscribeDescriptionFromSettings as string : undefined}
+                                />
 
-                    <ButtonUp />
+                                <ButtonUp />
 
-                    <ToastContainer
-                        autoClose={3000}
-                        hideProgressBar={false}
-                        newestOnTop={true}
-                        closeOnClick={true}
-                        pauseOnHover={true}
-                        position="top-right"
-                    />
+                                <ToastContainer
+                                    autoClose={3000}
+                                    hideProgressBar={false}
+                                    newestOnTop={true}
+                                    closeOnClick={true}
+                                    pauseOnHover={true}
+                                    position="top-right"
+                                />
 
-                    <div
-                        className="backdrop-shadow d-none"
-                    />
+                                <div
+                                    className="backdrop-shadow d-none"
+                                />
+                            </WishlistProvider>
+                        </CartProvider>
+                    </AuthProvider>
                 </NextIntlClientProvider>
             </body>
         </html>

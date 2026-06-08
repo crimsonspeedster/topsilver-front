@@ -6,7 +6,7 @@ import { UserObject } from "@interfaces/entities/user";
 import { CityObject } from "@interfaces/entities/city";
 import { Button, Form } from 'react-bootstrap';
 import {useTranslations} from "next-intl";
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import FormField from "@src/components/Form/FormField";
 import PhoneFormField from "@src/components/Form/PhoneFormField";
 import SelectField from "@src/components/Form/SelectField";
@@ -19,14 +19,14 @@ import {useAuthStore} from "@src/store/client-store";
 
 type Props = {
     cities: CityObject[];
+    user: UserObject | null;
 };
 
-export default function ProfileClient({ cities }: Props) {
+export default function ProfileClient({ cities, user }: Props) {
     const tAuth = useTranslations('Auth');
     const tForm = useTranslations('Form');
     const groupedCities = groupCitiesByRegion(cities);
     const tDashboard = useTranslations('Dashboard');
-    const user = useAuthStore((state) => state.user);
     const setUser = useAuthStore((state) => state.setUser);
 
     const validationSchema = useMemo(() => Yup.object({

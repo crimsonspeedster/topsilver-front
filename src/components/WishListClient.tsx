@@ -1,15 +1,22 @@
 'use client';
 
-import {useWishlistStore} from "@src/store/wishlist-store";
 import {useTranslations} from "next-intl";
 import {Row} from "react-bootstrap";
 import ProductBlock from "@src/components/Product/ProductBlock";
+import {WishlistObject} from "@interfaces/entities/wishlist";
 
 
-const WishListClient = () => {
+type Props = {
+    wishList: WishlistObject;
+}
+
+const WishListClient = (
+    {
+        wishList,
+    }: Props
+) => {
     const tWishList = useTranslations('Wishlist');
     const tCommon = useTranslations('Common');
-    const wishList = useWishlistStore((state) => state.wishlist);
 
     return (
         <section className="py-5">
