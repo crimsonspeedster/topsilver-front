@@ -76,7 +76,7 @@ const ProfileBonuses = (
                                                         <span>{Number(item.amount)} {tCommon('bonuses')}</span>
 
                                                         <small className="text-muted">
-                                                            {tCommon('to')} {dayjs(item.expires_at).format('DD.MM.YYYY')}
+                                                            {tCommon('to')} {dayjs(item.expires_at, 'YYYY-MM-DD').format('DD.MM.YYYY')}
                                                         </small>
                                                     </ListGroup.Item>
                                                 )
@@ -84,7 +84,12 @@ const ProfileBonuses = (
 
                                             {
                                                 future_bonuses.map((item, i) => {
-                                                    const daysLeft = Math.max(dayjs(item.available_from).diff(dayjs(), 'day'), 0);
+                                                    const daysLeft = Math.max(
+                                                        dayjs(item.available_from)
+                                                            .startOf('day')
+                                                            .diff(dayjs().startOf('day'), 'day'),
+                                                        0
+                                                    );
 
                                                     return (
                                                         <ListGroup.Item
@@ -98,7 +103,7 @@ const ProfileBonuses = (
                                                                     <div className="text-warning fw-semibold">{tDashboard('will_become_active')}</div>
 
                                                                     <small className="text-muted">
-                                                                        {dayjs(item.available_from).format('DD.MM.YYYY')} ({tCommon('through')} {daysLeft} {tCommon('days')})
+                                                                        {dayjs(item.available_from, 'YYYY-MM-DD').format('DD.MM.YYYY')} ({tCommon('through')} {daysLeft} {tCommon('days')})
                                                                     </small>
                                                                 </div>
                                                             </div>
