@@ -1,5 +1,4 @@
 import {ProductObject} from "@interfaces/entities/product";
-import {Dispatch, SetStateAction} from "react";
 
 export type ProductTopProps = Pick<
     ProductObject,

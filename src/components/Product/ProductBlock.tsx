@@ -61,8 +61,8 @@ const ProductBlock = (
                     (
                         <span className="labels">
                             {
-                                product.labels.map(label => (
-                                    <span key={label.slug} className={`label label--${label.slug}`}>
+                                product.labels.map((label, index) => (
+                                    <span key={index} className={`label label--${label.type}`}>
                                         {label.name}
                                     </span>
                                 ))
