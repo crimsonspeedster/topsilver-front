@@ -39,7 +39,7 @@ export type OrderItemProductObject = {
     entity_image: string | null;
     entity_price: string;
     entity_price_formatted: string;
-    product_variant: OrderItemProductVariantObject[];
+    product_variant: OrderItemProductVariantObject|null;
     quantity: number;
     total: string;
     total_formatted: string;
@@ -50,16 +50,20 @@ export type OrderItemBundleObject = {
     entity_type: 'bundle';
     entity_price: string;
     entity_price_formatted: string;
-    product_variant: OrderItemProductVariantObject[];
     quantity: number;
     total: string;
     total_formatted: string;
 };
 
 export type OrderItemProductVariantObject = {
+    external_id: string;
+    attributes: OrderItemProductVariantAttributesObject[];
+};
+
+export type OrderItemProductVariantAttributesObject = {
     attribute_name: string;
     attribute_value: string;
-};
+}
 
 export type PaymentDataObject = {
     payment_method_id: number;

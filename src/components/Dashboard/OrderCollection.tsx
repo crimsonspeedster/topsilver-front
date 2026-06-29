@@ -81,9 +81,9 @@ const OrderCollection = ({ order }: Props) => {
                                             {item.entity_price_formatted}
                                         </div>
 
-                                        {item.product_variant.length > 0 && (
+                                        {item.entity_type === 'product' && item.product_variant  && (
                                             <div className="small text-muted">
-                                                {item.product_variant
+                                                {item.product_variant.attributes
                                                     .map(
                                                         variant =>
                                                             `${variant.attribute_name}: ${variant.attribute_value}`,

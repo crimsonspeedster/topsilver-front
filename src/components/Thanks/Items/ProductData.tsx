@@ -11,8 +11,8 @@ const ProductData = (
         item,
     }: Props
 ) => {
-    const variantTitle = item.product_variant?.length
-        ? item.product_variant.map(v => v.attribute_value).join(' / ')
+    const variantTitle = item.product_variant?.attributes?.length
+        ? item.product_variant.attributes.map(v => v.attribute_value).join(' / ')
         : null;
 
     return (
