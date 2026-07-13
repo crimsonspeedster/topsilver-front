@@ -6,6 +6,7 @@ import {UserObject} from "@interfaces/entities/user";
 import {ShopsPickupObject} from "@interfaces/entities/shops";
 import {SettingsPromiseObject} from "@interfaces/entities/settings";
 import {WishlistObject} from "@interfaces/entities/wishlist";
+import {OrderItemProductVariantAttributesObject} from "@interfaces/entities/orders";
 
 export const getWishlist = (): number[] => {
     const wishlist = Cookies .get('wishlist');
@@ -99,4 +100,12 @@ export const searchSettingByKey = (key: string, settings: SettingsPromiseObject[
     }
 
     return settingObject.value.data;
+}
+
+export const getFormattedProductAttributesString = (array: OrderItemProductVariantAttributesObject[]): string => {
+    return array.map(
+        variant =>
+            `${variant.attribute_name}: ${variant.attribute_value}`,
+    )
+        .join(', ');
 }

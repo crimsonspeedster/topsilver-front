@@ -1,5 +1,7 @@
 'use client';
 
+import {useTranslations} from "next-intl";
+import {QuickOrderObject} from "@interfaces/entities/orders";
 import dayjs from "dayjs";
 import {
     Badge,
@@ -8,18 +10,14 @@ import {
     Row,
     Stack,
 } from 'react-bootstrap';
-import {OrderObject} from "@interfaces/entities/orders";
-import Link from "next/link";
-import ShippingMethodData from "@src/components/Thanks/Shipping/ShippingMethodData";
-import {useTranslations} from "next-intl";
 import OrderItemElement from "@src/components/Dashboard/OrderItemElement";
 
 
 type Props = {
-    order: OrderObject;
-}
+    order: QuickOrderObject;
+};
 
-const OrderCollection = ({ order }: Props) => {
+const QuickOrderCollection = ({order}: Props) => {
     const tOrderDetails = useTranslations('OrderDetails');
 
     const statusMap: Record<string, string> = {
@@ -51,41 +49,20 @@ const OrderCollection = ({ order }: Props) => {
                         </Badge>
                     </Col>
 
-                    <Col lg={4}>
+                    <Col lg={8}>
                         <h5 className="fw-semibold mb-3">
                             {tOrderDetails('products')}
                         </h5>
 
                         <Stack gap={2}>
-                            {order.items.map((item, index) => (
-                                <OrderItemElement
-                                    key={index}
-                                    image={item.entity_type === 'product' ? item.entity_image : null}
-                                    name={item.entity_name}
-                                    quantity={item.quantity}
-                                    price_formatted={item.entity_price_formatted}
-                                    attributes={item.entity_type === 'product' && item.product_variant ? item.product_variant.attributes : undefined}
-                                />
-                            ))}
+                            <OrderItemElement
+                                image={order.product_image}
+                                name={order.product_name}
+                                quantity={1}
+                                price_formatted={order.total_formatted}
+                                attributes={order.product_variant?.attributes}
+                            />
                         </Stack>
-                    </Col>
-
-                    <Col lg={2}>
-                        <h5 className="fw-semibold mb-3">
-                            {tOrderDetails('shipping')}
-                        </h5>
-
-                        <ShippingMethodData
-                            item={order.shipping_data}
-                        />
-                    </Col>
-
-                    <Col lg={2}>
-                        <h5 className="mb-3 fw-semibold">{tOrderDetails('payment')}</h5>
-
-                        <p className="mb-0 text-muted">
-                            {order.payment_data.payment_method_name}
-                        </p>
                     </Col>
 
                     <Col lg={2}>
@@ -97,19 +74,12 @@ const OrderCollection = ({ order }: Props) => {
                             <div className="fs-5 fw-bold">
                                 {order.total_formatted}
                             </div>
-
-                            <Link
-                                href={`/dashboard/orders/${order.id}`}
-                                className="mt-2 btn-primary btn"
-                            >
-                                {tOrderDetails('order_details')}
-                            </Link>
                         </div>
                     </Col>
                 </Row>
             </Card.Body>
         </Card>
     );
-};
+}
 
-export default OrderCollection;
+export default QuickOrderCollection;

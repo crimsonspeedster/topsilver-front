@@ -1,5 +1,5 @@
 import {getUserOrdersSSR} from "@lib/auth/getUser.server";
-import {notFound, permanentRedirect, redirect} from "next/navigation";
+import {notFound, permanentRedirect} from "next/navigation";
 import OrdersTemplate from "@templates/OrdersTemplate";
 import {Metadata} from "next";
 

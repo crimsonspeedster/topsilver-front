@@ -1,9 +1,30 @@
 import {PaginationObject} from "@interfaces/common";
+import {ProductCardObject, ProductVariantObject} from "@interfaces/entities/product";
 
 export type OrderCollectionObject = {
     orders: OrderObject[],
     pagination: PaginationObject,
 }
+
+export type QuickOrderCollectionObject = {
+    orders: QuickOrderObject[],
+    pagination: PaginationObject,
+}
+
+export type QuickOrderObject = {
+    id: number;
+    status_label: string;
+    status_value: string;
+    total_formatted: string;
+    comment: string|null;
+    phone: string;
+    email: string;
+    created_at: string;
+    product: ProductCardObject | null;
+    product_name: string;
+    product_image: string;
+    product_variant: OrderItemProductVariantObject|null;
+};
 
 export type OrderObject = {
     id: number;
