@@ -1,4 +1,5 @@
 export type LabelsObject = {
     name: string,
-    type: string,
+    background_color: string | null,
+    text_color: string | null,
 }

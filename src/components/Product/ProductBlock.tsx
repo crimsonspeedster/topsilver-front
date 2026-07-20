@@ -62,7 +62,14 @@ const ProductBlock = (
                         <span className="labels">
                             {
                                 product.labels.map((label, index) => (
-                                    <span key={index} className={`label label--${label.type}`}>
+                                    <span
+                                        key={index}
+                                        className="label"
+                                        style={{
+                                            color: label.text_color ?? '#fff',
+                                            backgroundColor: label.background_color ?? '#000',
+                                        }}
+                                    >
                                         {label.name}
                                     </span>
                                 ))
