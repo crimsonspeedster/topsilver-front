@@ -69,7 +69,7 @@ export type ProductObject = {
     rating_avg: string,
     rating_count: number,
     rating_distribution: number[],
-    type: string,
+    type: 'variable' | 'companion' | 'simple',
     labels: LabelsObject[],
     variant_attributes: VariantAttributeObject[],
     variants: ProductVariantObject[],
