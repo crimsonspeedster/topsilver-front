@@ -84,6 +84,24 @@ const CartPageSection = (
                             free_shipping={free_shipping}
                         />
 
+                        {
+                            cart.promotion_messages?.length > 0 && (
+                                <div>
+                                    {cart.promotion_messages.map((message, index) => (
+                                        <div
+                                            key={index}
+                                            className="alert alert-info d-flex align-items-start gap-3 my-0"
+                                            role="alert"
+                                        >
+                                            <div>
+                                                {message}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )
+                        }
+
                         <CartTable
                             subtotal={cart.subtotal_formatted}
                             items={cart.items}

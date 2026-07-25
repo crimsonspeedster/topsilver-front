@@ -12,6 +12,7 @@ export type CartObject = {
     certificates: CertificateObject[],
     items_count: number;
     total_qty: number;
+    promotion_messages: string[];
 };
 
 export type CouponType = {
