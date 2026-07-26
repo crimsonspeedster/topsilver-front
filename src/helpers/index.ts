@@ -77,6 +77,7 @@ export const emptyCartObject: CartObject = {
     certificates: [],
     items_count: 0,
     total_qty: 0,
+    promotion_messages: [],
 };
 
 export const emptyWishlistObject: WishlistObject = {
