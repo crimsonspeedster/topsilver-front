@@ -67,7 +67,7 @@ const ProductTopInfo = (
 
                         <button
                             onClick={handleHintClick}
-                            className="btn btn-teal mt-2"
+                            className="btn text-uppercase btn-teal mt-2"
                         >{tProduct('hint_to_a_loved_one')}</button>
                     </>
                     :
