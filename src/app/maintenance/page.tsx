@@ -1,3 +1,5 @@
+import {Metadata} from "next";
+
 export default function MaintenancePage () {
     return (
         <section className="py-5 text-center">
@@ -9,3 +11,12 @@ export default function MaintenancePage () {
         </section>
     );
 }
+
+export const metadata: Metadata = {
+    title: 'Сайт тимчасово недоступний',
+    description: 'Ми проводимо технічні роботи',
+    robots: {
+        index: false,
+        follow: false,
+    },
+};
