@@ -31,6 +31,10 @@ const Variations = (
         return term?.title ?? "";
     };
 
+    useEffect(function () {
+        console.log('Variants - ', variants);
+    }, [variants]);
+
     return (
         <div className="mb-4 pt-2">
             {
