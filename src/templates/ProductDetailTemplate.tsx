@@ -39,10 +39,6 @@ const ProductDetailTemplate = (
         delivery_and_return,
     }: Props
 ) => {
-    useEffect(function () {
-        console.log('PRODUCT - ', product);
-    }, [product]);
-
     const t = useTranslations('Common');
 
     const [recentlyViewedProducts, setRecentlyViewedProducts] = useState<ProductCardObject[]>([]);
