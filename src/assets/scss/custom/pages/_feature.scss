@@ -113,6 +113,11 @@
     }
 }
 
+.filter__list {
+    overflow-y: auto;
+    max-height: 200px;
+}
+
 .cookies-law {
     padding: 15px 34px;
     box-shadow: 0 0 9px rgba(0, 0, 0, .14);

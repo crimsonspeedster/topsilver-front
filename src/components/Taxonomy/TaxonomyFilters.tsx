@@ -58,7 +58,7 @@ const TaxonomyFilters = (
 
                         <div className="filter-title" />
 
-                        <div className="mt-3">
+                        <div className="mt-3 filter__list">
                             {
                                 categories.map(category => (
                                     <FilterTaxonomy
@@ -83,7 +83,7 @@ const TaxonomyFilters = (
 
                         <div className="filter-title" />
 
-                        <div className="mt-3">
+                        <div className="mt-3 filter__list">
                             {
                                 collections.map(collection => (
                                     <FilterTaxonomy
@@ -110,7 +110,7 @@ const TaxonomyFilters = (
 
                                 <div className="filter-title" />
 
-                                <div className="mt-3">
+                                <div className="mt-3 filter__list">
                                     {
                                         attribute.terms.map(item => {
                                             if (attribute.attribute.type === "color") {
