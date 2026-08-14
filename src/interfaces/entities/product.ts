@@ -63,7 +63,7 @@ export type ProductObject = {
     price_on_sale_formatted: string|null,
     discount_percent: number|null,
     manage_stock: boolean,
-    stock: number|null,
+    stock: number,
     stock_status: string,
     sku: string,
     rating_avg: string,

@@ -59,7 +59,7 @@ const ProductTop = (
                 </Row>
 
                 {
-                    props.bundles.length > 0 &&
+                    props.stock_status !== 'out_of_stock' &&  props.bundles.length > 0 &&
                     <div className="bundles__row d-flex flex-column gap-3">
                         {
                             props.bundles.map(bundle => (
