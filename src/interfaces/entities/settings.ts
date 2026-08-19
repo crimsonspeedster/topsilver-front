@@ -7,6 +7,7 @@ import {LayoutBaseObject} from "@interfaces/entities/page";
 export type SettingsPromiseObject =
     | ImageSettingsObject
     | TextSettingsObject
+    | MarkdownSettingsObject
     | ContactsSettingsObject
     | ProductAdvantagesSettingsObject
     | RelationPageSettingsObject
@@ -36,6 +37,14 @@ export type NumberSettingsObject =
 export type TextSettingsObject =
     SettingBaseObject & {
         type: 'text';
+        value: {
+            data: string;
+        }
+    };
+
+export type MarkdownSettingsObject =
+    SettingBaseObject & {
+        type: 'markdown';
         value: {
             data: string;
         }
