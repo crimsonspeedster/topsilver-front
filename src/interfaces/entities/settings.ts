@@ -45,7 +45,7 @@ export type ProductAdvantagesSettingsObject =
     SettingBaseObject & {
         type: 'product_advantages';
         value: {
-            data: (LayoutBaseObject & AdvantagesLayoutObject);
+            data: (LayoutBaseObject & AdvantagesLayoutObject)[];
         }
     };
 

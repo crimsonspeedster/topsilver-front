@@ -19,7 +19,7 @@ type Props = {
     product: ProductObject,
     breadcrumbs: BreadcrumbsObject[],
     reviews: ReviewObject[],
-    advantages?: (LayoutBaseObject & AdvantagesLayoutObject),
+    advantages?: (LayoutBaseObject & AdvantagesLayoutObject)[],
     prev_next: {
         prev: ProductCardObject|null,
         next: ProductCardObject|null,
@@ -139,9 +139,9 @@ const ProductDetailTemplate = (
             />
 
             {
-                advantages &&
+                advantages && advantages.length > 0 &&
                 <Advantages
-                    blocks={advantages.attributes.blocks}
+                    blocks={advantages[0].attributes.blocks}
                 />
             }
         </>

@@ -104,7 +104,7 @@ const Page = async (
                 product={data.entity}
                 breadcrumbs={data.breadcrumbs}
                 reviews={data.reviews}
-                advantages={productAdvantagesFromSettings ? productAdvantagesFromSettings as (LayoutBaseObject & AdvantagesLayoutObject) : undefined}
+                advantages={productAdvantagesFromSettings ? productAdvantagesFromSettings as (LayoutBaseObject & AdvantagesLayoutObject)[] : undefined}
                 size_guide={DeliveryAndReturnFromSettings ? DeliveryAndReturnFromSettings as string : null}
                 delivery_and_return={SizeGuideFromSettings ? SizeGuideFromSettings as string : null}
             />;
