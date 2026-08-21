@@ -12,13 +12,14 @@ import axiosClient from "@lib/axiosClient";
 
 const ForgotPasswordForm = () => {
     const tAuth = useTranslations('Auth');
+    const tForm = useTranslations('Form');
     const tCommon = useTranslations('Common');
 
     const validationSchema = useMemo(() => Yup.object({
         email: Yup.string()
-            .email(tAuth('errors.invalidEmail'))
-            .required(tAuth('errors.required')),
-    }), [tAuth]);
+            .email(tForm('errors.invalidEmail'))
+            .required(tForm('errors.required')),
+    }), [tForm]);
 
     const formik = useFormik({
         initialValues: {
