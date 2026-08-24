@@ -89,7 +89,7 @@ export const getUserFormData = (user: UserObject | null) => ({
     first_name: user?.profile?.name ?? '',
     middle_name: user?.profile?.middle_name ?? '',
     last_name: user?.profile?.surname ?? '',
-    phone: user?.phone ?? '',
+    phone: user?.phone ? '+' + user.phone : '',
     email: user?.email ?? '',
 });
 
@@ -110,3 +110,17 @@ export const getFormattedProductAttributesString = (array: OrderItemProductVaria
     )
         .join(', ');
 }
+
+export const normalizePhone = (phone: string): string => {
+    const value = phone.replace(/\D/g, '');
+
+    if (value.startsWith('0') && value.length === 10) {
+        return `38${value}`;
+    }
+
+    if (value.startsWith('380') && value.length === 12) {
+        return value;
+    }
+
+    return value;
+};

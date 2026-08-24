@@ -14,6 +14,7 @@ import PhoneFormField from "@src/components/Form/PhoneFormField";
 import {useRouter} from "next/navigation";
 import {useCartStore} from "@src/store/cart-store";
 import {getCartClient} from "@lib/getCart.client";
+import {normalizePhone} from "@src/helpers";
 
 
 type Props = {
@@ -74,7 +75,9 @@ const LoginModal = (
             setSubmitting(true);
 
             try {
-                const login = values.email?.trim() || values.phone?.trim();
+                const login = values.email?.trim()
+                    ? values.email.trim()
+                    : normalizePhone(values.phone?.trim() || '');
 
                 const formData = new FormData();
                 formData.append('login', login);

@@ -10,6 +10,7 @@ import axiosClient from "@lib/axiosClient";
 import FormField from "@src/components/Form/FormField";
 import PhoneFormField from "@src/components/Form/PhoneFormField";
 import TextareaField from "@src/components/Form/TextareaField";
+import {normalizePhone} from "@src/helpers";
 
 
 type Props = {
@@ -62,11 +63,11 @@ const BuyInOneClickPopup = (
         onSubmit: async (values, { setSubmitting, setErrors, resetForm }) => {
             setSubmitting(true);
 
-            console.log(values, productId, variationId);
+            const phone = normalizePhone(values.phone);
 
             const formData = new FormData();
             formData.append('name', values.name);
-            formData.append('phone', values.phone);
+            formData.append('phone', phone);
             formData.append('comment', values.comment);
             formData.append('email', values.email);
             formData.append('product_id', productId.toString());

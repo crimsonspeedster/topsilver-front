@@ -12,7 +12,7 @@ import PhoneFormField from "@src/components/Form/PhoneFormField";
 import axiosClient from "@lib/axiosClient";
 import SelectField from "@src/components/Form/SelectField";
 import TextareaField from "@src/components/Form/TextareaField";
-import {groupCitiesByRegion} from "@src/helpers";
+import {groupCitiesByRegion, normalizePhone} from "@src/helpers";
 import {CityObject} from "@interfaces/entities/city";
 
 
@@ -91,7 +91,14 @@ const RegisterForm = (
             try {
                 const formData = new FormData();
                 Object.entries(values).forEach(([key, value]) => {
-                    formData.append(key, String(value ?? '').trim());
+                    const stringValue = String(value ?? '').trim();
+
+                    formData.append(
+                        key,
+                        key === 'phone'
+                            ? normalizePhone(stringValue)
+                            : stringValue
+                    );
                 });
 
                 const response = await axiosClient.post(

@@ -15,7 +15,7 @@ import {CartObject} from "@interfaces/entities/cart";
 import {PaymentMethodObject} from "@interfaces/entities/payment-method";
 import {ShippingMethodObject} from "@interfaces/entities/shipping-method";
 import {UserObject} from "@interfaces/entities/user";
-import {getUserFormData} from "@src/helpers";
+import {getUserFormData, normalizePhone} from "@src/helpers";
 import CheckoutUserSync from "@src/components/Checkout/CheckoutUserSync";
 import {CheckoutFormValues} from "@interfaces/layouts/checkoutForm";
 import {useCartStore} from "@src/store/cart-store";
@@ -155,7 +155,14 @@ const CheckoutForm = (
         const formData = new FormData();
 
         Object.entries(values).forEach(([key, value]) => {
-            formData.append(key, String(value ?? '').trim());
+            const stringValue = String(value ?? '').trim();
+
+            formData.append(
+                key,
+                key === 'phone'
+                    ? normalizePhone(stringValue)
+                    : stringValue
+            );
         });
 
         if (values.shipping_method) {
