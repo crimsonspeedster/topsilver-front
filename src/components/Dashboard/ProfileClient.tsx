@@ -4,9 +4,9 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import { UserObject } from "@interfaces/entities/user";
 import { CityObject } from "@interfaces/entities/city";
-import { Button, Form } from 'react-bootstrap';
+import {Alert, Button, Form} from 'react-bootstrap';
 import {useTranslations} from "next-intl";
-import React, {useMemo} from "react";
+import React, {useMemo, useState} from "react";
 import FormField from "@src/components/Form/FormField";
 import PhoneFormField from "@src/components/Form/PhoneFormField";
 import SelectField from "@src/components/Form/SelectField";
@@ -28,6 +28,7 @@ export default function ProfileClient({ cities, user }: Props) {
     const groupedCities = groupCitiesByRegion(cities);
     const tDashboard = useTranslations('Dashboard');
     const setUser = useAuthStore((state) => state.setUser);
+    const [isResendClicked, setIsResendClicked] = useState<boolean>(false);
 
     const validationSchema = useMemo(() => Yup.object({
         name: Yup.string()
@@ -124,6 +125,31 @@ export default function ProfileClient({ cities, user }: Props) {
         },
     });
 
+    const resendVerificationNotification = async () => {
+        if (isResendClicked) {
+            return;
+        }
+
+        setIsResendClicked(true);
+
+        try {
+            const response = await axiosClient.post(
+                '/email/verification-notification'
+            );
+
+            if (response.status === 200 || response.status === 201) {
+                toast.success(response.data.message);
+            }
+        } catch (error: any) {
+            const backendError = error.response.data.message;
+
+            toast.error(backendError);
+        }
+        finally {
+            setIsResendClicked(false);
+        }
+    }
+
     return (
         <section className="py-5">
             <div className="container">
@@ -208,6 +234,24 @@ export default function ProfileClient({ cities, user }: Props) {
                             required={true}
                             type="email"
                         />
+
+                        {
+                            !user?.email_verified && (
+                                <Alert variant="warning" className="mb-3">
+                                    <div className="fw-semibold mb-1">{tAuth('email_not_verify')}</div>
+
+                                    <div className="mb-2">{tAuth('check_email')}</div>
+
+                                    <Button
+                                        onClick={resendVerificationNotification}
+                                        variant="outline-primary"
+                                        size="sm"
+                                    >
+                                        {tAuth('resend_email')}
+                                    </Button>
+                                </Alert>
+                            )
+                        }
 
                         <PhoneFormField
                             label={tAuth('phone')}

@@ -32,6 +32,15 @@ $main_corporate_color: #49C5B1;
     --bs-btn-disabled-border-color: var(--main-color);
 }
 
+.btn-outline-primary {
+    --bs-btn-color: var(--main-color);
+    --bs-btn-border-color: var(--main-color);
+
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: color-mix(in srgb, var(--main-color) 85%, black);
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--main-color) 80%, black);
+}
+
 a.btn-teal,
 a.btn-primary {
     color: var(--bs-btn-color) !important;

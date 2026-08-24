@@ -4,6 +4,7 @@ import {CityObject} from "@interfaces/entities/city";
 export type UserObject = {
     email: string|null,
     phone: string,
+    email_verified: boolean,
     profile: ProfileObject,
 }
 
