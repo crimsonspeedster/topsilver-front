@@ -25,7 +25,8 @@ const LogoBlock = (
                     src={logo}
                     alt="logo"
                     width="95"
-                    height="29"
+                    height="20"
+                    className="logo-img"
                 />
             </div>
         );
@@ -40,7 +41,8 @@ const LogoBlock = (
                 src={logo}
                 alt="logo"
                 width="95"
-                height="29"
+                height="20"
+                className="logo-img"
             />
         </Link>
     );
