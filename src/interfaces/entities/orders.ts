@@ -1,13 +1,8 @@
 import {PaginationObject} from "@interfaces/common";
-import {ProductCardObject, ProductVariantObject} from "@interfaces/entities/product";
+import {ProductCardObject} from "@interfaces/entities/product";
 
 export type OrderCollectionObject = {
     orders: OrderObject[],
-    pagination: PaginationObject,
-}
-
-export type QuickOrderCollectionObject = {
-    orders: QuickOrderObject[],
     pagination: PaginationObject,
 }
 

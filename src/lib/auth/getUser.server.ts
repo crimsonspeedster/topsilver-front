@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import {UserObject} from "@interfaces/entities/user";
 import axiosClient from "@lib/axiosClient";
-import {OrderCollectionObject, OrderObject, QuickOrderCollectionObject} from "@interfaces/entities/orders";
+import {OrderCollectionObject, OrderObject} from "@interfaces/entities/orders";
 import {BonusesObject} from "@interfaces/entities/bonuses";
 
 
@@ -50,33 +50,6 @@ export const getUserOrdersSSR = async (
 
     try {
         const res = await axiosClient.get('/me/orders', {
-            headers: {
-                Cookie: cookieStore.toString(),
-            },
-            params: {
-                page,
-            }
-        });
-
-        return res.status === 200 ? res.data.data : null;
-    } catch (err) {
-        return null;
-    }
-};
-
-export const getUserQuickOrdersSSR = async (
-    {
-        page,
-    }
-    :
-    {
-        page: number
-    }
-): Promise<QuickOrderCollectionObject | null> => {
-    const cookieStore = await cookies();
-
-    try {
-        const res = await axiosClient.get('/me/quick-orders', {
             headers: {
                 Cookie: cookieStore.toString(),
             },

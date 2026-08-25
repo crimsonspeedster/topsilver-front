@@ -58,20 +58,6 @@ export default function DashboardSidebar() {
 
                     <li>
                         <Link
-                            href="/dashboard/quick-orders"
-                            className={
-                                pathname === '/dashboard/quick-orders' ||
-                                pathname.startsWith('/dashboard/quick-orders/page/')
-                                    ? 'active'
-                                    : ''
-                            }
-                        >
-                            <FaBox /> {tDashboard('quick_orders')}
-                        </Link>
-                    </li>
-
-                    <li>
-                        <Link
                             href="/dashboard/bonuses"
                             className={
                                 pathname === '/dashboard/bonuses'
