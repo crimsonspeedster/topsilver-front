@@ -85,10 +85,19 @@ const ProductPurchase = (
     }, [selectedTerms, props.variant_attributes, props.type]);
 
     const handleSelectTerms = (attributeId: number, termId: number) => {
-        setSelectedTerms(prev => ({
-            ...prev,
-            [attributeId]: termId,
-        }));
+        setSelectedTerms(prev => {
+            if (prev[attributeId] === termId) {
+                const next = { ...prev };
+                delete next[attributeId];
+
+                return next;
+            }
+
+            return {
+                ...prev,
+                [attributeId]: termId,
+            };
+        });
     };
 
     const checkIsTermAvailable = (attributeId: number, termId: number): boolean => {

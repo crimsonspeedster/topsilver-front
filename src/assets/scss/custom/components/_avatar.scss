@@ -17,6 +17,13 @@
   width: 2rem !important;
 }
 
+.square-auto {
+  width: auto !important;
+  height: auto !important;
+  aspect-ratio: 1;
+  min-width: 3rem;
+}
+
 .square-sm {
   height: 3rem;
   width: 3rem;
