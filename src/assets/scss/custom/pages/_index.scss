@@ -479,6 +479,23 @@
                 background-color: var(--#{$prefix}dark);
                 border-color: var(--#{$prefix}dark);
             }
+
+            &.notAvailable {
+                opacity: .5;
+                pointer-events: none;
+                position: relative;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    width: 100%;
+                    height: 1px;
+                    background: currentColor;
+                    transform: translate(-50%, -50%) rotate(-15deg);
+                }
+            }
         }
     }
 }

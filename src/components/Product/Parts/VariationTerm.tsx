@@ -5,6 +5,7 @@ import {attributeTermObject} from "@interfaces/entities/attribute";
 type Props = {
     term: attributeTermObject,
     isActive: boolean,
+    isAvailable: boolean,
     handleClick: (termId: number) => void;
 };
 
@@ -12,6 +13,7 @@ const VariationTerm = (
     {
         term,
         isActive,
+        isAvailable,
         handleClick,
     }: Props
 ) => {
@@ -26,7 +28,7 @@ const VariationTerm = (
         >
             <button
                 onClick={() => handleClick(term.id)}
-                className={`d-inline-block rounded-circle square-xs ${isActive ? 'active' : ''}`}
+                className={`d-inline-block rounded-circle square-xs ${isActive ? 'active' : ''} ${!isAvailable ? ' notAvailable' : ''}`}
                 style={
                     term.meta_value ?
                         {

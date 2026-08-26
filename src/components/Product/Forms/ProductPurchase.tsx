@@ -91,6 +91,28 @@ const ProductPurchase = (
         }));
     };
 
+    const checkIsTermAvailable = (attributeId: number, termId: number): boolean => {
+        return props.variants.some((productVariant) => {
+            const parsed = parseVariantKey(productVariant.variant_key);
+
+            if (parsed[attributeId] !== termId) {
+                return false;
+            }
+
+            return Object.entries(selectedTerms).every(
+                ([selectedAttributeId, selectedTermId]) => {
+                    const currentAttributeId = Number(selectedAttributeId);
+
+                    if (currentAttributeId === attributeId) {
+                        return true;
+                    }
+
+                    return parsed[currentAttributeId] === selectedTermId;
+                }
+            );
+        });
+    }
+
     const parseVariantKey = (key: string) => {
         return key.split('|').reduce<Record<number, number>>((acc, pair) => {
             const [attributeId, termId] = pair.split(':').map(Number);
@@ -154,8 +176,9 @@ const ProductPurchase = (
                 props.type === 'variable' &&
                 <Variations
                     onSelect={handleSelectTerms}
+                    checkIsTermAvailable={checkIsTermAvailable}
                     selected={selectedTerms}
-                    variants={props.variant_attributes}
+                    variant_attributes={props.variant_attributes}
                 />
             }
 
