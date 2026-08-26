@@ -110,35 +110,37 @@ const LayoutHeader4 = (
 
                         <div className="collapse navbar-collapse">
                             <div className="w-100">
-                                <div className="d-none d-lg-flex justify-content-between position-relative align-items-center py-3 border-bottom">
-                                    {
-                                        socialLinks && socialLinks.length > 0 &&
-                                        <SocialNav
-                                            className="nt-social"
-                                            links={socialLinks}
-                                        />
-                                    }
+                                <div className="d-none d-lg-block border-bottom">
+                                    <div className="d-none d-lg-flex justify-content-between position-relative align-items-center py-3 px-4">
+                                        {
+                                            socialLinks && socialLinks.length > 0 &&
+                                            <SocialNav
+                                                className="nt-social"
+                                                links={socialLinks}
+                                            />
+                                        }
 
-                                    <LogoBlock
-                                        className="nav-link position-absolute z-1 top-50 start-50 translate-middle"
-                                        logo={logo}
-                                    />
-
-                                    <div className="topbar-toolbar d-flex ms-auto align-items-center gap-3">
-                                        <SearchBadge
-                                            handleClick={()=>handleSearchModal(true)}
+                                        <LogoBlock
+                                            className="nav-link position-absolute z-1 top-50 start-50 translate-middle"
+                                            logo={logo}
                                         />
 
-                                        <LoginBadge
-                                            handleClick={()=>handleLoginModal(true)}
-                                        />
+                                        <div className="topbar-toolbar d-flex ms-auto align-items-center gap-3">
+                                            <SearchBadge
+                                                handleClick={()=>handleSearchModal(true)}
+                                            />
 
-                                        <WishListBadge />
+                                            <LoginBadge
+                                                handleClick={()=>handleLoginModal(true)}
+                                            />
 
-                                        <CartBadge
-                                            isLink={(pathname === '/cart' || pathname === '/checkout')}
-                                            handleClick={()=>handleShowCartModal(true)}
-                                        />
+                                            <WishListBadge />
+
+                                            <CartBadge
+                                                isLink={(pathname === '/cart' || pathname === '/checkout')}
+                                                handleClick={()=>handleShowCartModal(true)}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
 

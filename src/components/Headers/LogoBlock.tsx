@@ -24,8 +24,8 @@ const LogoBlock = (
                 <Image
                     src={logo}
                     alt="logo"
-                    width="95"
-                    height="20"
+                    width="190"
+                    height="41"
                     className="logo-img"
                 />
             </div>

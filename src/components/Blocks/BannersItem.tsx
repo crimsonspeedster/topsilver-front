@@ -47,7 +47,7 @@ const BannersItem = ({item}: {item: BannersItemObject}) => {
                     )}
 
                     {item.show_button && (
-                        <p className="fw-normal btn btn-primary rounded-0 font-futura mb-0 btn_icon_true d-inline-block position-relative fs-14">
+                        <p className="fw-normal btn btn-primary font-futura mb-0 btn_icon_true d-inline-block position-relative fs-14">
                             {tCommon('shop_now')}
                         </p>
                     )}

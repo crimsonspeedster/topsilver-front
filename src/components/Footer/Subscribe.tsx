@@ -86,12 +86,12 @@ const Subscribe = (
                             formik={formik}
                             required={true}
                             type="email"
-                            classesString="input-text w-100 rounded-0 bg-transparent border-dark border-opacity-50"
+                            classesString="input-text w-100 bg-transparent border-dark border-opacity-50"
                         />
 
                         <button
                             type="submit"
-                            className="btn btn-primary position-absolute rounded-0"
+                            className="btn btn-primary position-absolute"
                             disabled={formik.isSubmitting}
                         >
                             {tForm('buttons.subscribe')}

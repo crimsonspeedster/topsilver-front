@@ -2,7 +2,7 @@
     min-height: 44.5px;
     padding: 10px 0;
     line-height: 21px;
-    background-color: var(--#{$prefix}pink);
+    background-color: $main_corporate_color;
     .h_banner_close {
         position: relative;
         transition: all .2s;

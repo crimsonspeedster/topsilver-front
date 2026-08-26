@@ -17,11 +17,9 @@ const BannersButton = (
     if (button.link_type === 'internal') {
         return (
             <Link
-                className="button--banners rounded-0 min-w-150 min-h-45 d-inline-flex align-items-center justify-content-center fw-semibold px-4"
+                className="position-absolute top-0 start-0 w-100 h-100 z-2"
                 href={button.link}
-            >
-                {button.title}
-            </Link>
+            />
         )
     }
 
@@ -29,11 +27,9 @@ const BannersButton = (
         <a
             rel="noopener noreferrer noindex"
             target="_blank"
-            className="button--banners rounded-0 min-w-150 min-h-45 d-inline-flex align-items-center justify-content-center fw-semibold px-4"
+            className="position-absolute top-0 start-0 w-100 h-100 z-2"
             href={button.link}
-        >
-            {button.title}
-        </a>
+        />
     );
 }
 

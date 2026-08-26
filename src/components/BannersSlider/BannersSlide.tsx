@@ -21,10 +21,14 @@ const BannersSlide = (
                 alt={item.title}
                 width={1920}
                 height={850}
-                className="object-fit-cover object-center w-100 position-absolute top-0 left-0 h-100"
+                className="object-fit-cover object-center w-100 position-absolute top-0 left-0 h-100 z-1"
             />
 
-            <div className="container position-relative">
+            <BannersButton
+                button={item.button?.[0]?.attributes}
+            />
+
+            <div className="container position-relative z-1">
                 <div
                     className={`row ${item.position === 'center' ? 'justify-content-center' : ''}`}
                 >
@@ -42,10 +46,6 @@ const BannersSlide = (
                             >
                                 {item.title}
                             </TitleTag>
-
-                            <BannersButton
-                                button={item.button?.[0]?.attributes}
-                            />
                         </div>
                     </div>
                 </div>

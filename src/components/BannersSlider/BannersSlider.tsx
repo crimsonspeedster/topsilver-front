@@ -11,7 +11,7 @@ import 'swiper/css/navigation';
 
 const BannersSlider = (props: BannersSliderObject) => {
     return (
-        <section>
+        <section className="banners">
             <Swiper
                 slidesPerView={1}
                 spaceBetween={0}

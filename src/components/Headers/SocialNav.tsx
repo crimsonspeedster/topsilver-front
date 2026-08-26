@@ -27,6 +27,7 @@ const SocialNav = (
                         <Image
                             src={link.attributes.image}
                             alt="logo"
+                            className="object-center object-fit-contain"
                             width={24}
                             height={24}
                         />
