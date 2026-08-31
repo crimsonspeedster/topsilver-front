@@ -63,7 +63,7 @@ const HeaderMenuItem = (
             {
                 item.children && item.children.length > 0 ?
                     <span
-                        className="nav-link cursor-pointer"
+                        className={`nav-link cursor-pointer ${isOpened ? "active" : ""}`}
                         onClick={(event) => {
                             event.preventDefault();
 

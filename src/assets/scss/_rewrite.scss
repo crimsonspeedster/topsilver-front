@@ -88,3 +88,8 @@ a.btn-primary {
         --swiper-navigation-sides-offset: 15px;
     }
 }
+
+.nav-link.active,
+.nav-link:hover {
+    color: $teal !important;
+}

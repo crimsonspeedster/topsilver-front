@@ -88,11 +88,13 @@
 .img-zoom {
     overflow: hidden;
 
+    video,
     img {
         transition: transform .5s cubic-bezier(0, 0, .44, 1.18);
     }
 
     &:hover {
+        video,
         img {
             transform: scale(1.09);
         }
