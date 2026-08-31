@@ -7,37 +7,13 @@ import {MediaObject, VideoObject} from "@interfaces/common";
 import ProductVideoElement from "@src/components/Product/Parts/ProductVideoElement";
 import type {Swiper as SwiperClass} from "swiper/types";
 import {useMediaQuery} from "react-responsive";
+import ProductVideoIcon from "@src/components/Product/Parts/ProductVideoIcon";
 
 
 type Props = {
     gallery?: MediaObject[],
     title: string,
     videos?: VideoObject[],
-};
-
-const ProductVideoIcon = (
-    {
-        type
-    }
-    :
-    {
-        type: string,
-    }
-) => {
-    switch (type) {
-        case 'external':
-            return (
-                <i
-                    className="lab la-youtube"
-                />
-            );
-        default:
-            return (
-                <i
-                    className="las la-play"
-                />
-            );
-    }
 };
 
 const ProductTopGallery = (
