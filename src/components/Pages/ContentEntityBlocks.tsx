@@ -1,26 +1,10 @@
 import {LayoutObject} from "@interfaces/entities/page";
-import dynamic from "next/dynamic";
-import {ComponentType} from "react";
+import {contentEntityBlocksMap} from "@src/helpers";
 
 
 type Props = {
     content: LayoutObject[];
 }
-
-type BlockLayout = LayoutObject['layout'];
-
-const contentEntityBlocksMap: Record<BlockLayout, ComponentType<any>> = {
-    Advantages: dynamic(() => import('@src/components/Blocks/Advantages')),
-    Banners: dynamic(() => import('@src/components/Blocks/Banners')),
-    CategoriesGrid: dynamic(() => import('@src/components/Blocks/CategoriesGrid')),
-    ContentBlock: dynamic(() => import('@src/components/Blocks/ContentBlock')),
-    InstagramGrid: dynamic(() => import('@src/components/Blocks/InstagramGrid')),
-    ProductsGrid: dynamic(() => import('@src/components/Blocks/ProductsGrid')),
-    ProductsGridWithTabs: dynamic(() => import('@src/components/Blocks/ProductsGridWithTabs')),
-    BannersSlider: dynamic(() => import('@src/components/BannersSlider/BannersSlider')),
-    LatestPromotions: dynamic(() => import('@src/components/LatestBlog/LatestBlog')),
-    FaqBlock: dynamic(() => import('@src/components/Blocks/FaqBlock')),
-};
 
 const ContentEntityBlocks = (
     {

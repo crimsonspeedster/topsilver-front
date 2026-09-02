@@ -7,6 +7,9 @@ import {ShopsPickupObject} from "@interfaces/entities/shops";
 import {SettingsPromiseObject} from "@interfaces/entities/settings";
 import {WishlistObject} from "@interfaces/entities/wishlist";
 import {OrderItemProductVariantAttributesObject} from "@interfaces/entities/orders";
+import {ComponentType} from "react";
+import dynamic from "next/dynamic";
+import {LayoutObject} from "@interfaces/entities/page";
 
 export const getWishlist = (): number[] => {
     const wishlist = Cookies .get('wishlist');
@@ -123,4 +126,22 @@ export const normalizePhone = (phone: string): string => {
     }
 
     return value;
+};
+
+type BlockLayout = LayoutObject['layout'];
+
+export const contentEntityBlocksMap: Record<BlockLayout, ComponentType<any>> = {
+    Advantages: dynamic(() => import('@src/components/Blocks/Advantages')),
+    Banners: dynamic(() => import('@src/components/Blocks/Banners')),
+    CategoriesGrid: dynamic(() => import('@src/components/Blocks/CategoriesGrid')),
+    ContentBlock: dynamic(() => import('@src/components/Blocks/ContentBlock')),
+    InstagramGrid: dynamic(() => import('@src/components/Blocks/InstagramGrid')),
+    ProductsGrid: dynamic(() => import('@src/components/Blocks/ProductsGrid')),
+    ProductsGridWithTabs: dynamic(() => import('@src/components/Blocks/ProductsGridWithTabs')),
+    BannersSlider: dynamic(() => import('@src/components/BannersSlider/BannersSlider')),
+    LatestPromotions: dynamic(() => import('@src/components/LatestBlog/LatestBlog')),
+    FaqBlock: dynamic(() => import('@src/components/Blocks/FaqBlock')),
+    MegaMenu: dynamic(() => import('@src/components/Blocks/MegaMenu')),
+    MenuImage: dynamic(() => import('@src/components/Blocks/MenuImage')),
+    MenuItem: dynamic(() => import('@src/components/Blocks/MenuItem')),
 };

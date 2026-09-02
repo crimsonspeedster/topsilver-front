@@ -10,6 +10,7 @@ import {BannersSliderLayoutObject} from "@interfaces/entities/blocks/banners-sli
 import {LatestPromotionsLayoutObject} from "@interfaces/entities/blocks/latest-promotions";
 import {FaqLayoutObject} from "@interfaces/entities/blocks/faq";
 import {SeoBlockObject} from "@interfaces/entities/seo";
+import {MegaMenuLayoutObject, MenuElementLayoutObject, MenuImageLayoutObject} from "@interfaces/entities/menu";
 
 
 export type ContentEntityObject = {
@@ -39,6 +40,9 @@ export type LayoutObject =
     | (LayoutBaseObject & InstagramGridLayoutObject)
     | (LayoutBaseObject & ProductGridWithTabsLayoutObject)
     | (LayoutBaseObject & FaqLayoutObject)
+    | (LayoutBaseObject & MegaMenuLayoutObject)
+    | (LayoutBaseObject & MenuElementLayoutObject)
+    | (LayoutBaseObject & MenuImageLayoutObject)
     | (LayoutBaseObject & LatestPromotionsLayoutObject);
 
 export type PagePageEntityObject = {

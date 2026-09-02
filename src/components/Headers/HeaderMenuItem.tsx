@@ -1,9 +1,11 @@
 'use client';
 
-import {MenuItemObject} from "@interfaces/entities/menu";
+import {MegaMenuLayoutObject, MenuItemObject} from "@interfaces/entities/menu";
 import Link from "next/link";
 import {useRef, useState, useEffect} from "react";
 import { useRouter, usePathname } from 'next/navigation';
+import MegaMenu from "@src/components/Blocks/MegaMenu";
+import {LayoutBaseObject} from "@interfaces/entities/page";
 
 
 type Props = {
@@ -58,10 +60,10 @@ const HeaderMenuItem = (
     return (
         <li
             ref={ref}
-            className={`nav-item ${item.children && item.children.length > 0 ? 'dropdown dropdown-mega-lg' : ''}`}
+            className={`nav-item ${item.use_html_blocks ? 'dropdown dropdown-mega-xxl' : ''} ${!item.use_html_blocks && item.children && item.children.length > 0 ? 'dropdown dropdown-mega-lg' : ''}`}
         >
             {
-                item.children && item.children.length > 0 ?
+                ((item.children && item.children.length > 0) || item.use_html_blocks) ?
                     <span
                         className={`nav-link cursor-pointer ${isOpened ? "active" : ""}`}
                         onClick={(event) => {
@@ -70,7 +72,7 @@ const HeaderMenuItem = (
                             handleMenuClick(item);
                         }}
                     >
-                               {item.title}
+                           {item.title}
                     </span>
                     :
                     item.type === 'custom' ?
@@ -100,17 +102,27 @@ const HeaderMenuItem = (
             }
 
             {
-                item.children && item.children.length > 0 &&
-                <ul className={`dropdown-menu dropdown-sub-column ${isOpened ? "show" : ""}`}>
-                    {
-                        item.children.map((menuItem, index) => (
-                            <HeaderMenuItem
-                                key={index}
-                                item={menuItem}
-                            />
-                        ))
-                    }
-                </ul>
+                item.use_html_blocks && item.html_block && item.html_block.blocks.length > 0 ?
+                    <MegaMenu
+                        item={item.html_block.blocks[0] as (LayoutBaseObject & MegaMenuLayoutObject)}
+                        isOpened={isOpened}
+                    />
+                    :
+                    <>
+                        {
+                            item.children && item.children.length > 0 &&
+                            <ul className={`dropdown-menu dropdown-sub-column ${isOpened ? "show" : ""}`}>
+                                {
+                                    item.children.map((menuItem, index) => (
+                                        <HeaderMenuItem
+                                            key={index}
+                                            item={menuItem}
+                                        />
+                                    ))
+                                }
+                            </ul>
+                        }
+                    </>
             }
         </li>
     );

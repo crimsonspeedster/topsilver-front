@@ -93,3 +93,15 @@ a.btn-primary {
 .nav-link:hover {
     color: $teal !important;
 }
+
+.mega_menu_image {
+    img {
+        transition: opacity .3s ease, transform 8s cubic-bezier(.25, .46, .45, .94), -webkit-transform 8s cubic-bezier(.25, .46, .45, .94)
+    }
+
+    &:hover {
+        img {
+            transform: scale(1.11);
+        }
+    }
+}
